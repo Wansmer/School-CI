@@ -1,5 +1,4 @@
 .Link{
-  /* display: block; */
   display: flex;
   align-items: center;
   line-height: var(--font-lh-xs);
@@ -25,12 +24,11 @@
   }
 
   &_icon{
-    /* padding-left: 3px; */
     &_left{
       &:before{
-        width: 16px;
-        height: 16px;
-        margin-right: 4px;
+        width: var(--gap-xl);
+        height: var(--gap-xl);
+        margin-right: calc(var(--gap-xxs) * 2);
       }
     }
   }

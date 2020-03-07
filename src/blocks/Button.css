@@ -52,9 +52,9 @@
     padding-left: 3px;
     &_left{
       &:before{
-        width: 16px;
-        height: 12px;
-        margin-right: 4px;
+        width: var(--gap-xl);
+        height: var(--gap-l);
+        margin-right: var(--gap-s);
       }
     }
   }
@@ -62,7 +62,7 @@
   &_text_hidden{
     padding-right: 3px;
     &:before{
-      margin-right: 2px;
+      margin-right: var(--gap-xxs);
     }
     .Button-Text{
       max-width: 0;
