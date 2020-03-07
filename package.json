@@ -1,0 +1,29 @@
+{
+  "name": "SHRI-2020_HW_Lecture_2",
+  "version": "1.0.0",
+  "description": "Домашнее задание по адаптивной верстке ШРИ-2020",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sync": "browser-sync start --server --files 'style.css'",
+    "watch": "postcss style.post.css -o style.css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wansmer/Wansmer-SHRI-2020_HW_Lecture_2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wansmer/Wansmer-SHRI-2020_HW_Lecture_2/issues"
+  },
+  "homepage": "https://github.com/Wansmer/Wansmer-SHRI-2020_HW_Lecture_2#readme",
+  "devDependencies": {
+    "autoprefixer": "^9.7.4",
+    "browser-sync": "^2.26.7",
+    "css-mqpacker": "^7.0.0",
+    "postcss-cli": "^7.1.0",
+    "postcss-nested": "^4.2.1"
+  }
+}
