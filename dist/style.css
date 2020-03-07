@@ -135,6 +135,7 @@ a{
 
 .Header-Title{
     font-size: var(--font-size-xl);
+    line-height: var(--font-lh-xl);
     letter-spacing: 0.25px;
     font-weight: 500;
     flex-grow: 1;
@@ -142,12 +143,10 @@ a{
 
 .Header-Title_color_faded{
       color: var(--text-secondary-color);
-      line-height: var(--font-lh-xl);
     }
 
 .Header-Title_color_deep{
       color: var(--text-main-color);
-      line-height: var(--font-lh-xxl);
     }
 
 .Content{
@@ -205,6 +204,7 @@ a{
 
 .Footer-Nav{
     display: flex;
+    flex-grow: 1;
   }
 
 .Footer-Nav > * {
@@ -213,7 +213,7 @@ a{
     }
 
 .Footer-Copyright{
-    margin-left: auto;
+    text-align: left;
     font-size: var(--font-size-xs);
     line-height: var(--font-lh-s);
     color: var(--text-secondary-color);
@@ -237,16 +237,16 @@ a{
 }
 
 .Button_size_m{
-      padding-right: 7px;
-      padding-left: 7px;
-      line-height: var(--font-lh-xl);
+      padding-right: 6px;
+      padding-left: 6px;
+      line-height: calc(var(--font-lh-xl) - 4);
       min-height: var(--font-lh-xl);
     }
 
 .Button_size_l{
-      padding-right: 14px;
-      padding-left: 14px;
-      line-height: var(--font-lh-xxxl);
+      padding-right: 13px;
+      padding-left: 13px;
+      line-height: calc(var(--font-lh-xxxl) - 4);
       min-height: var(--font-lh-xxxl);
     }
 
@@ -668,8 +668,49 @@ a{
     padding-right: 16px;
     padding-left: 16px
 }
+  }
 
-.Button-Text{
-      display: none
+@media screen and (max-width: 414px){
+
+.Header-Inner{
+      padding-top: 12px;
+      padding-bottom: 12px;
+      align-items: flex-start
   }
+
+.Header-Button > .Button-Text{
+        display: none
+    }
+
+.Header-Title{
+      font-size: var(--font-size-l);
+      line-height: var(--font-lh-l)
   }
+
+.Content-Form-Field{
+        flex-direction: column
+    }
+        .Content-Form-Field * + *{
+          margin-left: 0;
+          margin-top: 12px;
+        }
+
+.Footer-Nav{
+      margin-bottom: var(--gap-l)
+  }
+
+.Footer-Inner{
+      flex-direction: column;
+      align-items: flex-start
+  }
+
+.Footer{
+    padding-top: calc(var(--gap-m) * 2);
+    padding-bottom: calc(var(--gap-m) * 2)
+}
+
+.Form-Button{
+      display: block;
+      width: 100%
+  }
+    }
