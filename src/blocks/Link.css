@@ -1,9 +1,12 @@
 .Link{
-  display: block;
+  /* display: block; */
+  display: flex;
+  align-items: center;
   line-height: var(--font-lh-xs);
   font-weight: 400;
   letter-spacing: 0.06px;
   color: var(--text-main-color);
+  flex-basis: content;
 
   &_color_secondary{
     color: var(--text-secondary-color);
@@ -19,5 +22,16 @@
   }
   &:hover, &:active{
     color: var(--text-hover-color);
+  }
+
+  &_icon{
+    /* padding-left: 3px; */
+    &_left{
+      &:before{
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+      }
+    }
   }
 }

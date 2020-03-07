@@ -9,11 +9,12 @@
   width: max-content;
   transition: 0.2s ease-in;
   cursor: pointer;
+  font-size: var(--font-size-xs);
 
   &_size{
     &_m{
-      padding-right: var(--gap-s);
-      padding-left: var(--gap-s);
+      padding-left: 11px;
+      padding-right: 11px;
       line-height: calc(var(--font-lh-xl) - (var(--border-size-m) * 2));
       min-height: var(--font-lh-xl);
     }
@@ -47,12 +48,25 @@
     }
   }
 
-  &-Text{
-    padding: 0 5px;
+  &_icon{
+    padding-left: 3px;
+    &_left{
+      &:before{
+        width: 16px;
+        height: 12px;
+        margin-right: 4px;
+      }
+    }
   }
 
-  &-Icon{
-    width: 12px;
-    height: 12px;
+  &_text_hidden{
+    padding-right: 3px;
+    &:before{
+      margin-right: 2px;
+    }
+    .Button-Text{
+      max-width: 0;
+      overflow: hidden;
+    }
   }
 }

@@ -12,12 +12,18 @@
   }
 
   &-Button{
-    margin-left: var(--gap-s);
-    & > .Button-Text{
-      @media screen and (max-width: 856px){
-        display: none;
+    @media screen and (max-width: 856px){
+      padding-right: 3px;
+      &:before{
+        margin-right: 2px;
+      }
+      .Button-Text{
+        max-width: 0;
+        max-height: 0;
+        overflow: hidden;
       }
     }
+    margin-left: var(--gap-s);
   }
 
   &-Title{
