@@ -232,8 +232,13 @@ a{
   border-radius: var(--form-control-radius);
   display: flex;
   align-items: center;
+  justify-content: center;
   border: 2px solid transparent;
   transition: 0.2s ease-in;
+  cursor: pointer;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
 }
 
 .Button_size_m{
@@ -485,13 +490,15 @@ a{
   }
 
 .TicketList-Button{
-    display: inline-block;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
   }
 
 .Ticket{
   cursor: pointer;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: no-wrap;
   align-items: flex-start;
   width: 100%;
   padding: 12px 24px 12px 56px;
@@ -509,32 +516,23 @@ a{
 
 .Ticket-Meta{
     display: flex;
+    flex-flow: column;
+    flex-shrink: 0;
   }
 
-.Ticket-Meta_position_right{
-      flex-flow: column;
+.Ticket-Meta * + *{
+      margin-top: 12px;
     }
-
-.Ticket-Meta_position_right * + *{
-        margin-top: 12px;
-      }
-
-.Ticket-Meta_position_bottom{
-      width: 100%;
-      padding-top: 8px;
-      margin-top: 8px;
-      flex-flow: row;
-      border-top: 1px solid var(--secondary-color);
-    }
-
-.Ticket-Meta_position_bottom > * {
-        margin-right: 8px;
-      }
 
 .Ticket-Owner{
     display: flex;
     flex-wrap: wrap;
     margin-top: 8px;
+  }
+
+.Ticket-Summary{
+    display: flex;
+    align-items: flex-start;
   }
 
 .Ticket-Title{
@@ -545,6 +543,7 @@ a{
 .Ticket-Number{
     font-size: var(--font-size-l);
     line-height: var(--font-lh-m);
+    margin-right: calc(var(--gap-s) * 2);
     position: relative;
   }
 
@@ -653,11 +652,34 @@ a{
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12.968' height='16' viewBox='0 0 12.968 16'%3E%3Cpath d='M12.279,5.75l.7-.706a.376.376,0,0,0,0-.531l-.53-.531a.374.374,0,0,0-.53,0l-.645.647A6.433,6.433,0,0,0,7.731,3.041V1.5H8.6a.376.376,0,0,0,.374-.375V.375A.376.376,0,0,0,8.6,0H5.362a.376.376,0,0,0-.374.375v.75a.376.376,0,0,0,.374.375h.873V3.044A6.492,6.492,0,1,0,12.279,5.75Zm-5.3,8.75a5,5,0,1,1,4.988-5A4.992,4.992,0,0,1,6.983,14.5ZM7.357,11H6.609a.376.376,0,0,1-.374-.375V6.375A.376.376,0,0,1,6.609,6h.748a.376.376,0,0,1,.374.375v4.25A.376.376,0,0,1,7.357,11Z' transform='translate(-0.499)' fill='%23b2b2b2'/%3E%3C/svg%3E") no-repeat center center /contain;
     }
 
+.Ticket_show_details{
+      flex-wrap: wrap;
+      cursor: default;
+    }
+
+.Ticket_show_details:hover{
+        box-shadow: var(--element-shadow);
+      }
+
+.Ticket_show_details > .Ticket-Meta{
+          width: 100%;
+          padding-top: 8px;
+          margin-top: 8px;
+          flex-flow: row;
+          align-items: center;
+          border-top: 1px solid var(--color-bg-secondary);
+        }
+
+.Ticket_show_details > .Ticket-Meta > * {
+            margin-right: 8px;
+            margin-top: 0;
+          }
+
 .Preformatted{
   width: 100%;
   max-width: 824px;
-  padding: 12px 8px;
-  overflow-x: scroll;
+  padding: 8px 12px;
+  overflow: auto;
   background: var(--color-bg-pre);
   border-radius: var(--ticket-radius);
 }
@@ -667,6 +689,24 @@ a{
 .Container{
     padding-right: 16px;
     padding-left: 16px
+}
+
+.Header-Button > .Button-Text{
+        display: none
+    }
+
+.TicketList-Log{
+      margin-top: 16px
+  }
+
+.Preformatted{
+    padding: 4px 13px;
+    width: calc(100% + 32px);
+    overflow-x: scroll;
+    position: relative;
+    left: -16px;
+    border-radius: 0;
+    max-width: none
 }
   }
 
@@ -678,14 +718,14 @@ a{
       align-items: flex-start
   }
 
-.Header-Button > .Button-Text{
-        display: none
-    }
-
 .Header-Title{
       font-size: var(--font-size-l);
       line-height: var(--font-lh-l)
   }
+
+.Content{
+    padding-bottom: 16px
+}
 
 .Content-Form-Field{
         flex-direction: column
@@ -713,4 +753,63 @@ a{
       display: block;
       width: 100%
   }
+
+.TicketList-Button{
+      width: 100%
+  }
     }
+
+@media screen and (max-width: 768px){
+
+.Ticket{
+    flex-wrap: wrap;
+    padding: 16px 12px 16px 36px
+}
+
+.Ticket-Meta{
+      width: 100%;
+      padding-top: 8px;
+      margin-top: 8px;
+      flex-flow: row;
+      align-items: center;
+      border-top: 1px solid var(--color-bg-secondary)
+  }
+      .Ticket-Meta > * {
+        margin-right: 8px;
+        margin-top: 0;
+      }
+
+.Ticket-Summary{
+      flex-direction: column
+  }
+
+.Ticket-Title{
+      margin-top: 8px
+  }
+
+.Ticket-Number{
+      font-size: var(--font-size-m);
+      line-height: var(--font-lh-xs)
+  }
+
+.Ticket-Number_status_error:before{
+            left: -23px;
+            top: 1px;
+            width: 14px;
+            height: 14px
+        }
+
+.Ticket-Number_status_process:before{
+            left: -23px;
+            top: 1px;
+            width: 14px;
+            height: 14px
+        }
+
+.Ticket-Number_status_success:before{
+            left: -23px;
+            top: 1px;
+            width: 14px;
+            height: 14px
+        }
+  }
