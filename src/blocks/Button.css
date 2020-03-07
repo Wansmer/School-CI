@@ -1,14 +1,15 @@
 .Button{
   border: none;
   outline: none;
-  border-radius: var(--form-control-radius);
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--form-control-radius);
   border: var(--border-size-m) solid transparent;
+  width: max-content;
   transition: 0.2s ease-in;
   cursor: pointer;
-  width: max-content;
+
   &_size{
     &_m{
       padding-right: var(--gap-s);
@@ -47,9 +48,6 @@
   }
 
   &-Text{
-    font-size: var(--font-size-xs);
-    color: var(--text-main-color);
-    font-weight: 400;
     padding: 0 5px;
   }
 

@@ -6,9 +6,6 @@
   }
 
   &-Label{
-    font-size: var(--font-size-xs);
-    line-height: var(--font-lh-s);
-    font-weight: 400;
     &_required{
       &:after{
         content: '*';

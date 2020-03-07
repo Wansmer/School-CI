@@ -12,9 +12,6 @@
     font-weight: 700;
   }
   &-Text{
-    font-size: var(--font-size-xs);
-    line-height: var(--font-lh-s);
-    font-weight: 400;
     letter-spacing: 0.06px;
     color: var(--text-secondary-color);
   }

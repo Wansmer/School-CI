@@ -12,10 +12,7 @@
   }
 
   &-Text{
-    color: var(--text-main-color);
-    font-size: var(--font-size-xs);
     line-height: 125%;
-    font-weight: 400;
     text-align: center;
     margin-bottom: var(--gap-xxxl);
   }

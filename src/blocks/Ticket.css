@@ -18,10 +18,12 @@
   &-Info{
     flex-grow: 1;
   }
+
   &-Tech{
     display: flex;
     align-items: center;
   }
+  
   &-Meta{
     display: flex;
     flex-flow: column;

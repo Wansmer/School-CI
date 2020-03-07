@@ -100,8 +100,9 @@ html{
   height: 100%;
 }
 
-a{
+a, a:hover, a:visited, a:active{
   text-decoration: none;
+  color: var(--color-text-main);
 }
 
 .Page{
@@ -109,16 +110,13 @@ a{
   font-size: var(--font-size-xs);
   line-height: var(--font-lh-s);
   font-weight: 400;
-  color: var(--text-color-main);
   background: var(--main-bg-color);
+  color: var(--color-text-main);
 
   display: flex;
   flex-direction: column;
   height: 100%;
 }
-
-.Page-Header{
-  }
 
 .Page-Content{
     flex: 1 0 auto;
@@ -161,21 +159,8 @@ a{
     overflow-wrap: break-word;
   }
 
-.Header-Title-Link{
-      text-decoration: none;
-      color: inherit;
-    }
-
-.Header-Title-Link:hover, .Header-Title-Link:visited, .Header-Title-Link:active{
-        color: inherit;
-      }
-
 .Header-Title_color_faded{
       color: var(--text-secondary-color);
-    }
-
-.Header-Title_color_deep{
-      color: var(--text-main-color);
     }
 
 .Content{
@@ -247,10 +232,8 @@ a{
 
 .Footer-Copyright{
     text-align: left;
-    font-size: var(--font-size-xs);
     line-height: var(--font-lh-xs);
     color: var(--text-secondary-color);
-    font-weight: 400;
   }
 
 .Footer-Inner{
@@ -262,16 +245,16 @@ a{
 .Button{
   border: none;
   outline: none;
-  border-radius: var(--form-control-radius);
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--form-control-radius);
   border: var(--border-size-m) solid transparent;
-  transition: 0.2s ease-in;
-  cursor: pointer;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+  transition: 0.2s ease-in;
+  cursor: pointer;
 }
 
 .Button_size_m{
@@ -315,9 +298,6 @@ a{
     }
 
 .Button-Text{
-    font-size: var(--font-size-xs);
-    color: var(--text-main-color);
-    font-weight: 400;
     padding: 0 5px;
   }
 
@@ -357,10 +337,7 @@ a{
   }
 
 .Land-Text{
-    color: var(--text-main-color);
-    font-size: var(--font-size-xs);
     line-height: 125%;
-    font-weight: 400;
     text-align: center;
     margin-bottom: var(--gap-xxxl);
   }
@@ -371,8 +348,6 @@ a{
 
 .Link{
   display: block;
-  text-decoration: none;
-  font-size: var(--font-size-xs);
   line-height: var(--font-lh-xs);
   font-weight: 400;
   letter-spacing: 0.06px;
@@ -383,11 +358,19 @@ a{
     color: var(--text-secondary-color);
   }
 
+.Link_color_secondary:visited{
+      color: var(--text-secondary-color);
+    }
+
 .Link_color_dark{
     color: var(--text-dark-color);
   }
 
-.Link:hover{
+.Link_color_dark:visited{
+      color: var(--text-dark-color);
+    }
+
+.Link:hover, .Link:active{
     color: var(--text-hover-color);
   }
 
@@ -398,12 +381,6 @@ a{
 
 .Input * + *{
     margin-top: var(--gap-xs);
-  }
-
-.Input-Label{
-    font-size: var(--font-size-xs);
-    line-height: var(--font-lh-s);
-    font-weight: 400;
   }
 
 .Input-Label_required:after{
@@ -503,9 +480,6 @@ a{
   }
 
 .Form-Text{
-    font-size: var(--font-size-xs);
-    line-height: var(--font-lh-s);
-    font-weight: 400;
     letter-spacing: 0.06px;
     color: var(--text-secondary-color);
   }

@@ -27,19 +27,11 @@
     font-weight: 500;
     flex-grow: 1;
     overflow-wrap: break-word;
-    &-Link{
-      text-decoration: none;
-      color: inherit;
-      &:hover, &:visited, &:active{
-        color: inherit;
-      }
-    }
+
     &_color_faded{
       color: var(--text-secondary-color);
     }
-    &_color_deep{
-      color: var(--text-main-color);
-    }
+
     @media screen and (max-width: 414px){
       font-size: var(--font-size-l);
       line-height: var(--font-lh-l);

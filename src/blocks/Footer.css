@@ -17,10 +17,8 @@
 
   &-Copyright{
     text-align: left;
-    font-size: var(--font-size-xs);
     line-height: var(--font-lh-xs);
     color: var(--text-secondary-color);
-    font-weight: 400;
   }
 
   &-Inner{

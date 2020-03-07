@@ -8,8 +8,9 @@ html{
   height: 100%;
 }
 
-a{
+a, a:hover, a:visited, a:active{
   text-decoration: none;
+  color: var(--color-text-main);
 }
 
 .Page{
@@ -17,15 +18,13 @@ a{
   font-size: var(--font-size-xs);
   line-height: var(--font-lh-s);
   font-weight: 400;
-  color: var(--text-color-main);
   background: var(--main-bg-color);
+  color: var(--color-text-main);
 
   display: flex;
   flex-direction: column;
   height: 100%;
 
-  &-Header{
-  }
   &-Content{
     flex: 1 0 auto;
     display: flex;
