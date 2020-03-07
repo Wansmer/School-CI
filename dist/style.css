@@ -3,6 +3,7 @@
   src: url("//yastatic.net/islands/_/PyVcRbwHetz0gOVWLonWH7Od8zM.woff2") format("woff2"), url("//yastatic.net/islands/_/bIx8jOfCEfR-mECoDUEZywDBuHA.woff") format("woff");
   font-weight: 400;
   font-style: normal;
+  font-display: fallback;
 }
 
 @font-face {
@@ -10,6 +11,7 @@
   src: url("//yastatic.net/islands/_/7_GKBdKFbUPzKlghJRv55xgz0FQ.woff2") format("woff2"), url("//yastatic.net/islands/_/SmqPmIMEXrW4lOY8QrhTUVDbrro.woff") format("woff");
   font-weight: 500;
   font-style: normal;
+  font-display: fallback;
 }
 
 @font-face {
@@ -17,6 +19,7 @@
   src: url("//yastatic.net/islands/_/6Roy0LCd05cK4nNCipgzheYcNVU.woff2") format("woff2"), url("//yastatic.net/islands/_/KtHQR1erf3spayoIM4M4ngg0e2E.woff") format("woff");
   font-weight: 700;
   font-style: normal;
+  font-display: fallback;
 }
 
 @font-face {
@@ -24,6 +27,7 @@
   src: url('fonts/hack-regular.woff2?sha=3114f1256') format('woff2'), url('fonts/hack-regular.woff?sha=3114f1256') format('woff');
   font-weight: 400;
   font-style: normal;
+  font-display: fallback;
 }
 
 :root{
@@ -104,6 +108,8 @@ a{
   font-family: 'YS Text', Arial, Helvetica, sans-serif;
   font-size: var(--font-size-xs);
   line-height: var(--font-lh-s);
+  font-weight: 400;
+  color: var(--text-color-main);
   background: var(--main-bg-color);
 
   display: flex;
@@ -152,7 +158,6 @@ a{
     letter-spacing: 0.25px;
     font-weight: 500;
     flex-grow: 1;
-    width: 100%;
     overflow-wrap: break-word;
   }
 

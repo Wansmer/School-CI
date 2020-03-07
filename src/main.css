@@ -16,6 +16,8 @@ a{
   font-family: 'YS Text', Arial, Helvetica, sans-serif;
   font-size: var(--font-size-xs);
   line-height: var(--font-lh-s);
+  font-weight: 400;
+  color: var(--text-color-main);
   background: var(--main-bg-color);
 
   display: flex;

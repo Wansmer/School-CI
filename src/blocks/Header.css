@@ -26,7 +26,6 @@
     letter-spacing: 0.25px;
     font-weight: 500;
     flex-grow: 1;
-    width: 100%;
     overflow-wrap: break-word;
     &-Link{
       text-decoration: none;

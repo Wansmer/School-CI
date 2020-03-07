@@ -23,29 +23,29 @@
         </div>
         <div class="Form-Field">
           <div class="Input Input_direction_column">
-            <label for="" class="Input-Label Input-Label_required">GitHub repository</label>
-            <input type="text" class="Input-Input Input-Input_border_default" placeholder="user-name/repo-name">
+            <label for="repo_id" class="Input-Label Input-Label_required">GitHub repository</label>
+            <input type="text" name="repo" id="repo_id" class="Input-Input Input-Input_border_default" placeholder="user-name/repo-name">
             <!-- <span class="Input-Icon Icon Icon_inputClear"></span> -->
           </div>
         </div>
         <div class="Form-Field">
           <div class="Input Input_direction_column">
-            <label for="" class="Input-Label">Build command</label>
-            <input type="text" class="Input-Input Input-Input_border_default" value="npm ci && npm run build">
+            <label for="command_id" class="Input-Label">Build command</label>
+            <input type="text" name="command" id="command_id" class="Input-Input Input-Input_border_default" value="npm ci && npm run build">
             <span class="Input-Icon Icon Icon_inputClear"></span>
           </div>
         </div>
         <div class="Form-Field">
           <div class="Input Input_direction_column">
-            <label for="" class="Input-Label">Main branch</label>
-            <input type="text" class="Input-Input Input-Input_border_default" value="master " autofocus>
+            <label for="branch_id" class="Input-Label">Main branch</label>
+            <input type="text" name="branch" id="branch_id" class="Input-Input Input-Input_border_default" value="master " autofocus>
             <span class="Input-Icon Icon Icon_inputClear"></span>
           </div>
         </div>
         <div class="Form-Field">
           <div class="Input Input_direction_row Content-Form-Input">
-            <label for="" class="Input-Label">Synchronize every</label>
-            <input type="text" class="Input-Input Input-Input_border_default Content-Form-Input_small" value="10">
+            <label for="sync_id" class="Input-Label">Synchronize every</label>
+            <input type="text" name="sync" id="sync_id" class="Input-Input Input-Input_border_default Content-Form-Input_small" value="10">
             <div class="Input-Text">minutes</div>
           </div>
         </div>
