@@ -1,0 +1,29 @@
+.Form{
+  padding-top: var(--gap-s);
+  &-Info{
+    * + *{
+      margin-top: var(--gap-s);
+    }
+    padding-bottom: var(--gap-l);
+  }
+  &-Title{
+    font-size: var(--font-size-s);
+    line-height: var(--font-lh-m);
+    font-weight: 700;
+  }
+  &-Text{
+    font-size: var(--font-size-xs);
+    line-height: var(--font-lh-s);
+    font-weight: 400;
+    letter-spacing: 0.06px;
+    color: var(--text-secondary-color);
+  }
+  &-Field{
+    padding: var(--gap-m) 0 var(--gap-s) 0;
+  }
+  &-Button{
+    @media screen and (max-width: 414px) {
+      width: 100%;
+    }
+  }
+}

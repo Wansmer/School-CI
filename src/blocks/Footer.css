@@ -1,0 +1,40 @@
+.Footer{
+  width: 100%;
+  background: var(--color-bg-secondary);
+  padding: var(--gap-s) 0;
+
+  &-Nav{
+    display: flex;
+    flex-grow: 1;
+    & > * {
+      display: flex;
+      margin-right: var(--gap-l);
+    }
+    @media screen and (max-width: 414px){
+      margin-bottom: var(--gap-s);
+    }
+  }
+
+  &-Copyright{
+    text-align: left;
+    font-size: var(--font-size-xs);
+    line-height: var(--font-lh-xs);
+    color: var(--text-secondary-color);
+    font-weight: 400;
+  }
+
+  &-Inner{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    @media screen and (max-width: 414px){
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media screen and (max-width: 414px) {
+    padding-top: var(--gap-l);
+    padding-bottom: var(--gap-l);
+  }
+}

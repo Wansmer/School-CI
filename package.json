@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sync": "browser-sync start --server --files 'style.css'",
-    "watch": "postcss style.post.css -o style.css -w"
+    "sync": "browser-sync start --ss './dist/' --server --files './dist/style.css'",
+    "watch": "postcss  ./src/style.post.css -o ./dist/style.css -w"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "browser-sync": "^2.26.7",
     "css-mqpacker": "^7.0.0",
     "postcss-cli": "^7.1.0",
+    "postcss-import": "^12.0.1",
     "postcss-nested": "^4.2.1"
   }
 }

@@ -1,0 +1,19 @@
+.Link{
+  display: block;
+  text-decoration: none;
+  font-size: var(--font-size-xs);
+  line-height: var(--font-lh-xs);
+  font-weight: 400;
+  letter-spacing: 0.06px;
+  color: var(--text-main-color);
+
+  &_color_secondary{
+    color: var(--text-secondary-color);
+  }
+  &_color_dark{
+    color: var(--text-dark-color);
+  }
+  &:hover{
+    color: var(--text-hover-color);
+  }
+}

@@ -1,0 +1,16 @@
+@import "./fonts.css";
+@import "./constants.css";
+@import "./main.css";
+@import "./blocks/Container.css";
+@import "./blocks/Header.css";
+@import "./blocks/Content.css";
+@import "./blocks/Footer.css";
+@import "./blocks/Button.css";
+@import "./blocks/Icon.css";
+@import "./blocks/Land.css";
+@import "./blocks/Link.css";
+@import "./blocks/Input.css";
+@import "./blocks/Form.css";
+@import "./blocks/TicketList.css";
+@import "./blocks/Ticket.css";
+@import "./blocks/Performatted.css";
