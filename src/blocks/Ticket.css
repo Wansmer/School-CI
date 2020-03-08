@@ -152,17 +152,23 @@
         box-shadow: var(--element-shadow);
       }
       & > .Ticket-Meta{
-          width: 100%;
-          padding-top: var(--gap-s);
-          margin-top: var(--gap-s);
-          flex-flow: row;
-          align-items: center;
-          border-top: var(--border-size-s) solid var(--color-bg-secondary);
-          & > * {
-            margin-right: var(--gap-s);
-            margin-top: 0;
-          }
+        width: 100%;
+        padding-top: var(--gap-s);
+        margin-top: var(--gap-s);
+        flex-flow: row;
+        align-items: center;
+        border-top: var(--border-size-s) solid var(--color-bg-secondary);
+        & > * {
+          margin-right: var(--gap-s);
+          margin-top: 0;
         }
+      }
+      .Ticket-Date{
+        color: var(--text-main-color);
+      }
+      .Ticket-Duration{
+        color: var(--text-main-color);
+      }
     }
   }
 }
