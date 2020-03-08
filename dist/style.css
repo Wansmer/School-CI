@@ -464,7 +464,7 @@ a:active {
 .Input-Label_required:after {
   content: "*";
   font-size: inherit;
-  line-heigh: inherit;
+  line-height: inherit;
   font-weight: inherit;
   color: var(--text-error-color);
   margin-left: var(--gap-xxs);
