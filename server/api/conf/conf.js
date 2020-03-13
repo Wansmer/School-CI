@@ -4,6 +4,7 @@ const headers = {
   accept: 'application/json',
   Authorization: process.env.SECRET_KEY
 }
+
 exports.getConf = async () => {
   try {
     const response = await axios.get(BASE_URL + 'conf', { headers });
