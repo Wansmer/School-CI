@@ -2,7 +2,7 @@ const saveSettings = document.getElementById('saveSettings');
 const settingsForm = document.getElementById('settingsForm');
 
 const sendForm = (formData) => {
-  fetch('/conf', {
+  fetch('/settings', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

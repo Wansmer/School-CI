@@ -11,17 +11,17 @@ router.get('/', (req, res) => {
     for (const prop in response.data) {
       data[prop] = response.data[prop];
     }
-    res.render('conf', { data });
+    res.render('settings', { data });
   }).catch((error) => {
     console.log(error);
   })
 })
 
 router.post('/', jsonParser, (req, res) => {
-  conf.setConf(req.body).then((req) => {
+  conf.setConf(req.body).then((response) => {
     // TODO: Переадресация на страницу сборок
   }).catch((error) => {
-    console.log('error');
+    console.log(error);
   })
 })
 

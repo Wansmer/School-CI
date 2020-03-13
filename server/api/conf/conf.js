@@ -18,6 +18,7 @@ exports.setConf = async (data) => {
   try {
     data.period = +data.period;
     const response = await axios.post(BASE_URL + 'conf', data, { headers });
+    return response;
   } catch (error) {
     console.log('error');
   }
