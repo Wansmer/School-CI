@@ -2,7 +2,7 @@ const axios = require('axios');
 const BASE_URL = 'https://hw.shri.yandex/api/';
 const headers = {
   accept: 'application/json',
-  Authorization: MYAPIKEY
+  Authorization: process.env.SECRET_KEY
 }
 
 exports.getBuildList = async (offset = 0, limit = 25) => {
