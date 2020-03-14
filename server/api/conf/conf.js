@@ -1,9 +1,5 @@
 const axios = require('axios');
-const BASE_URL = 'https://hw.shri.yandex/api/';
-const headers = {
-  accept: 'application/json',
-  Authorization: process.env.SECRET_KEY
-}
+const { BASE_URL, headers } = require('../../constants');
 
 exports.getConf = async () => {
   try {
@@ -20,7 +16,7 @@ exports.setConf = async (data) => {
     const response = await axios.post(BASE_URL + 'conf', data, { headers });
     return response;
   } catch (error) {
-    console.log('error');
+    console.log(error);
   }
 }
 
@@ -28,6 +24,6 @@ exports.deleteConf = async () => {
   try {
     const response = await axios.delete(BASE_URL + 'conf', { headers });
   } catch (error) {
-    console.log('error');
+    console.log(error);
   }
 }

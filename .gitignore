@@ -2,3 +2,4 @@
 /server/node_modules/
 .DS_Store
 /server/.env
+/server/clone/

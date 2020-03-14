@@ -9,8 +9,6 @@ app.set('view engine', 'pug');
 const routerConf = require('./routes/settings');
 const routerBuild = require('./routes/build');
 
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-
 app.use(express.static(path.resolve(__dirname, 'static')));
 app.get('/', (req, res) => {
   res.render('index')
