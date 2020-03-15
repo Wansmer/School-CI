@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
-const { spawn, fork } = require('child_process');
+const { spawn, fork, exec } = require('child_process');
 const jsonParser = bodyParser.json({extended: false});
 
 const build = require('../api/build/build');
+const conf = require('../api/conf/conf');
 
 const statuses = {
   'Waiting': "Ticket_status_process",
@@ -47,26 +48,26 @@ router.get('/:buildId', async (req, res) => {
 })
 
 router.post('/:commitHash', jsonParser, async (req, res) => {
-  const git = spawn('git', ['log', req.params.commitHash, '-n 1', '--pretty=format:{"authorName": "%an", "commitMessage": "%s", "branchName": "%D"}'], { cwd: './clone/testOfBuild/'});
+  let settings = await conf.getConf();
+  const git = spawn('git', ['log', req.params.commitHash, '-n 1', '--pretty=format:{"authorName": "%an", "commitMessage": "%s", "commitHash": "%h","branchName": "%D"}'], { cwd: './clone/testOfBuild/'});
   git.stdout.on('data', (data) => {
     const commitInfo = JSON.parse(data);
-    const sendData = {
-      "commitMessage": commitInfo.commitMessage,
-      "commitHash": req.params.commitHash,
-      "branchName": "master",
-      "authorName": commitInfo.authorName
-    }
-    build.setBuildRequest(sendData).then((response) => {
+    build.setBuildRequest(commitInfo).then((response) => {
       const startBuild = fork('app/installPackage.js');
-      startBuild.send(commitInfo);
-      startBuild.on('exit', (code) => console.log(code));
+      startBuild.send({ settings, commitInfo });
+      startBuild.on('exit', (code) => {
+        if (!code) {
+          // TODO: установить вотчер на обновление репозитория
+          console.log('Defined watcher...');
+        }
+      });
       res.sendStatus(200);
     }).catch((err) => {
       console.log(err);
     });
   });
   git.stderr.on('data', (data) => {
-    console.log('data');
+    console.log(data);
   });
 })
 

@@ -2,20 +2,21 @@ const { installPackage, startBuild, goToCommit } = require('./process');
 
 process.on('message', (data) => {
   console.log(data);
-  installPackage()
+  installPackage(data.settings)
   .then((res) => {
-    goToCommit('a21cb76');
+    goToCommit(data.commitInfo.commitHash, data.settings);
     return res;
   })
   .then((res) => {
-    startBuild();
+    let log = startBuild(data.settings);
+    process.send('log');
     return res;
   })
-  .then((res) => {
+  .then((log) => {
     console.log('Build complite');
     process.exit();
   })
   .catch((err) => {
-    console.log('object');
+    console.log(err);
   });
 });
