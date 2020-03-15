@@ -14,12 +14,13 @@ exports.cloneRepo = async (data) => {
   }
 };
 
-exports.installPackage = async (data) => {
-  console.log(data);
+exports.installPackage = (data) => {
+  // console.log(data);
   const settings = {
-    cwd: `./clone/${data.repoName}_${data.mainBranch}`,
+    cwd: `./clone/testOfBuild_master`,
+    // cwd: `./clone/${data.repoName}_${data.mainBranch}`,
   };
-  await exec(`npm i`, settings);
+  exec(`npm i`, settings);
 };
 
 exports.getCommitInfo = async (commitHash) => {
