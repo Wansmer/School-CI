@@ -8,13 +8,14 @@ exports.getBuildList = async (offset = 0, limit = 25) => {
   };
   try {
     const response = await axios.get(BASE_URL + 'build/list', { headers, params });
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.log(error);
   }
 }
 
 exports.setBuildRequest = async (data) => {
+  console.log(data);
   try {
     const response = await axios.post(BASE_URL + '/build/request', data, { headers });
     return response;
@@ -49,7 +50,8 @@ exports.getBuildDetails = async (buildId) => {
 
 exports.setBuildStart = async (data) => {
   try {
-    const response = await axios.post(BASE_URL + 'conf', data, { headers });
+    const response = await axios.post(BASE_URL + 'build/start', data, { headers });
+    return response.status;
   } catch (error) {
     console.log(error);
   }
@@ -57,7 +59,8 @@ exports.setBuildStart = async (data) => {
 
 exports.setBuildFinish = async (data) => {
   try {
-    const response = await axios.post(BASE_URL + 'conf', data, { headers });
+    const response = await axios.post(BASE_URL + 'build/finish', data, { headers });
+    return response.status;
   } catch (error) {
     console.log(error);
   }

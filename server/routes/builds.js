@@ -18,8 +18,8 @@ const statuses = {
 
 router.get('/', async (req, res) => {
   try {
-    const response = await build.getBuildList(0, 9);
-    const data = response.data;
+    const response = await build.getBuildList();
+    const data = response;
     res.render('builds', { data, statuses });
   } catch (error) {
     console.log(error);
@@ -52,9 +52,15 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
   const git = spawn('git', ['log', req.params.commitHash, '-n 1', '--pretty=format:{"authorName": "%an", "commitMessage": "%s", "commitHash": "%h","branchName": "%D"}'], { cwd: './clone/testOfBuild/'});
   git.stdout.on('data', (data) => {
     const commitInfo = JSON.parse(data);
-    build.setBuildRequest(commitInfo).then((response) => {
+    build.setBuildRequest(commitInfo)
+    .then(() => {
+      return build.getBuildList();
+    })
+    .then((response) => {
+      const buildId = response[0].id;
+      console.log(buildId);
       const startBuild = fork('app/installPackage.js');
-      startBuild.send({ settings, commitInfo });
+      startBuild.send({ settings, commitInfo, buildId });
       startBuild.on('exit', (code) => {
         if (!code) {
           // TODO: установить вотчер на обновление репозитория
@@ -62,7 +68,8 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
         }
       });
       res.sendStatus(200);
-    }).catch((err) => {
+    })
+    .catch((err) => {
       console.log(err);
     });
   });
