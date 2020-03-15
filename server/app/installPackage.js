@@ -1,12 +1,14 @@
-const { installPackage } = require('./process');
+const { installPackage, startBuild, goToCommit } = require('./process');
 
-installPackage();
-process.on('message', async (data) => {
-  console.log('install Start');
-  try {
-    await installPackage(data);
-    process.exit();
-  } catch (error) {
-    throw error;
-  }
-})
+installPackage()
+  .then((res) => {
+    goToCommit('a21cb76');
+    return res;
+  })
+  .then((res) => {
+    startBuild();
+    return res;
+}).then((res) => {
+  console.log('Build complite');
+  process.exit();
+});

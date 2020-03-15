@@ -38,18 +38,16 @@ router.get('/:buildId/logs', async (req, res) => {
 
 router.get('/:buildId', async (req, res) => {
   try {
-    let response = await build.getBuildDetails(req.params.buildId);
+    const response = await build.getBuildDetails(req.params.buildId);
     const data = response.data;
-    const log = await build.getBuildLog(req.params.buildId);
-    const ticketLog = log.data;
-    res.render('details', { data, statuses, ticketLog });
+    res.render('details', { data, statuses });
   } catch (error) {
     console.log(error);
   }
 })
 
 router.post('/:commitHash', jsonParser, async (req, res) => {
-  const git = spawn('git', ['log', req.params.commitHash, '-n 1', '--pretty=format:{"authorName": "%an", "commitMessage": "%s"}'], { cwd: './clone/testOfBuild_master/'});
+  const git = spawn('git', ['log', req.params.commitHash, '-n 1', '--pretty=format:{"authorName": "%an", "commitMessage": "%s", "branchName": "%D"}'], { cwd: './clone/testOfBuild/'});
   git.stdout.on('data', (data) => {
     const commitInfo = JSON.parse(data);
     const sendData = {
@@ -66,7 +64,7 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
     });
   });
   git.stderr.on('data', (data) => {
-    console.log(data);
+    console.log('data');
   });
 })
 

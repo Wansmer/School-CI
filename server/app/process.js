@@ -7,35 +7,46 @@ const { GIT_USER } = require('../constants');
 
 exports.cloneRepo = async (data) => {
   try {
-    await exec(`git clone ${GIT_USER}${data.repoName} clone/${data.repoName}_${data.mainBranch}`);
+    await exec(`git clone ${GIT_USER}${data.repoName} clone/${data.repoName}`);
     return true;
   } catch (error) {
     return error;
   }
 };
 
-exports.installPackage = (data) => {
-  // console.log(data);
+exports.installPackage = async (data) => {
   const settings = {
-    cwd: `./clone/testOfBuild_master`,
-    // cwd: `./clone/${data.repoName}_${data.mainBranch}`,
+    cwd: `./clone/testOfBuild`,
+    // cwd: `./clone/${data.repoName}`,
   };
-  exec(`npm i`, settings);
+  try {
+    await exec(`npm i`, settings);
+    return true;
+  } catch (error) {
+    return error;
+  }
 };
 
-exports.getCommitInfo = async (commitHash) => {
-  const git = spawn('git', ['log', commitHash, '-n 1', '--pretty=format:{"autorName": "%an", "commitMessage": "%s"}'], { cwd: './clone/testOfBuild_master/'});
-  git.stdout.on('data', (data) => {
-    const res = Promise.resolve(JSON.parse(data));
-    return res;
-  });
-  git.stderr.on('data', (data) => {
-    return data;
-  });
+exports.getCommitBranch = async (data) => {
+  const settings = {
+    cwd: `./clone/testOfBuild`,
+    // cwd: `./clone/${data.repoName}`,
+  };
+  let branch = await exec(`git branch ${data.commitHash}`, settings);
+  return branch;
+};
+
+exports.goToCommit = async (commitHash) => {
+  const settings = {
+    cwd: `./clone/testOfBuild`,
+    // cwd: `./clone/${data.repoName}`,
+  };
+  let branch = await exec(`git checkout ${commitHash}`, settings);
+  return true;
 }
 
 exports.startBuild = async (data) => {
-  exec(`cd clone/testOfBuild && ${cmd}`, (error, stdout, stderr) => {
+  exec(`cd clone/testOfBuild && npm run build`, (error, stdout, stderr) => {
     fs.writeFile('log.txt', stdout, (e) => console.log(e));
   });
 };
