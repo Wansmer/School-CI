@@ -14,17 +14,34 @@ exports.getBuildList = async (offset = 0, limit = 25) => {
   }
 }
 
-exports.getBuildLog = async (buildId) => {
+exports.setBuildRequest = async (data) => {
   try {
-    const response = await axios.get(BASE_URL + 'conf', buildId, { headers });
+    const response = await axios.post(BASE_URL + '/build/request', data, { headers });
+    return response;
   } catch (error) {
     console.log(error);
   }
 }
 
-exports.setBuildRequest = async (data) => {
+exports.getBuildLog = async (buildId) => {
+  const params = {
+    buildId
+  }
   try {
-    const response = await axios.post(BASE_URL + 'conf', data, { headers });
+    const response = await axios.get(BASE_URL + 'build/log', { headers, params });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+exports.getBuildDetails = async (buildId) => {
+  const params = {
+    buildId
+  }
+  try {
+    const response = await axios.get(BASE_URL + 'build/details', { headers, params });
+    return response.data;
   } catch (error) {
     console.log(error);
   }

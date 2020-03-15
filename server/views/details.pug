@@ -1,0 +1,47 @@
+-var ticketInfo= data
+-var statusList = statuses
+-var ticketLog = ticketLog
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="/style.css")
+    title School CI server: Details
+  body.Page
+    header.Header.Page-Header
+      .Header-Inner.Container
+        h1.Header-Title.Header-Title_color_deep
+          a.Header-Title-Link(href="/build-history.html") philip1967/my-awesome-repo
+        button.Button.Button_icon_left.Icon_rebuild.Button_size_m.Button_type_control.Button_icon.Header-Button
+          span.Button-Text Rebuild
+        a.Button.Button_icon_left.Button_text_hidden.Button_size_m.Button_type_control.Button_icon.Header-Button.Icon_gear(href="/settings.html")
+    .Content.Page-Content
+      .Content-Inner.Container
+        .TicketList
+          .Ticket.Ticket_show_details(class= statusList[ticketInfo.status])
+            .Ticket-Info
+              .Ticket-Summary
+                span.Ticket-Number= '#' + ticketInfo.buildNumber
+                span.Ticket-Title= ticketInfo.commitMessage
+              .Ticket-Owner
+                .Ticket-Tech
+                  a.Link.Icon_branch.Link_icon_left.Ticket-Branch(href="#")= ticketInfo.branchName
+                  a.Link.Link_color_dark.Ticket-Hash(href="#")= ticketInfo.commitHash
+                a.Link.Icon_commiter.Link_icon_left.Ticket-Commiter(href="#")= ticketInfo.authorName
+            .Ticket-Meta.Ticket-Meta_position_bottom
+              a.Link.Icon_date.Link_icon_left.Link_color_dark.Ticket-Date(href="#")
+                time(datetime="")
+                  | 21 янв, 03:06
+              a.Link.Icon_duration.Link_icon_left.Link_color_dark.Ticket-Duration(href="#")
+                time(datetime="")
+                  | 1 ч 20 мин
+          pre.Preformatted.TicketList-Log= ticketLog || 'a building is not complite. wait...' 
+    footer.Footer.Page-Footer
+      .Footer-Inner.Container
+        nav.Footer-Nav
+          a.Link.Link_color_secondary(href="#") Support
+          a.Link.Link_color_secondary(href="#") Learning
+        .Footer-Copyright © 2020 Your Name
+
