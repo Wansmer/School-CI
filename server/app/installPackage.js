@@ -1,6 +1,8 @@
 const { installPackage, startBuild, goToCommit } = require('./process');
 
-installPackage()
+process.on('message', (data) => {
+  console.log(data);
+  installPackage()
   .then((res) => {
     goToCommit('a21cb76');
     return res;
@@ -8,7 +10,12 @@ installPackage()
   .then((res) => {
     startBuild();
     return res;
-}).then((res) => {
-  console.log('Build complite');
-  process.exit();
+  })
+  .then((res) => {
+    console.log('Build complite');
+    process.exit();
+  })
+  .catch((err) => {
+    console.log('object');
+  });
 });

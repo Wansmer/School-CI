@@ -57,7 +57,9 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
       "authorName": commitInfo.authorName
     }
     build.setBuildRequest(sendData).then((response) => {
-      fork('app/installPackage.js');
+      const startBuild = fork('app/installPackage.js');
+      startBuild.send(commitInfo);
+      startBuild.on('exit', (code) => console.log(code));
       res.sendStatus(200);
     }).catch((err) => {
       console.log(err);
