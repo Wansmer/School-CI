@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
     const data = response;
     res.render('builds', { data, statuses });
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 })
 
@@ -33,7 +33,7 @@ router.get('/:buildId/logs', async (req, res) => {
     data = JSON.stringify(data);
     res.send(data);
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 })
 
@@ -43,7 +43,7 @@ router.get('/:buildId', async (req, res) => {
     const data = response.data;
     res.render('details', { data, statuses });
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 })
 
@@ -52,29 +52,30 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
   const git = spawn('git', ['log', req.params.commitHash, '-n 1', '--pretty=format:{"authorName": "%an", "commitMessage": "%s", "commitHash": "%h","branchName": "%D"}'], { cwd: './clone/testOfBuild/'});
   git.stdout.on('data', (data) => {
     const commitInfo = JSON.parse(data);
+    if (commitInfo.branchName === '') commitInfo.branchName = 'master';
     build.setBuildRequest(commitInfo)
     .then(() => {
       return build.getBuildList();
     })
     .then((response) => {
       const buildId = response[0].id;
-      console.log(buildId);
       const startBuild = fork('app/building.js');
       startBuild.send({ settings, commitInfo, buildId });
       startBuild.on('exit', (code) => {
         if (!code) {
+          console.log('Process building is over...');
           // TODO: установить вотчер на обновление репозитория
-          console.log('Defined watcher...');
         }
       });
       res.sendStatus(200);
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      throw error;
     });
   });
   git.stderr.on('data', (data) => {
-    console.log(data);
+    console.log('ошибка ---------------- ', String(data));
+    res.send(data);
   });
 })
 

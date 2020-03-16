@@ -2,25 +2,24 @@ const { installPackage, startBuild, goToCommit } = require('./process');
 const build = require('../api/build/build');
 
 process.on('message', (data) => {
+  console.log('start install package ------- OK');
   installPackage(data.settings)
-  .then((res) => {
-    goToCommit(data.commitInfo.commitHash, data.settings);
-    return res;
+  .then(() => {
+    return goToCommit(data.commitInfo.commitHash, data.settings);
   })
-  .then((res) => {
+  .then(() => {
     const buildStart = {
       buildId: data.buildId,
       dateTime: new Date().toISOString()
     }
     return build.setBuildStart(buildStart);
   })
-  .then((res) => {
+  .then(() => {
     let start = build.getBuildDetails(data.buildId);
     let buildLog = startBuild(data.settings);
     return Promise.all([start, buildLog]);
   })
   .then((arr) => {
-    console.log(arr[0].data.start);
     const buildEnd = {
       "buildId": data.buildId,
       "duration": Date.now() - new Date(arr[0].data.start),
@@ -30,12 +29,10 @@ process.on('message', (data) => {
     // TODO: поставить обработчик на неудачную сборку
     return build.setBuildFinish(buildEnd);
   })
-  .then((res) => {
-    console.log('Build complite');
+  .then(() => {
     process.exit();
   })
-  .catch((err) => {
-    console.log(err);
-    process.exit();
+  .catch((error) => {
+    throw error;
   });
 });

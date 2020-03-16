@@ -3,11 +3,9 @@ const { cloneRepo } = require('./process');
 process.on('message', (data) => {
   cloneRepo(data)
     .then((res) => {
-      console.log('End of cloning repo');
-      return data;
+      process.exit();
     })
-    .then((data) => {
-      console.log('Defines watcher');
-      return true;
+    .catch((error) => {
+      throw error;
     })
 })

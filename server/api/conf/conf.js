@@ -16,7 +16,7 @@ exports.setConf = async (data) => {
     const response = await axios.post(BASE_URL + 'conf', data, { headers });
     return response.status;
   } catch (error) {
-    throw new Error(error);
+    throw error;
   }
 }
 
@@ -25,6 +25,6 @@ exports.deleteConf = async () => {
     const response = await axios.delete(BASE_URL + 'conf', { headers });
     return response.status;
   } catch (error) {
-    throw new Error(error);
+    throw error;
   }
 }
