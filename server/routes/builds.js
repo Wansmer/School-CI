@@ -63,13 +63,8 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
       const startBuild = fork('app/building.js');
       startBuild.send({ settings, commitInfo, buildId });
       startBuild.on('exit', (code) => {
-        console.log('code of exit -----------', code);
-        if (!code) {
-          console.log('start watching ---------- Ok');
-          // watcher(settings);
-          // TODO: установить вотчер на обновление репозитория
-        }
-      });
+        console.log('Код завершения процесса:', code);
+      })
       res.sendStatus(200);
     })
     .catch((error) => {

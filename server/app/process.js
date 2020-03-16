@@ -4,10 +4,10 @@ const { GIT_PATH } = require('../constants');
 
 exports.cloneRepo = async (data) => {
   try {
-    await exec(`git clone ${GIT_PATH}${data.repoName} clone/${data.repoName}`);
-    return true;
+    const { stdout, stderr } = await exec(`git clone ${GIT_PATH}${data.repoName} clone/${data.repoName}`);
+    return { stdout, stderr };
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -17,7 +17,7 @@ exports.pullRepo = async (data) => {
     await exec(`git pull ${GIT_USER}${data.repoName} clone/${data.repoName}`, settings);
     return true;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -27,7 +27,7 @@ exports.installPackage = async (data) => {
     await exec(`npm i`, settings);
     return true;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -37,7 +37,7 @@ exports.goToCommit = async (commitHash, data) => {
     await exec(`git checkout ${commitHash}`, settings);
     return true;
   } catch (error) {
-    throw error;
+    return error;
   }
 }
 
@@ -47,6 +47,6 @@ exports.startBuild = async (data) => {
     const { stdout, stderr } = await exec(`${data.buildCommand}`, settings);
     return stdout;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
