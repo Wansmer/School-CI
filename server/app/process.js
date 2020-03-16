@@ -1,6 +1,5 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
-const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const { GIT_PATH } = require('../constants');
@@ -10,20 +9,17 @@ exports.cloneRepo = async (data) => {
     await exec(`git clone ${GIT_PATH}${data.repoName} clone/${data.repoName}`);
     return true;
   } catch (error) {
-    return error;
+    throw new Error(error);
   }
 };
 
 exports.pullRepo = async (data) => {
-  const settings = {
-    // cwd: `./clone/testOfBuild`,
-    cwd: `./clone/${data.repoName}`,
-  };
+  const settings = { cwd: `./clone/${data.repoName}` };
   try {
-    await exec(`git pul ${GIT_USER}${data.repoName} clone/${data.repoName}`);
+    await exec(`git pull ${GIT_USER}${data.repoName} clone/${data.repoName}`, settings);
     return true;
   } catch (error) {
-    return error;
+    throw new Error(error);
   }
 };
 
@@ -33,7 +29,7 @@ exports.installPackage = async (data) => {
     await exec(`npm i`, settings);
     return true;
   } catch (error) {
-    return error;
+    throw new Error(error);
   }
 };
 
@@ -55,11 +51,4 @@ exports.startBuild = async (data) => {
   } catch (error) {
     throw new Error(error);
   }
-  // exec(`cd clone/${data.repoName} && ${data.buildCommand}`, (error, stdout, stderr) => {
-  //   fs.writeFile('log.txt', stdout, (e) => console.log(e));
-  // });
-};
-
-exports.updateRepo = async () => {
-  //
 };
