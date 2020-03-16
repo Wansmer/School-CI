@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const { spawn, fork, exec } = require('child_process');
+const { watcher } = require('../app/watcher');
 const jsonParser = bodyParser.json({extended: false});
 
 const build = require('../api/build/build');
@@ -62,8 +63,10 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
       const startBuild = fork('app/building.js');
       startBuild.send({ settings, commitInfo, buildId });
       startBuild.on('exit', (code) => {
+        console.log('code of exit -----------', code);
         if (!code) {
-          console.log('Process building is over...');
+          console.log('start watching ---------- Ok');
+          // watcher(settings);
           // TODO: установить вотчер на обновление репозитория
         }
       });

@@ -29,10 +29,13 @@ process.on('message', (data) => {
     // TODO: поставить обработчик на неудачную сборку
     return build.setBuildFinish(buildEnd);
   })
-  .then(() => {
+  .then((res) => {
+    console.log(res);
+    console.log('end of building ---------------- OK')
     process.exit();
   })
   .catch((error) => {
+    console.log(error);
     throw error;
   });
 });
