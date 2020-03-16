@@ -27,6 +27,7 @@ process.on('message', (data) => {
       "success": true,
       "buildLog": arr[1]
     }
+    // TODO: поставить обработчик на неудачную сборку
     return build.setBuildFinish(buildEnd);
   })
   .then((res) => {
