@@ -28,13 +28,14 @@ process.on('message', (data) => {
   .then((arr) => {
     console.log('building end ------- OK');
     console.log('send end info on server ------- OK');
+    const status = !(arr[1] instanceof Error);
+    const buildLog = arr[1].stdout + arr[1].stderr;
     const buildEnd = {
       "buildId": data.buildId,
       "duration": Date.now() - new Date(arr[0].data.start),
-      "success": true,
-      "buildLog": arr[1]
+      "success": status,
+      "buildLog": buildLog
     }
-    // TODO: поставить обработчик на неудачную сборку
     return build.setBuildFinish(buildEnd);
   })
   .then((res) => {
@@ -43,7 +44,6 @@ process.on('message', (data) => {
     return true;
   })
   .catch((error) => {
-    console.log(error);
     throw error;
   })
   .finally(() => {

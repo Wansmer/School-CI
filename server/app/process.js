@@ -1,5 +1,6 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
+const cp = require('child_process');
 const { GIT_PATH } = require('../constants');
 
 exports.cloneRepo = async (data) => {
@@ -45,8 +46,17 @@ exports.startBuild = async (data) => {
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
     const { stdout, stderr } = await exec(`${data.buildCommand}`, settings);
-    return stdout;
+    return { stdout, stderr };
   } catch (error) {
+    console.log(error);
     return error;
   }
 };
+
+exports.clearNodeModules = async (data) {
+  try {
+    
+  } catch (error) {
+    return error;
+  }
+}
