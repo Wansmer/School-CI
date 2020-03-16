@@ -1,5 +1,4 @@
 const { cloneRepo } = require('./process');
-const fork = require('child_process');
 
 process.on('message', (data) => {
   cloneRepo(data)

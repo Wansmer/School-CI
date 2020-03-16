@@ -24,7 +24,7 @@ router.post('/', jsonParser, async (req, res) => {
   const data = req.body;
   try {
     await conf.setConf(data);
-    const createBrancDir = cp.fork('app/createBranchDir.js');
+    const createBrancDir = cp.fork('app/cloneRepo.js');
     createBrancDir.send(data);
   } catch (error) {
     console.log(error);
