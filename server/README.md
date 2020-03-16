@@ -74,4 +74,8 @@ server.js - сервер;
 ```
 
 ## Инструменты:
-- node framework 
+- node framework express.js;
+- axios;
+- шаблонизатор pug;
+- dotenv (для установки env через файл .env).
+
