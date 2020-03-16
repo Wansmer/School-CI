@@ -1,17 +1,15 @@
-const { installPackage, startBuild, goToCommit } = require('./process');
+const { installPackage, startBuild, goToCommit, clearNodeModules } = require('./process');
 const build = require('../api/build/build');
 
 process.on('message', (data) => {
-  console.log('start install package ------- OK');
-  installPackage(data.settings)
+  clearNodeModules(data.settings)
   .then(() => {
-    console.log('package install complite ------- OK');
-    console.log('checkout branch start ------- OK');
+    return installPackage(data.settings);
+  })
+  .then(() => {
     return goToCommit(data.commitInfo.commitHash, data.settings);
   })
   .then(() => {
-    console.log('checkout branch success ------- OK');
-    console.log('send start info on server ------- OK');
     const buildStart = {
       buildId: data.buildId,
       dateTime: new Date().toISOString()
@@ -19,15 +17,11 @@ process.on('message', (data) => {
     return build.setBuildStart(buildStart);
   })
   .then(() => {
-    console.log('start info sended ------- OK');
-    console.log('start builing ------- OK');
     let start = build.getBuildDetails(data.buildId);
     let buildLog = startBuild(data.settings);
     return Promise.all([start, buildLog]);
   })
   .then((arr) => {
-    console.log('building end ------- OK');
-    console.log('send end info on server ------- OK');
     const status = !(arr[1] instanceof Error);
     const buildLog = arr[1].stdout + arr[1].stderr;
     const buildEnd = {
@@ -39,8 +33,6 @@ process.on('message', (data) => {
     return build.setBuildFinish(buildEnd);
   })
   .then((res) => {
-    console.log('end info sended ------- OK');
-    console.log('exit of child process ------- OK');
     return true;
   })
   .catch((error) => {

@@ -21,4 +21,8 @@ settingsForm.addEventListener('submit', function (e) {
   sendForm(formData)
 })
 
+saveSettings.addEventListener('click', () => {
+  window.location.href = '/builds';
+})
+
 

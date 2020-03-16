@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     }
     res.render('settings', { data });
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 });
 
@@ -27,18 +27,18 @@ router.post('/', jsonParser, async (req, res) => {
     const cloneRepo = cp.fork('app/cloneRepo.js');
     cloneRepo.send(data);
     cloneRepo.on('exit', (code) => {
-      console.log(code);
+      console.log('Код завершения процесса: ', code);
     })
   } catch (error) {
-    console.log(error);
+    res.send(error);
   }
 })
 
 router.delete('/', (req, res) => {
   conf.deleteConf().then((response) => {
-    console.log(response);
+    res.render('/');
   }).catch((error) => {
-    console.log(error);
+    res.send(error);
   })
 });
 

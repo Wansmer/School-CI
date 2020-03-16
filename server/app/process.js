@@ -35,7 +35,7 @@ exports.installPackage = async (data) => {
 exports.goToCommit = async (commitHash, data) => {
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
-    await exec(`git checkout ${commitHash}`, settings);
+    await exec(`git checkout ${commitHash}&& git log`, settings);
     return true;
   } catch (error) {
     return error;
@@ -48,14 +48,15 @@ exports.startBuild = async (data) => {
     const { stdout, stderr } = await exec(`${data.buildCommand}`, settings);
     return { stdout, stderr };
   } catch (error) {
-    console.log(error);
     return error;
   }
 };
 
-exports.clearNodeModules = async (data) {
+exports.clearNodeModules = async (data) => {
+  const settings = { cwd: `./clone/${data.repoName}` };
   try {
-    
+    await exec(`rm -Rf node_modules`, settings)
+    return true;
   } catch (error) {
     return error;
   }

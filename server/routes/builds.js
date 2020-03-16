@@ -72,7 +72,6 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
     });
   });
   git.stderr.on('data', (data) => {
-    console.log('ошибка ---------------- ', String(data));
     res.send(data);
   });
 })
