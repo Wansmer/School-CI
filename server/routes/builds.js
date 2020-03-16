@@ -59,7 +59,7 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
     .then((response) => {
       const buildId = response[0].id;
       console.log(buildId);
-      const startBuild = fork('app/installPackage.js');
+      const startBuild = fork('app/building.js');
       startBuild.send({ settings, commitInfo, buildId });
       startBuild.on('exit', (code) => {
         if (!code) {

@@ -1,7 +1,5 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
-const fs = require('fs');
-const path = require('path');
 const { GIT_PATH } = require('../constants');
 
 exports.cloneRepo = async (data) => {
