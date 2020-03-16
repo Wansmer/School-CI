@@ -13,7 +13,7 @@ app.use(express.static(path.resolve(__dirname, 'static')));
 app.get('/', (req, res) => {
   res.render('index')
 });
-app.use('/settings', routerConf);
-app.use('/builds', routerBuild);
+app.use('/api/settings', routerConf);
+app.use('/api/builds', routerBuild);
 
 app.listen(3000);

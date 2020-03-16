@@ -22,7 +22,7 @@ settingsForm.addEventListener('submit', function (e) {
 })
 
 saveSettings.addEventListener('click', () => {
-  window.location.href = '/builds';
+  window.location.href = '/api/builds';
 })
 
 
