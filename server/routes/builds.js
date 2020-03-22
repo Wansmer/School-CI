@@ -50,7 +50,7 @@ router.get('/:buildId', async (req, res) => {
 
 router.post('/:commitHash', jsonParser, async (req, res) => {
   let settings = await conf.getConf();
-  const git = spawn('git', ['log', req.params.commitHash, '-n 1', '--pretty=format:{"authorName": "%an", "commitMessage": "%s", "commitHash": "%h","branchName": "%D"}'], { cwd: './clone/testOfBuild/'});
+  const git = spawn('git', ['log', req.params.commitHash, '-n 1', '--pretty=format:{"authorName": "%an", "commitMessage": "%s", "commitHash": "%h","branchName": "%D"}'], { cwd: `./clone/${settings.repoName}`});
   git.stdout.on('data', (data) => {
     const commitInfo = JSON.parse(data);
     if (commitInfo.branchName === '') commitInfo.branchName = 'master';
