@@ -10,7 +10,7 @@ function Header(props) {
         <h1 className="Header-Title Header-Title_color_faded">
           <a href="/#" className="Header-Title-Link">School CI server</a>
         </h1>
-        <Button />
+        <Button className="Header-Button" type="control" size="m" text="Settings"/>
       </div>
     </header>
   )

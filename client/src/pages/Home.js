@@ -1,9 +1,10 @@
 import React, {Fragment} from 'react';
+import Header from '../blocks/Header/Header';
 
 export const Home = () => {
   return (
     <Fragment>
-      <h1>Home page</h1>
+      <Header />
     </Fragment>
   )
 }

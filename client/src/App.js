@@ -1,13 +1,14 @@
 import React from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.scss';
 import { Home } from './pages/Home';
 import { Settings } from './pages/Settings';
 import { History } from './pages/History';
+import Header from './blocks/Header/Header';
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <div className="Page">
         <Switch>
           <Route path={'/'} exact component={Home}/>
@@ -15,7 +16,7 @@ function App() {
           <Route path={'/history'} component={History}/>
         </Switch>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 

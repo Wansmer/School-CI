@@ -1,0 +1,35 @@
+.Link{
+  display: flex;
+  align-items: center;
+  line-height: var(--font-lh-xs);
+  font-weight: 400;
+  letter-spacing: 0.06px;
+  color: var(--text-main-color);
+  flex-basis: content;
+
+  &_color_secondary{
+    color: var(--text-secondary-color);
+    &:visited{
+      color: var(--text-secondary-color);
+    }
+  }
+  &_color_dark{
+    color: var(--text-dark-color);
+    &:visited{
+      color: var(--text-dark-color);
+    }
+  }
+  &:hover, &:active{
+    color: var(--text-hover-color);
+  }
+
+  &_icon{
+    &_left{
+      &:before{
+        width: var(--gap-xl);
+        height: var(--gap-xl);
+        margin-right: calc(var(--gap-xxs) * 2);
+      }
+    }
+  }
+}
