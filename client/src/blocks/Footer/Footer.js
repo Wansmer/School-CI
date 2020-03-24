@@ -4,10 +4,10 @@ import Nav from '../Nav/Nav';
 
 function Footer(props) {
   return (
-    <footer class="Footer  Page-Footer">
-      <div class="Footer-Inner Container">
+    <footer className="Footer  Page-Footer">
+      <div className="Footer-Inner Container">
         <Nav className="Footer-Nav"/>
-        <div class="Footer-Copyright">© 2020 Your Name</div>
+        <div className="Footer-Copyright">© 2020 Your Name</div>
       </div>
     </footer>
   )

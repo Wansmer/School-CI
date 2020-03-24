@@ -1,10 +1,11 @@
 import React from 'react';
 import './Content.scss';
-// Content-Inner_alignHorizon_center Content-Inner_alignVertical_center Container
+
 function Content(props) {
+  console.log(props);
   return (
-    <section class={props.className + ' ' + props.mainClass}>
-      <div class={'Content-Inner Container' + ' ' +
+    <section className={props.className + ' ' + props.mainClass}>
+      <div className={'Content-Inner Container' + ' ' +
                   'Content-Inner_alignHorizon_' + props.elems.Inner.mods.alignHorizon + ' ' +
                   'Content-Inner_alignVertical_' + props.elems.Inner.mods.alignVertical
                    }>

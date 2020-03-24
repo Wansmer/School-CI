@@ -6,6 +6,12 @@ import Button from "../blocks/Button/Button";
 import Form from '../blocks/Form/Form';
 import Title from "../blocks/Title/Title";
 
+const TitleClasses = {
+  mods: {
+    color: 'faded'
+  }
+}
+
 export const Settings = (props) => {
   return (
     <Fragment>
@@ -13,7 +19,7 @@ export const Settings = (props) => {
         <Title
           className="Header-Title"
           text={props.title}
-          mods={{ color: "faded" }}
+          classes={TitleClasses}
         />
       </Header>
       <Content className="Page-Content">

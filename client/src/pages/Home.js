@@ -6,6 +6,12 @@ import Button from '../blocks/Button/Button';
 import Title from '../blocks/Title/Title';
 import Land from "../blocks/Land/Land";
 
+const TitleClasses = {
+  mods: {
+    color: 'faded'
+  }
+}
+
 export const Home = (props) => {
   return (
     <Fragment>
@@ -13,7 +19,7 @@ export const Home = (props) => {
         <Title
           className="Header-Title"
           text={props.title}
-          mods={{ color: "faded" }}
+          classes={ TitleClasses }
         />
         <Link to="/settings">
           <Button
