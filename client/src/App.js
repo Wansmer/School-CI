@@ -1,11 +1,21 @@
 import React from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import './App.scss';
-import Header from './blocks/Header/Header';
+import { Home } from './pages/Home';
+import { Settings } from './pages/Settings';
+import { History } from './pages/History';
+
 function App() {
   return (
-    <div className="Page">
-      <Header />
-    </div>
+    <BrowserRouter>
+      <div className="Page">
+        <Switch>
+          <Route path={'/'} exact component={Home}/>
+          <Route path={'/settings'} component={Settings}/>
+          <Route path={'/history'} component={History}/>
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
