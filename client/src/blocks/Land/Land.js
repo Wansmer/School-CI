@@ -3,6 +3,13 @@ import {Link} from 'react-router-dom';
 import "./Land.scss";
 import Button from '../Button/Button';
 
+const actionButtonClasses = {
+  mods: { 
+    type: 'action', 
+    size: 'l'
+  }
+}
+
 function Land(props) {
   return (
     <div className="Land">
@@ -11,7 +18,10 @@ function Land(props) {
         Configure repository connection and&#160;synchronization settings
       </p>
       <Link to={props.pathTo}>
-        <Button className="Land-Button" mods={{ type: 'action', size: 'l' }} text="Open settings"/>
+        <Button className="Land-Button" 
+                text="Open settings"
+                classes={actionButtonClasses}
+                />
       </Link>
     </div>
   );

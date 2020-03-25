@@ -12,6 +12,14 @@ const TitleClasses = {
   }
 }
 
+const settingsButtonClasses = {
+  mods: {
+    type: 'control',
+    size: 'm',
+    icon: 'left'
+  }
+}
+
 export const Home = (props) => {
   return (
     <Fragment>
@@ -23,10 +31,9 @@ export const Home = (props) => {
         />
         <Link to="/settings">
           <Button
-            className="Header-Button"
+            className="Header-Button Icon Icon_gear"
             text="Settings"
-            mods={{ type: "control", size: "m" }}
-            icon={{ submitted: true, pos: "left", pic: "gear" }}
+            classes={ settingsButtonClasses }
           />
         </Link>
       </Header>
