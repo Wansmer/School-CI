@@ -20,6 +20,7 @@ export const Settings = (props) => {
           className="Header-Title"
           text={props.title}
           classes={TitleClasses}
+          path='/'
         />
       </Header>
       <Content className="Page-Content">

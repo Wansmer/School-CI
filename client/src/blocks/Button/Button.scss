@@ -48,8 +48,11 @@
     }
   }
 
-  &_icon{
+  &_iconMix{
     padding-left: 3px;
+  }
+
+  &_icon{
     &_left{
       &:before{
         width: var(--gap-xl);

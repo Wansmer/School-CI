@@ -14,6 +14,7 @@ const TitleClasses = {
 
 const settingsButtonClasses = {
   mods: {
+    iconMix: '',
     type: 'control',
     size: 'm',
     icon: 'left'
@@ -24,8 +25,8 @@ const contentClasses = {
   elems: {
     Inner: {
       mods: {
-        alignVertical: 'top',
-        alignHorizon: 'left'
+        alignVertical: 'center',
+        alignHorizon: 'center'
       }
     }
   }
@@ -49,7 +50,7 @@ export const Home = (props) => {
         </Link>
       </Header>
       <Content className="Page-Content" 
-               classes={ {contentClasses} }>
+               classes={ contentClasses }>
         <Land />
       </Content>
     </Fragment>
