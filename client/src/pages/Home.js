@@ -20,6 +20,17 @@ const settingsButtonClasses = {
   }
 }
 
+const contentClasses = {
+  elems: {
+    Inner: {
+      mods: {
+        alignVertical: 'top',
+        alignHorizon: 'left'
+      }
+    }
+  }
+}
+
 export const Home = (props) => {
   return (
     <Fragment>
@@ -38,7 +49,7 @@ export const Home = (props) => {
         </Link>
       </Header>
       <Content className="Page-Content" 
-               elems={{Inner: {mods: {alignVertical: 'center', alignHorizon: 'center'}}}}>
+               classes={ {contentClasses} }>
         <Land />
       </Content>
     </Fragment>
