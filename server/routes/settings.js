@@ -14,6 +14,7 @@ router.get('/', async (req, res) => {
     for (const prop in response) {
       data[prop] = response[prop];
     }
+    // TODO: Переписать на отдачу JSON 
     res.render('settings', { data });
   } catch (error) {
     res.send(error);

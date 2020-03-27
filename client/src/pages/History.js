@@ -1,9 +1,51 @@
 import React, {Fragment} from 'react';
+import TicketList from '../blocks/TicketList/TicketList';
+import Header from '../blocks/Header/Header';
+import Title from '../blocks/Title/Title';
+import Content from '../blocks/Content/Content';
+import Button from '../blocks/Button/Button';
 
-export const History = () => {
+const TitleClasses = {
+  mods: {
+    color: 'main'
+  }
+}
+
+const contentClasses = {
+  elems: {
+    Inner: {
+      mods: {
+        alignVertical: 'center',
+        alignHorizon: 'center'
+      }
+    }
+  }
+}
+
+const moreButtonClasses = {
+  mods: {
+    type: 'control',
+    size: 'm'
+  }
+}
+
+export const History = (props) => {
+  const tickets = props.tickets;
   return (
     <Fragment>
-      <h1>History page</h1>
+      <Header>
+        <Title 
+          className="Header-Title"
+          text={props.repoName}
+          classes={TitleClasses}
+        />
+      </Header>
+      <Content className='Page-Content'
+               classes={contentClasses} >
+        <TicketList tickets={tickets} >
+          <Button classes={moreButtonClasses}/>
+        </TicketList>
+      </Content>
     </Fragment>
   )
 }

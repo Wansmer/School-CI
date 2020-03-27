@@ -16,4 +16,4 @@ app.get('/', (req, res) => {
 app.use('/api/settings', routerConf);
 app.use('/api/builds', routerBuild);
 
-app.listen(3000);
+app.listen(3001);

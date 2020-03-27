@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Домашнее задание по адаптивной верстке ШРИ-2020",
   "main": "index.js",
-  "scripts": { 
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "sync": "browser-sync start --ss './dist/' --server --files './dist/style.css'",
     "watch": "postcss  ./src/style.post.css -o ./dist/style.css -w"
