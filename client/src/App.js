@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { connect } from "react-redux";
 import './App.scss';
 import { Home } from './pages/Home';
-import { Settings } from './pages/Settings';
+import Settings from './pages/Settings';
 import { History } from './pages/History';
 import { Details } from './pages/Details';
 import Footer from './blocks/Footer/Footer';
+import { getConfig, getTicketList } from './actions';
 
-function App() {
+export function App(props) {
+
+  useEffect(() => {
+    props.getConfig();
+    props.getTicketList();
+  }, [])
+  
   return (
     <Router>
       <div className="Page">
@@ -23,4 +31,19 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  config: state.config,
+  ticketList: state.ticketLists
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getConfig: () => dispatch(getConfig()),
+  getTicketList: () => dispatch(getTicketList())
+});
+
+export const ConnectedApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+
+// export default App;

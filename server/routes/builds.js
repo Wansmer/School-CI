@@ -21,7 +21,8 @@ router.get('/', async (req, res) => {
   try {
     const response = await build.getBuildList();
     const data = response;
-    res.render('builds', { data, statuses });
+    // res.render('builds', { data, statuses });
+    res.send(data);
   } catch (error) {
     res.send(error);
   }

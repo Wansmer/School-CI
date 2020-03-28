@@ -14,8 +14,7 @@ router.get('/', async (req, res) => {
     for (const prop in response) {
       data[prop] = response[prop];
     }
-    // TODO: Переписать на отдачу JSON 
-    res.render('settings', { data });
+    res.send(data);
   } catch (error) {
     res.send(error);
   }
@@ -30,6 +29,7 @@ router.post('/', jsonParser, async (req, res) => {
     cloneRepo.on('exit', (code) => {
       console.log('Код завершения процесса: ', code);
     })
+    res.send(data);
   } catch (error) {
     res.send(error);
   }
