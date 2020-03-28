@@ -11,11 +11,13 @@ export const saveConfig = (data) => {
           'Content-Type': 'application/json'
         }
       });
-      console.log(response);
+      const answ = await response.json();
+      console.log(answ);
       dispatch({
         type: SAVE_CONFIG,
         payload: data
       })
+      return answ;
     } catch (err) {
       console.log(err);
     }

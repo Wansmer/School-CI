@@ -8,6 +8,7 @@ import { History } from './pages/History';
 import { Details } from './pages/Details';
 import Footer from './blocks/Footer/Footer';
 import { getConfig, getTicketList } from './actions';
+import Modal from './blocks/Modal/Modal';
 
 export function App(props) {
 
@@ -26,6 +27,7 @@ export function App(props) {
           <Route path={'/details/:buildId'} component={Details}/>
         </Switch>
       <Footer />
+      <Modal/>
       </div>
     </Router>
   );

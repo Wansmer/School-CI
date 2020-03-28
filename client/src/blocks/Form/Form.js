@@ -41,14 +41,14 @@ const inputGorClasses = {
 const saveButtonClasses = {
   mods: {
     type: 'action',
-    size: 'm'
+    size: 'l'
   }
 }
 
 const settingsButtonClasses = {
   mods: {
     type: 'control',
-    size: 'm'
+    size: 'l'
   }
 }
 

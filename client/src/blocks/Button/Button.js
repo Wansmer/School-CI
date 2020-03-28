@@ -6,7 +6,7 @@ import {expandClasses} from '../../utils';
 function Button(props) {
 
   return (
-    <button className={props.className + ' ' + 'Button ' + expandClasses(props.classes, 'Button')}>
+    <button className={expandClasses(props.classes, 'Button', '', props.className)}>
       <span className="Button-Text">{props.text}</span>
     </button>
   )
