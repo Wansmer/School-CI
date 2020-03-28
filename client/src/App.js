@@ -20,7 +20,7 @@ export function App(props) {
     <Router>
       <div className="Page">
         <Switch>
-          <Route path={'/'} exact component={Home}/>
+          <Route path={'/'} exact component={ Object.keys(props.config).length ? History : Home}/>
           <Route path={'/settings'} component={Settings}/>
           <Route path={'/history'} component={History}/>
           <Route path={'/details/:buildId'} component={Details}/>

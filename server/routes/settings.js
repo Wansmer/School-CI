@@ -26,10 +26,10 @@ router.post('/', jsonParser, async (req, res) => {
     await conf.setConf(data);
     const cloneRepo = cp.fork('app/cloneRepo.js');
     cloneRepo.send(data);
-    cloneRepo.on('exit', (code) => {
-      console.log('Код завершения процесса: ', code);
+    await cloneRepo.on('message', (message) => {
+      console.log(message);
+      res.send(message);
     })
-    res.send(data);
   } catch (error) {
     res.send(error);
   }

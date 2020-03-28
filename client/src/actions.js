@@ -11,6 +11,7 @@ export const saveConfig = (data) => {
           'Content-Type': 'application/json'
         }
       });
+      console.log(response);
       dispatch({
         type: SAVE_CONFIG,
         payload: data

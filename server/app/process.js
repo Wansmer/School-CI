@@ -8,7 +8,7 @@ exports.cloneRepo = async (data) => {
     const { stdout, stderr } = await exec(`git clone ${GIT_PATH}${data.repoName} clone/${data.repoName}`);
     return { stdout, stderr };
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 

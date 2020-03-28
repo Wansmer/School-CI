@@ -94,6 +94,7 @@ const Form = (props) => {
             placeholder="user-name/repo-name" 
             value={config.repoName}
             onChange={onChangeHandler}
+            required
           />
         </Input>
       </div>
@@ -108,6 +109,7 @@ const Form = (props) => {
             placeholder="my command for build" 
             value={config.buildCommand} 
             onChange={onChangeHandler}
+            required
           />
         </Input>
       </div>

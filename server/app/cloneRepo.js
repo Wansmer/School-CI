@@ -3,10 +3,10 @@ const { cloneRepo } = require('./process');
 process.on('message', (data) => {
   cloneRepo(data)
     .then((res) => {
-      process.exit(0);
+      process.send(data);
     })
     .catch((error) => {
-      throw error;
+      process.send(error);
     })
     .finally((res) => {
       process.exit(0);
