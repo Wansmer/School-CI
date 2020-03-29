@@ -3,7 +3,9 @@ import './Preformatted.scss';
 
 function Preformatted(props) {
   return (
-    <div></div>
+    <pre className="Preformatted TicketList-Log">
+      {props.children}
+    </pre>
   )
 }
 

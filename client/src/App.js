@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import './App.scss';
 import { Home } from './pages/Home';
 import Settings from './pages/Settings';
-import { History } from './pages/History';
-import { Details } from './pages/Details';
+import History from './pages/History';
+import Details from './pages/Details';
 import Footer from './blocks/Footer/Footer';
 import { getConfig, getTicketList } from './actions';
 import Modal from './blocks/Modal/Modal';
@@ -24,7 +24,7 @@ export function App(props) {
           <Route path={'/'} exact component={ Object.keys(props.config).length ? History : Home}/>
           <Route path={'/settings'} component={Settings}/>
           <Route path={'/history'} component={History}/>
-          <Route path={'/details/:buildId'} component={Details}/>
+          <Route path={'/build/:buildId'} component={Details}/>
         </Switch>
       <Footer />
       {/* <Modal/> */}

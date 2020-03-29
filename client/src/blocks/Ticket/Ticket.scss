@@ -129,7 +129,7 @@
         }
       }
     }
-    &_error{
+    &_Fail{
       & .Ticket-Number{
         color: var(--text-error-color);
         &::before{

@@ -40,7 +40,7 @@ export const Home = (props) => {
           className="Header-Title"
           text={props.title}
           classes={ TitleClasses }
-        />
+        >props.title</Title>
         <Link to="/settings">
           <Button
             className="Header-Button Icon Icon_gear"
