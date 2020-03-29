@@ -10,11 +10,10 @@ import Footer from './blocks/Footer/Footer';
 import { getConfig, getTicketList } from './actions';
 
 export function App(props) {
-
   useEffect(() => {
     props.getConfig();
     props.getTicketList();
-  }, [])
+  }, [props])
   
   return (
     <Router>

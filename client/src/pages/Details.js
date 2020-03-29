@@ -1,15 +1,13 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import TicketList from '../blocks/TicketList/TicketList';
 import Ticket from '../blocks/Ticket/Ticket';
 import Header from '../blocks/Header/Header';
 import Title from '../blocks/Title/Title';
 import Button from '../blocks/Button/Button';
-import { getBuildDetails } from '../actions';
+import { getBuildDetails, addToQueue } from '../actions';
 import Content from '../blocks/Content/Content';
 import Preformatted from '../blocks/Preformatted/Preformatted';
-import { addToQueue } from '../actions';
-
 
 const TitleClasses = {
   mods: {
@@ -51,7 +49,7 @@ const Details = (props) => {
 
   useEffect(() => {
     props.getBuildDetails(props.match.params.buildId)
-  }, [])
+  }, [props])
 
   const reBuild = (event) => {
     event.preventDefault();
@@ -65,7 +63,9 @@ const Details = (props) => {
           className="Header-Title"
           classes={TitleClasses}
           path='/history'
-        >{props.repoName}</Title>
+        >
+          {props.repoName}
+        </Title>
         <Button 
           className='Icon Icon_rebuild Header-Button' 
           classes={buildButtonClasses} 
@@ -78,9 +78,15 @@ const Details = (props) => {
           text='Settings' 
         />
       </Header>
-      <Content classes={contentClasses} className='Page-Content'>
+      <Content 
+        classes={contentClasses} 
+        className='Page-Content'
+      >
         <TicketList>
-          <Ticket className='Ticket_show_details' value={props.ticket}/>
+          <Ticket 
+            className='Ticket_show_details' 
+            value={props.ticket}
+          />
           <Preformatted>
             {props.ticketLog}
           </Preformatted>

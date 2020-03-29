@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router-dom'
 import './Modal.scss';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
@@ -71,7 +70,7 @@ const Modal = (props) => {
                 placeholder='Commit hash'
                 onChange={onChangeHandler}
               />
-              <span class="Input-Icon Icon Icon_inputClear"></span>
+              <span className="Input-Icon Icon Icon_inputClear"></span>
             </Input>
             <div className='Modal-ButtonsGroup'>
               <Button 

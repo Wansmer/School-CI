@@ -3,7 +3,7 @@ import './Header.scss';
 
 function Header(props) {
   return (
-    <header className="Header">
+    <header className={'Header ' + props.className}>
       <div className="Header-Inner Container">
         {props.children}
       </div>

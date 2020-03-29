@@ -4,10 +4,14 @@ import {expandClasses} from '../../utils';
 
 
 function Button(props) {
-
+  const { isDisabled, className, classes, onClick, text } = {...props};
   return (
-    <button onClick={props.onClick || ''} className={expandClasses(props.classes, 'Button', '', props.className)}>
-      <span className="Button-Text">{props.text}</span>
+    <button 
+      onClick={onClick} 
+      className={expandClasses(classes, 'Button', '', className)}
+      disabled={isDisabled}
+    >
+      <span className="Button-Text">{text}</span>
     </button>
   )
 }

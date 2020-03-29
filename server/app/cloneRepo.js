@@ -3,7 +3,7 @@ const { cloneRepo } = require('./process');
 process.on('message', (data) => {
   cloneRepo(data)
     .then((res) => {
-      process.send(data);
+      process.send({code: 200});
     })
     .catch((error) => {
       process.send(error);

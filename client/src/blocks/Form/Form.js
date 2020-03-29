@@ -52,7 +52,7 @@ const settingsButtonClasses = {
   }
 }
 
-const defaultState = {
+const defaultConfig = {
   repoName: '',
   mainBranch: '',
   buildCommand: '',
@@ -60,7 +60,8 @@ const defaultState = {
 }
 
 const Form = (props) => {
-  const [config, setConfig] = useState(defaultState);
+  const [config, setConfig] = useState(defaultConfig);
+  const [state, setState] = useState(props);
 
   useEffect(() => {
     if (Object.keys(props.config).length) {
@@ -76,6 +77,7 @@ const Form = (props) => {
   const onSubminHandler = (event) => {
     event.preventDefault();
     props.saveConfig(config);
+    setState((prevState) => ({...prevState, ...{ isDisabled: !state.isDisabled }}))
   }
 
   return (
@@ -143,15 +145,29 @@ const Form = (props) => {
         </Input>
       </div>
       <div className="Form-Field Content-Form-Field">
-        <Button type='submit' classes={saveButtonClasses} text='Save' disabled />
-        <Button classes={settingsButtonClasses} text='Cancel' />
+        <Button 
+          type='submit' 
+          classes={saveButtonClasses} 
+          text='Save'
+          isDisabled={state.isDisabled}
+        />
+        <Button 
+          classes={settingsButtonClasses} 
+          text='Cancel' 
+          isDisabled={state.isDisabled}
+        />
       </div>
     </form>
   )
 }
 
+Form.defaultProps = {
+  isDisabled: false
+}
+
 const mapStateToProps = (state) => ({
-  config: state.config
+  config: state.config,
+  configSaveRes: state.configSaveRes
 })
 
 const mapDispatchToProps = (dispatch) => ({

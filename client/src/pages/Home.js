@@ -35,12 +35,15 @@ const contentClasses = {
 export const Home = (props) => {
   return (
     <Fragment>
-      <Header>
+      <Header className="Page-Header" >
         <Title
           className="Header-Title"
           text={props.title}
           classes={ TitleClasses }
-        >props.title</Title>
+          path='/'
+        >
+          {props.title}
+        </Title>
         <Link to="/settings">
           <Button
             className="Header-Button Icon Icon_gear"
@@ -49,8 +52,9 @@ export const Home = (props) => {
           />
         </Link>
       </Header>
-      <Content className="Page-Content" 
-               classes={ contentClasses }>
+      <Content 
+        className="Page-Content" 
+        classes={ contentClasses }>
         <Land />
       </Content>
     </Fragment>

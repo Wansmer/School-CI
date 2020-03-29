@@ -1,4 +1,4 @@
-import { SAVE_CONFIG, GET_CONFIG, SERVER_URL, GET_TICKET_LIST, GET_BUILD_DETAILS, ADD_TO_QUEUE } from './constants';
+import { SAVE_CONFIG, GET_CONFIG, SERVER_URL, GET_TICKET_LIST, GET_BUILD_DETAILS } from './constants';
 
 export const saveConfig = (data) => {
   return async (dispatch) => {
@@ -10,10 +10,12 @@ export const saveConfig = (data) => {
           'Content-Type': 'application/json'
         }
       });
+      const res = await response.json();
       dispatch({
         type: SAVE_CONFIG,
-        payload: data
-      })
+        payload: data,
+        code: res.code
+      });
     } catch (err) {
       console.log(err);
     }
@@ -75,6 +77,7 @@ export const addToQueue = async (commitHash) => {
         'Content-Type': 'application/json'
       }
     });
+    await response.json();
     return true;
   } catch (err) {
     console.log(err);

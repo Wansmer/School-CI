@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { connect } from 'react-redux';
 import Header from "../blocks/Header/Header";
 import Content from "../blocks/Content/Content";
@@ -15,15 +15,17 @@ const Settings = (props) => {
 
   return (
     <Fragment>
-      <Header>
+      <Header className="Page-Header" >
         <Title
           className="Header-Title"
           text={props.title}
           classes={TitleClasses}
           path='/'
-        />
+        >{ props.title }</Title>
       </Header>
-      <Content className="Page-Content">
+      <Content 
+        className="Page-Content"
+      >
         <Form />
       </Content>
     </Fragment>

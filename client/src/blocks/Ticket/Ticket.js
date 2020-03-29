@@ -15,7 +15,7 @@ const getHumanDuration = (duration) => {
 
 function Ticket(props) {
   return (
-    <div className={'Ticket ' + 'Ticket_status_' + props.value.status} >
+    <div className={'Ticket Ticket_status_' + props.value.status} >
       <div className="Ticket-Info">
         <div className="Ticket-Summary">
           <span className="Ticket-Number">{'#' + props.value.buildNumber}</span>

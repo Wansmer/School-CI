@@ -3,7 +3,9 @@
   &-Inner{
     display: flex;
     align-items: flex-start;
-    padding: var(--gap-m) 0;
+    // padding: var(--gap-m) 0;
+    padding-top: var(--gap-m);
+    padding-bottom: var(--gap-m);
     @media screen and (max-width: 414px){
       padding-top: var(--gap-l);
       padding-bottom: var(--gap-l);

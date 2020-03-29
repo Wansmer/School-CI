@@ -63,15 +63,14 @@ const History = (props) => {
   }
 
   const tickets = props.ticketList;
-  const listTickets = tickets.map((ticket) => 
-    <Link to={'/build/' + ticket.id} >
+  const listTickets = tickets.map((ticket) => (<Link to={'/build/' + ticket.id} key={ticket.id}>
       <Ticket value={ticket} key={ticket.id} />
-    </Link>
+    </Link>)
   )
 
   return (
     <Fragment>
-      <Header>
+      <Header className="Page-Header" >
         <Title 
           className="Header-Title"
           classes={TitleClasses}

@@ -42,7 +42,6 @@ router.get('/:buildId', async (req, res) => {
   try {
     const response = await build.getBuildDetails(req.params.buildId);
     const data = response.data;
-    // res.render('details', { data, statuses });
     res.send(data);
   } catch (error) {
     res.send(error);
