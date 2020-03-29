@@ -8,6 +8,7 @@ import Button from '../blocks/Button/Button';
 import { getBuildDetails, addToQueue } from '../actions';
 import Content from '../blocks/Content/Content';
 import Preformatted from '../blocks/Preformatted/Preformatted';
+import { Link } from 'react-router-dom';
 
 const TitleClasses = {
   mods: {
@@ -72,11 +73,13 @@ const Details = (props) => {
           text='Rebuild' 
           onClick={reBuild}
         />
-        <Button 
-          className='Icon Icon_gear Header-Button' 
-          classes={settingsButtonClasses} 
-          text='Settings' 
-        />
+        <Link to='/settings'>
+          <Button 
+            className='Icon Icon_gear Header-Button' 
+            classes={settingsButtonClasses} 
+            text='Settings' 
+          />
+        </Link>
       </Header>
       <Content 
         classes={contentClasses} 

@@ -82,7 +82,13 @@ const History = (props) => {
           text='Run build' 
           onClick={toggleModalShow}
         />
-        <Button className='Icon Icon_gear Header-Button' classes={settingsButtonClasses} text='Settings' />
+        <Link to='/settings'>
+          <Button 
+            className='Icon Icon_gear Header-Button' 
+            classes={settingsButtonClasses} 
+            text='Settings' 
+          />
+        </Link>
       </Header>
       <Content className='Page-Content'
                classes={contentClasses} >
