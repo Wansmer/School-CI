@@ -34,7 +34,7 @@ const settingsButtonClasses = {
 const Modal = (props) => {
   return (
     <div className='Modal'>
-      <div className='Modal-Overlay'>
+      <div className='Modal-Overlay' onClick={props.onClose}>
         <div className='Modal-Body'>
           <form>
             <div className="Modal-Info">
@@ -46,8 +46,17 @@ const Modal = (props) => {
               <span class="Input-Icon Icon Icon_inputClear"></span>
             </Input>
             <div className='Modal-ButtonsGroup'>
-              <Button type='submit' classes={saveButtonClasses} text='Run build' />
-              <Button classes={settingsButtonClasses} className='Modal-Button Modal-Button_type_control' text='Cancel' />
+              <Button 
+                type='submit' 
+                classes={saveButtonClasses} 
+                text='Run build' 
+              />
+              <Button 
+                classes={settingsButtonClasses} 
+                className='Modal-Button Modal-Button_type_control' 
+                text='Cancel' 
+                onClick={props.onClose} 
+              />
             </div>
           </form>
         </div>

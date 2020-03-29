@@ -70,7 +70,6 @@ const Form = (props) => {
   const onChangeHandler = (event) => {
     event.persist();
     setConfig((prevState) => ({...prevState, ...{ [event.target.name]: event.target.value }}));
-    console.log(config);
   }
 
   const onSubminHandler = (event) => {

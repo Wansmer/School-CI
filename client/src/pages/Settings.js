@@ -1,10 +1,9 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from 'react-redux';
 import Header from "../blocks/Header/Header";
 import Content from "../blocks/Content/Content";
 import Form from '../blocks/Form/Form';
 import Title from "../blocks/Title/Title";
-// import { getConfig } from '../actions';
 
 const TitleClasses = {
   mods: {
@@ -13,6 +12,7 @@ const TitleClasses = {
 }
 
 const Settings = (props) => {
+
   return (
     <Fragment>
       <Header>

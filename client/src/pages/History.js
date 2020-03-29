@@ -1,4 +1,5 @@
-import React, {Fragment} from 'react';
+import React, { Fragment, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TicketList from '../blocks/TicketList/TicketList';
@@ -7,6 +8,7 @@ import Header from '../blocks/Header/Header';
 import Title from '../blocks/Title/Title';
 import Content from '../blocks/Content/Content';
 import Button from '../blocks/Button/Button';
+import Modal from '../blocks/Modal/Modal';
 
 const TitleClasses = {
   mods: {
@@ -53,6 +55,13 @@ const settingsButtonClasses = {
 
 const History = (props) => {
 
+  const [state, setState] = useState(props);
+
+  const toggleModalShow = (event) => {
+    event.preventDefault();
+    setState((prevState) => ({...prevState, ...{ isShowModal: !(state.isShowModal) }}));
+  }
+
   const tickets = props.ticketList;
   const listTickets = tickets.map((ticket) => 
     <Link to={'/build/' + ticket.id} >
@@ -68,7 +77,12 @@ const History = (props) => {
           classes={TitleClasses}
           path='/history'
         >{props.repoName}</Title>
-        <Button className='Icon Icon_build Header-Button' classes={buildButtonClasses} text='Run build' />
+        <Button 
+          className='Icon Icon_build Header-Button' 
+          classes={buildButtonClasses} 
+          text='Run build' 
+          onClick={toggleModalShow}
+        />
         <Button className='Icon Icon_gear Header-Button' classes={settingsButtonClasses} text='Settings' />
       </Header>
       <Content className='Page-Content'
@@ -78,8 +92,18 @@ const History = (props) => {
           <Button classes={moreButtonClasses} text='Show more' />
         </TicketList>
       </Content>
+      <div>
+        {state.isShowModal && ReactDOM.createPortal(
+          <Modal onClose={toggleModalShow} />,
+          document.getElementById('portal')
+        )}
+      </div>
     </Fragment>
   )
+}
+
+History.defaultProps = {
+  isShowModal: false
 }
 
 const mapStateToProps = (state) => ({

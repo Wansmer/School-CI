@@ -1,4 +1,10 @@
 .Modal{
+  font-family: 'YS Text', Arial, Helvetica, sans-serif;
+  font-size: var(--font-size-xs);
+  line-height: var(--font-lh-s);
+  font-weight: 400;
+  background: var(--main-bg-color);
+  color: var(--color-text-main);
   &-Overlay{
     background: rgba(0, 0, 0, 0.4);
     position: absolute;
