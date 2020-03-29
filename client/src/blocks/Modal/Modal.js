@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router-dom'
 import './Modal.scss';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
+import { addToQueue } from '../../actions';
 
 const inputClasses = {
   mods: {
@@ -32,17 +34,43 @@ const settingsButtonClasses = {
 }
 
 const Modal = (props) => {
+  const [ data, setData ] = useState(props);
+
+  const onChangeHandler = (event) => {
+    event.persist();
+    setData((prevState) => ({...prevState, ...{ [event.target.name]: event.target.value }}));
+    console.log(data.commitHash);
+  }
+
+  const onClose = (event) => {
+    if (event.target === event.currentTarget) {
+      props.onClose(event);
+    }
+  }
+
+  const onSubminHandler = (event) => {
+    event.preventDefault();
+    addToQueue(data.commitHash);
+  }
+
   return (
     <div className='Modal'>
-      <div className='Modal-Overlay' onClick={props.onClose}>
+      <div className='Modal-Overlay' onClick={onClose} >
         <div className='Modal-Body'>
-          <form>
+          <form onSubmit={onSubminHandler}>
             <div className="Modal-Info">
               <h2 className="Modal-Title">New build</h2>
               <p className="Modal-Text">Enter the commit hash which you want to build.</p>
             </div>
             <Input className={inputClasses}>
-              <input className='Input-Input Input-Input_border_default' placeholder='Commit hash' />
+              <input 
+                type='text' 
+                name='commitHash' 
+                id='commitHash' 
+                className='Input-Input Input-Input_border_default' 
+                placeholder='Commit hash'
+                onChange={onChangeHandler}
+              />
               <span class="Input-Icon Icon Icon_inputClear"></span>
             </Input>
             <div className='Modal-ButtonsGroup'>
@@ -63,6 +91,10 @@ const Modal = (props) => {
       </div>
     </div>
   )
+}
+
+Modal.defaultProps = {
+  commitHash: ''
 }
 
 export default connect()(Modal);

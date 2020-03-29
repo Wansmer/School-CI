@@ -67,6 +67,7 @@ const Form = (props) => {
       setConfig(props.config);
     }
   }, [props.config]);
+
   const onChangeHandler = (event) => {
     event.persist();
     setConfig((prevState) => ({...prevState, ...{ [event.target.name]: event.target.value }}));
@@ -131,6 +132,7 @@ const Form = (props) => {
           <label htmlFor="period" className="Input-Label">Synchronize every</label>
           <input 
             type="text" 
+            pattern="^[ 0-9]+$"
             name="period" 
             id="period" 
             className="Input-Input Input-Input_border_default Content-Form-Input_small" 
@@ -141,7 +143,7 @@ const Form = (props) => {
         </Input>
       </div>
       <div className="Form-Field Content-Form-Field">
-        <Button type='submit' classes={saveButtonClasses} text='Save' />
+        <Button type='submit' classes={saveButtonClasses} text='Save' disabled />
         <Button classes={settingsButtonClasses} text='Cancel' />
       </div>
     </form>

@@ -8,6 +8,7 @@ import Button from '../blocks/Button/Button';
 import { getBuildDetails } from '../actions';
 import Content from '../blocks/Content/Content';
 import Preformatted from '../blocks/Preformatted/Preformatted';
+import { addToQueue } from '../actions';
 
 
 const TitleClasses = {
@@ -52,6 +53,11 @@ const Details = (props) => {
     props.getBuildDetails(props.match.params.buildId)
   }, [])
 
+  const reBuild = (event) => {
+    event.preventDefault();
+    addToQueue(props.ticket.commitHash);
+  }
+
   return (
     <Fragment>
       <Header>
@@ -60,10 +66,19 @@ const Details = (props) => {
           classes={TitleClasses}
           path='/history'
         >{props.repoName}</Title>
-        <Button className='Icon Icon_rebuild Header-Button' classes={buildButtonClasses} text='Rebuild' />
-        <Button className='Icon Icon_gear Header-Button' classes={settingsButtonClasses} text='Settings' />
+        <Button 
+          className='Icon Icon_rebuild Header-Button' 
+          classes={buildButtonClasses} 
+          text='Rebuild' 
+          onClick={reBuild}
+        />
+        <Button 
+          className='Icon Icon_gear Header-Button' 
+          classes={settingsButtonClasses} 
+          text='Settings' 
+        />
       </Header>
-      <Content classes={contentClasses}>
+      <Content classes={contentClasses} className='Page-Content'>
         <TicketList>
           <Ticket className='Ticket_show_details' value={props.ticket}/>
           <Preformatted>
