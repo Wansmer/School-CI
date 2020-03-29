@@ -15,8 +15,8 @@ const contentClasses = {
   elems: {
     Inner: {
       mods: {
-        alignVertical: 'center',
-        alignHorizon: 'center'
+        alignVertical: 'top',
+        alignHorizon: 'left'
       }
     }
   }
@@ -43,7 +43,7 @@ export const History = (props) => {
       <Content className='Page-Content'
                classes={contentClasses} >
         <TicketList tickets={tickets} >
-          <Button classes={moreButtonClasses}/>
+          <Button classes={moreButtonClasses} text='More' />
         </TicketList>
       </Content>
     </Fragment>

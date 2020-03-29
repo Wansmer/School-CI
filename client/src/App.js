@@ -27,7 +27,7 @@ export function App(props) {
           <Route path={'/details/:buildId'} component={Details}/>
         </Switch>
       <Footer />
-      <Modal/>
+      {/* <Modal/> */}
       </div>
     </Router>
   );

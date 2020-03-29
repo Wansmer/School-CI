@@ -111,7 +111,7 @@
   }
 
   &_status{
-    &_success{
+    &_Success{
       & .Ticket-Number{
         color: var(--text-success-color);
         &::before{
@@ -120,7 +120,7 @@
         }
       }
     }
-    &_process{
+    &_process, &_InProgress, &_Waiting{
       & .Ticket-Number{
         color: var(--text-process-color);
         &::before{

@@ -26,9 +26,8 @@ router.post('/', jsonParser, async (req, res) => {
     await conf.setConf(data);
     const cloneRepo = cp.fork('app/cloneRepo.js');
     cloneRepo.send(data);
-    await cloneRepo.on('message', (message) => {
-      console.log(message);
-      res.send(message);
+    await cloneRepo.on('message', (data) => {
+      res.send(data);
     })
   } catch (error) {
     res.send(error);

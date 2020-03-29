@@ -3,12 +3,20 @@ import './Ticket.scss';
 import { Link } from 'react-router-dom';
 // import { expandClasses } from '../../utils';
 
+const getHumanDate = (data) => {
+  data = new Date(data);
+  const settings = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  const locale = 'ru';
+  console.log(data.toLocaleString(locale, settings));
+  return data.toLocaleString(locale, settings);
+}
+
 function Ticket(props) {
   return (
     <div class={'Ticket ' + 'Ticket_status_' + props.value.status}>
       <div class="Ticket-Info">
         <div class="Ticket-Summary">
-          <span class="Ticket-Number">{props.value.buildNumber}</span>
+          <span class="Ticket-Number">{'#' + props.value.buildNumber}</span>
           <span class="Ticket-Title">{props.value.commitMessage}</span>
         </div>
         <div class="Ticket-Owner">
@@ -21,9 +29,8 @@ function Ticket(props) {
       </div>
       <div class="Ticket-Meta Ticket-Meta_position_right">
         <Link to={'/'} className={'Link Icon_date Link_icon_left Link_color_dark Ticket-Date'} >
-          <time datetime={props.value.start}>
-            {/* TODO: прописать формулу на представление даты по русски */}
-            {props.value.start}
+          <time datetime={Date(props.value.start)}>
+            {getHumanDate(props.value.start)}
           </time>
         </Link>
         <Link to={'/'} >
