@@ -1,7 +1,7 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import TicketList from '../blocks/TicketList/TicketList';
 import Ticket from '../blocks/Ticket/Ticket';
 import Header from '../blocks/Header/Header';
@@ -9,6 +9,7 @@ import Title from '../blocks/Title/Title';
 import Content from '../blocks/Content/Content';
 import Button from '../blocks/Button/Button';
 import Modal from '../blocks/Modal/Modal';
+import { getTicketList } from '../actions';
 
 const TitleClasses = {
   mods: {
@@ -57,13 +58,22 @@ const History = (props) => {
 
   const [state, setState] = useState(props);
 
+  useEffect(() => {
+    props.getTicketList();
+  }, [])
+
+  useEffect(() => {
+    setState((prevState) => ({...prevState, ...{ ticketList: props.TicketList }}))
+  }, [props.ticketList])
+
   const toggleModalShow = (event) => {
     event.preventDefault();
     setState((prevState) => ({...prevState, ...{ isShowModal: !(state.isShowModal) }}));
   }
 
   const tickets = props.ticketList;
-  const listTickets = tickets.map((ticket) => (<Link to={'/build/' + ticket.id} key={ticket.id}>
+  const listTickets = tickets.map((ticket) => (
+    <Link path={'/build/' + ticket.id} key={ticket.id}>
       <Ticket value={ticket} key={ticket.id} />
     </Link>)
   )
@@ -108,7 +118,8 @@ const History = (props) => {
 }
 
 History.defaultProps = {
-  isShowModal: false
+  isShowModal: false,
+  ticketList: []
 }
 
 const mapStateToProps = (state) => ({
@@ -116,4 +127,8 @@ const mapStateToProps = (state) => ({
   ticketList: state.ticketList
 })
 
-export default connect(mapStateToProps)(History);
+const mapDispatchToProps = (dispatch) => ({
+  getTicketList: () => dispatch(getTicketList())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(History);

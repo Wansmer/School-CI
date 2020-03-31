@@ -10,10 +10,10 @@ import Footer from './blocks/Footer/Footer';
 import { getConfig } from './actions';
 
 export function App(props) {
+
   useEffect(() => {
     props.getConfig();
-    // props.getTicketList();
-  }, [props])
+  }, [])
   
   return (
     <Router>
@@ -32,13 +32,11 @@ export function App(props) {
 }
 
 const mapStateToProps = (state) => ({
-  config: state.config,
-  // ticketList: state.ticketLists
+  config: state.config
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getConfig: () => dispatch(getConfig()),
-  // getTicketList: () => dispatch(getTicketList())
+  getConfig: () => dispatch(getConfig())
 });
 
 export const ConnectedApp = connect(
