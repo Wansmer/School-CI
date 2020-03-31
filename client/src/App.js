@@ -7,12 +7,12 @@ import Settings from './pages/Settings';
 import History from './pages/History';
 import Details from './pages/Details';
 import Footer from './blocks/Footer/Footer';
-import { getConfig, getTicketList } from './actions';
+import { getConfig } from './actions';
 
 export function App(props) {
   useEffect(() => {
     props.getConfig();
-    props.getTicketList();
+    // props.getTicketList();
   }, [props])
   
   return (
@@ -33,12 +33,12 @@ export function App(props) {
 
 const mapStateToProps = (state) => ({
   config: state.config,
-  ticketList: state.ticketLists
+  // ticketList: state.ticketLists
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getConfig: () => dispatch(getConfig()),
-  getTicketList: () => dispatch(getTicketList())
+  // getTicketList: () => dispatch(getTicketList())
 });
 
 export const ConnectedApp = connect(

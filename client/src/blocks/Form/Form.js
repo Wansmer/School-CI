@@ -66,8 +66,7 @@ const Form = (props) => {
 
   useEffect(() => {
     if (Object.keys(props.config).length) {
-      console.log(123);
-      setConfig((prevState) => ({...prevState, ...props.config}));
+      setConfig(props.config);
     }
   }, [props.config]);
 
@@ -173,7 +172,6 @@ const Form = (props) => {
 }
 
 Form.defaultProps = {
-  config: {},
   isDisabled: false
 }
 

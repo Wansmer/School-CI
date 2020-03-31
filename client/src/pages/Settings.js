@@ -32,14 +32,8 @@ const Settings = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    config: state.config
-  }
-}
-
 Settings.defaultProps = {
   title: 'School CI server'
 }
 
-export default connect(mapStateToProps)(Settings);
+export default connect()(Settings);
