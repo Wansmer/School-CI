@@ -33,6 +33,7 @@ const settingsButtonClasses = {
 }
 
 const Modal = (props) => {
+  
   const [ data, setData ] = useState(props);
 
   const onChangeHandler = (event) => {
@@ -48,7 +49,7 @@ const Modal = (props) => {
   }
 
   const onSubminHandler = (event) => {
-    event.persist();
+    event.preventDefault();
     addToQueue(data.commitHash);
   }
 
