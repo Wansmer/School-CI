@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import TicketList from '../blocks/TicketList/TicketList';
 import Ticket from '../blocks/Ticket/Ticket';
 import Header from '../blocks/Header/Header';
@@ -71,11 +71,21 @@ const History = (props) => {
     setState((prevState) => ({...prevState, ...{ isShowModal: !(state.isShowModal) }}));
   }
 
+  const goToDetails = (event) => {
+    event.persist();
+    props.history.push(`/build/${event.currentTarget.id}`)
+    console.log(event.currentTarget.id);
+  }
+
   const tickets = props.ticketList;
   const listTickets = tickets.map((ticket) => (
-    <Link path={'/build/' + ticket.id} key={ticket.id}>
-      <Ticket value={ticket} key={ticket.id} />
-    </Link>)
+      <Ticket 
+        value={ticket} 
+        id={ticket.id}
+        key={ticket.id} 
+        goToDetails={goToDetails}
+      />
+    )
   )
 
   return (
@@ -118,8 +128,7 @@ const History = (props) => {
 }
 
 History.defaultProps = {
-  isShowModal: false,
-  ticketList: []
+  isShowModal: false
 }
 
 const mapStateToProps = (state) => ({
