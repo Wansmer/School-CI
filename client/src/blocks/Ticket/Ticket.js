@@ -1,19 +1,7 @@
 import React from 'react';
 import './Ticket.scss';
 import { Link } from 'react-router-dom';
-
-const getHumanDate = (data) => {
-  data = new Date(data);
-  const settings = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-  return data.toLocaleString('ru', settings);
-}
-
-const getHumanDuration = (duration) => {
-  // TODO: написать функцию
-  const minutes = 1000 * 60;
-  const hours = 60 * minutes;
-  return duration;
-}
+import { getHumanDate, getHumanDuration } from '../../utils';
 
 function Ticket(props) {
   return (
@@ -34,12 +22,12 @@ function Ticket(props) {
       <div className="Ticket-Meta Ticket-Meta_position_right">
         <Link to={'/'} className={'Link Icon_date Link_icon_left Link_color_dark Ticket-Date'} >
           <time dateTime={Date(props.value.start)}>
-            {getHumanDate(props.value.start || '---')}
+            {getHumanDate(props.value.start)}
           </time>
         </Link>
         <Link to={'/'} className={'Link Icon_duration Link_icon_left Link_color_dark Ticket-Duration'}>
           <time dateTime={props.value.duration}>
-            {getHumanDuration(props.value.duration) || '---'}
+            {getHumanDuration(props.value.duration)}
           </time>
         </Link>
       </div>
