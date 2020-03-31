@@ -48,8 +48,14 @@ const Modal = (props) => {
   }
 
   const onSubminHandler = (event) => {
-    event.preventDefault();
+    event.persist();
     addToQueue(data.commitHash);
+  }
+
+  const clearInput = (event) => {
+    event.persist();
+    const target = event.target.offsetParent.getElementsByTagName('input')[0].name;
+    setData((prevState) => ({...prevState, ...{ [target]: '' }}));
   }
 
   return (
@@ -70,7 +76,7 @@ const Modal = (props) => {
                 placeholder='Commit hash'
                 onChange={onChangeHandler}
               />
-              <span className="Input-Icon Icon Icon_inputClear"></span>
+              { data.commitHash && <span className="Input-Icon Icon Icon_inputClear" onClick={clearInput}></span> }
             </Input>
             <div className='Modal-ButtonsGroup'>
               <Button 

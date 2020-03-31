@@ -53,10 +53,11 @@ const settingsButtonClasses = {
 }
 
 const defaultConfig = {
+  id: '',
   repoName: '',
   mainBranch: '',
   buildCommand: '',
-  period: 0
+  period: 10
 }
 
 const Form = (props) => {
@@ -65,7 +66,8 @@ const Form = (props) => {
 
   useEffect(() => {
     if (Object.keys(props.config).length) {
-      setConfig(props.config);
+      console.log(123);
+      setConfig((prevState) => ({...prevState, ...props.config}));
     }
   }, [props.config]);
 
@@ -75,9 +77,15 @@ const Form = (props) => {
   }
 
   const onSubminHandler = (event) => {
-    event.preventDefault();
+    event.persist();
     props.saveConfig(config);
     setState((prevState) => ({...prevState, ...{ isDisabled: !state.isDisabled }}))
+  }
+
+  const clearInput = (event) => {
+    event.persist();
+    const target = event.target.offsetParent.getElementsByTagName('input')[0].name;
+    setConfig((prevState) => ({...prevState, ...{ [target]: '' }}));
   }
 
   return (
@@ -98,6 +106,7 @@ const Form = (props) => {
             onChange={onChangeHandler}
             required
           />
+          { config.repoName && <span className="Input-Icon Icon Icon_inputClear" onClick={clearInput}></span> }
         </Input>
       </div>
       <div className="Form-Field">
@@ -113,6 +122,7 @@ const Form = (props) => {
             onChange={onChangeHandler}
             required
           />
+          { config.buildCommand && <span className="Input-Icon Icon Icon_inputClear" onClick={clearInput}></span> }
         </Input>
       </div>
       <div className="Form-Field">
@@ -127,6 +137,7 @@ const Form = (props) => {
             value={config.mainBranch}
             onChange={onChangeHandler}
           />
+          { config.mainBranch && <span className="Input-Icon Icon Icon_inputClear" onClick={clearInput}></span> }
         </Input>
       </div>
       <div className="Form-Field">
@@ -162,6 +173,7 @@ const Form = (props) => {
 }
 
 Form.defaultProps = {
+  config: {},
   isDisabled: false
 }
 
