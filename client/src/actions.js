@@ -11,6 +11,7 @@ export const saveConfig = (data) => {
         }
       });
       const res = await response.json();
+      console.log('Код ответа сервера: ', res.code);
       dispatch({
         type: SAVE_CONFIG,
         payload: data,

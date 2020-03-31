@@ -67,14 +67,13 @@ const History = (props) => {
   }, [props.ticketList])
 
   const toggleModalShow = (event) => {
-    event.preventDefault();
+    event.persist();
     setState((prevState) => ({...prevState, ...{ isShowModal: !(state.isShowModal) }}));
   }
 
   const goToDetails = (event) => {
     event.persist();
     props.history.push(`/build/${event.currentTarget.id}`)
-    console.log(event.currentTarget.id);
   }
 
   const tickets = props.ticketList;

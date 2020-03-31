@@ -70,15 +70,23 @@ const Form = (props) => {
     }
   }, [props.config]);
 
+  useEffect(() => {
+    setState((prevState) => ({ ...prevState, ...{ configSaveRes: props.configSaveRes } }));
+    if (props.configSaveRes && props.configSaveRes !== 200) {
+      setState((prevState) => ({...prevState, ...{ isDisabled: false }}));
+    }
+  }, [props.configSaveRes])
+
   const onChangeHandler = (event) => {
     event.persist();
     setConfig((prevState) => ({...prevState, ...{ [event.target.name]: event.target.value }}));
   }
 
   const onSubminHandler = (event) => {
-    event.persist();
+    event.preventDefault();
     props.saveConfig(config);
-    setState((prevState) => ({...prevState, ...{ isDisabled: !state.isDisabled }}))
+    setState((prevState) => ({...prevState, ...{ isDisabled: !state.isDisabled }}));
+    console.log('OnSubmit', state.isDisabled);
   }
 
   const clearInput = (event) => {

@@ -50,7 +50,7 @@ const Details = (props) => {
 
   useEffect(() => {
     props.getBuildDetails(props.match.params.buildId)
-  }, [props])
+  }, [])
 
   const reBuild = (event) => {
     event.preventDefault();

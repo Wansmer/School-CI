@@ -10,6 +10,8 @@ const getHumanDate = (data) => {
 
 const getHumanDuration = (duration) => {
   // TODO: написать функцию
+  const minutes = 1000 * 60;
+  const hours = 60 * minutes;
   return duration;
 }
 
