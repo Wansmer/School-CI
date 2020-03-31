@@ -35,8 +35,8 @@ exports.installPackage = async (data) => {
 exports.goToCommit = async (commitHash, data) => {
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
-    await exec(`git checkout ${commitHash}&& git log`, settings);
-    return true;
+    const {stdout, stderr} = await exec(`git checkout ${commitHash}`, settings);
+    return {stdout, stderr};
   } catch (error) {
     return error;
   }

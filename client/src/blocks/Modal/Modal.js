@@ -39,7 +39,6 @@ const Modal = (props) => {
   const onChangeHandler = (event) => {
     event.persist();
     setData((prevState) => ({...prevState, ...{ [event.target.name]: event.target.value }}));
-    console.log(data.commitHash);
   }
 
   const onClose = (event) => {

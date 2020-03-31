@@ -78,7 +78,6 @@ export const addToQueue = async (commitHash) => {
         'Content-Type': 'application/json'
       }
     });
-    await response.json();
     return true;
   } catch (err) {
     console.log(err);
