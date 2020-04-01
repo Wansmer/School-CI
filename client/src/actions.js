@@ -11,11 +11,11 @@ export const saveConfig = (data) => {
         }
       });
       const res = await response.json();
-      console.log('Код ответа сервера: ', res.code);
+      console.log('Код ответа сервера: ', res);
       dispatch({
         type: SAVE_CONFIG,
         payload: data,
-        code: res.code
+        res: res
       });
     } catch (err) {
       console.log(err);

@@ -58,7 +58,7 @@ const History = (props) => {
 
   const [state, setState] = useState(props);
   const history = useHistory();
-  
+
   useEffect(() => {
     props.getTicketList();
   }, [])
@@ -74,7 +74,7 @@ const History = (props) => {
 
   const goToDetails = (event) => {
     event.persist();
-    props.history.push(`/build/${event.currentTarget.id}`)
+    history.push(`/build/${event.currentTarget.id}`);
   }
 
   const clickHandler = (event) => {
@@ -117,7 +117,7 @@ const History = (props) => {
       <Content className='Page-Content'
                classes={contentClasses} >
         <TicketList >
-          {listTickets}
+          { listTickets.length ? listTickets : 'No builds here yet. Push a button "Run build" for adding new build...' }
           <Button classes={moreButtonClasses} text='Show more' />
         </TicketList>
       </Content>

@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import Header from "../blocks/Header/Header";
 import Content from "../blocks/Content/Content";
@@ -12,6 +13,8 @@ const TitleClasses = {
 }
 
 const Settings = (props) => {
+
+  const [state, setState] = useState(props);
 
   return (
     <Fragment>
@@ -33,12 +36,7 @@ const Settings = (props) => {
 };
 
 Settings.defaultProps = {
-  title: 'School CI server',
-  showError: false
+  title: 'School CI server'
 }
-
-const mapStateToProps = (state) => ({
-  error: state.error
-});
 
 export default connect()(Settings);

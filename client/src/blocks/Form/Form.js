@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import './Form.scss';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
+import Error from '../Error/Error';
+
 import { connect } from 'react-redux';
 import { saveConfig, cleanSaveCode } from '../../actions';
 
@@ -74,9 +76,9 @@ const Form = (props) => {
 
   useEffect(() => {
     setState((prevState) => ({ ...prevState, ...{ configSaveRes: props.configSaveRes } }));
-    if (props.configSaveRes && props.configSaveRes !== 200) {
-      setState((prevState) => ({...prevState, ...{ isDisabled: false }}));
-    } else if (props.configSaveRes && props.configSaveRes === 200) {
+    if (props.configSaveRes && props.configSaveRes.code !== 200) {
+      setState((prevState) => ({...prevState, ...{ isDisabled: false, isShowError: true }}));
+    } else if (props.configSaveRes && props.configSaveRes.code === 200) {
       props.cleanSaveCode();
       history.push('/history');
     }
@@ -91,6 +93,12 @@ const Form = (props) => {
     event.preventDefault();
     props.saveConfig(config);
     setState((prevState) => ({...prevState, ...{ isDisabled: !state.isDisabled }}));
+  }
+
+  const toggleErrorShow = (event) => {
+    console.log('Toggle error show...');
+    event.persist();
+    setState((prevState) => ({...prevState, ...{ isErrorModal: !state.isErrorModal }}));
   }
 
   const clearInput = (event) => {
@@ -179,12 +187,16 @@ const Form = (props) => {
           isDisabled={state.isDisabled}
         />
       </div>
+      <div className="Form-Field">
+        { state.isShowError && <Error onClick={toggleErrorShow} errorText={state.configSaveRes.stderr} /> }
+      </div>
     </form>
   )
 }
 
 Form.defaultProps = {
-  isDisabled: false
+  isDisabled: false,
+  isShowError: false
 }
 
 const mapStateToProps = (state) => ({

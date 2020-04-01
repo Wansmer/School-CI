@@ -15,7 +15,7 @@ export const rootReducer = (state = defaultState, action) => {
     case GET_CONFIG:
       return Object.keys(action.payload).length === 0 ? state : { ...state, config: action.payload };
     case SAVE_CONFIG:
-      return { ...state, config: action.payload, configSaveRes: action.code  };
+      return { ...state, config: action.payload, configSaveRes: action.res };
     case CLEAN_SAVE_CODE:
       return { ...state, configSaveRes: ''  };
     case GET_TICKET_LIST:

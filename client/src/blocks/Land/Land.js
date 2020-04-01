@@ -10,7 +10,7 @@ const actionButtonClasses = {
   }
 }
 
-function Land(props) {
+function Land() {
 
   const history = useHistory();
 
