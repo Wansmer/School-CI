@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import {Link} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Header from "../blocks/Header/Header";
 import Content from "../blocks/Content/Content";
 import Button from '../blocks/Button/Button';
@@ -33,6 +33,13 @@ const contentClasses = {
 }
 
 export const Home = (props) => {
+  const history = useHistory();
+
+  const clickHandler = (event) => {
+    event.preventDefault();
+    history.push('/settings');
+  }
+
   return (
     <Fragment>
       <Header className="Page-Header" >
@@ -44,13 +51,12 @@ export const Home = (props) => {
         >
           {props.title}
         </Title>
-        <Link to="/settings">
-          <Button
-            className="Header-Button Icon Icon_gear"
-            text="Settings"
-            classes={ settingsButtonClasses }
-          />
-        </Link>
+        <Button
+          className="Header-Button Icon Icon_gear"
+          text="Settings"
+          classes={ settingsButtonClasses }
+          onClick={clickHandler}
+        />
       </Header>
       <Content 
         className="Page-Content" 

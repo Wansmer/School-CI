@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import "./Land.scss";
 import Button from '../Button/Button';
 
@@ -11,24 +11,28 @@ const actionButtonClasses = {
 }
 
 function Land(props) {
+
+  const history = useHistory();
+
+  const clickHandler = (event) => {
+    event.preventDefault();
+    history.push('/settings');
+  }
+
   return (
     <div className="Land">
       <div className="Land-Logo"></div>
       <p className="Land-Text">
         Configure repository connection and&#160;synchronization settings
       </p>
-      <Link to={props.pathTo}>
-        <Button className="Land-Button" 
-                text="Open settings"
-                classes={actionButtonClasses}
-                />
-      </Link>
+      <Button 
+        className="Land-Button" 
+        text="Open settings"
+        classes={actionButtonClasses}
+        onClick={clickHandler}
+      />
     </div>
   );
-}
-
-Land.defaultProps = {
-  pathTo: '/settings'
 }
 
 export default Land;

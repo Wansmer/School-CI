@@ -8,7 +8,7 @@ import Button from '../blocks/Button/Button';
 import { getBuildDetails, addToQueue } from '../actions';
 import Content from '../blocks/Content/Content';
 import Preformatted from '../blocks/Preformatted/Preformatted';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const TitleClasses = {
   mods: {
@@ -48,6 +48,8 @@ const settingsButtonClasses = {
 
 const Details = (props) => {
 
+  const history = useHistory();
+
   useEffect(() => {
     props.getBuildDetails(props.match.params.buildId)
   }, [])
@@ -55,6 +57,11 @@ const Details = (props) => {
   const reBuild = (event) => {
     event.preventDefault();
     addToQueue(props.ticket.commitHash);
+  }
+
+  const clickHandler = (event) => {
+    event.preventDefault();
+    history.push('/settings');
   }
 
   return (
@@ -73,13 +80,12 @@ const Details = (props) => {
           text='Rebuild' 
           onClick={reBuild}
         />
-        <Link to='/settings'>
-          <Button 
-            className='Icon Icon_gear Header-Button' 
-            classes={settingsButtonClasses} 
-            text='Settings' 
-          />
-        </Link>
+        <Button 
+          className='Icon Icon_gear Header-Button' 
+          classes={settingsButtonClasses} 
+          text='Settings' 
+          onClick={clickHandler}
+        />
       </Header>
       <Content 
         classes={contentClasses} 

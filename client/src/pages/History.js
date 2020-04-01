@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import TicketList from '../blocks/TicketList/TicketList';
 import Ticket from '../blocks/Ticket/Ticket';
 import Header from '../blocks/Header/Header';
@@ -57,7 +57,8 @@ const settingsButtonClasses = {
 const History = (props) => {
 
   const [state, setState] = useState(props);
-
+  const history = useHistory();
+  
   useEffect(() => {
     props.getTicketList();
   }, [])
@@ -74,6 +75,11 @@ const History = (props) => {
   const goToDetails = (event) => {
     event.persist();
     props.history.push(`/build/${event.currentTarget.id}`)
+  }
+
+  const clickHandler = (event) => {
+    event.preventDefault();
+    history.push('/settings');
   }
 
   const tickets = props.ticketList;
@@ -101,13 +107,12 @@ const History = (props) => {
           text='Run build' 
           onClick={toggleModalShow}
         />
-        <Link to='/settings'>
-          <Button 
-            className='Icon Icon_gear Header-Button' 
-            classes={settingsButtonClasses} 
-            text='Settings' 
-          />
-        </Link>
+        <Button 
+          className='Icon Icon_gear Header-Button' 
+          classes={settingsButtonClasses} 
+          text='Settings' 
+          onClick={clickHandler}
+        />
       </Header>
       <Content className='Page-Content'
                classes={contentClasses} >
