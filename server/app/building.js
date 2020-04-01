@@ -23,7 +23,7 @@ process.on('message', (data) => {
   })
   .then((arr) => {
     const status = !(arr[1] instanceof Error);
-    const buildLog = arr[1].stdout + arr[1].stderr;
+    const buildLog = arr[1].stderr + arr[1].stdout;
     // console.log(buildLog);
     const buildEnd = {
       "buildId": data.buildId,
