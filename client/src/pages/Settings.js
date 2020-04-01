@@ -33,7 +33,12 @@ const Settings = (props) => {
 };
 
 Settings.defaultProps = {
-  title: 'School CI server'
+  title: 'School CI server',
+  showError: false
 }
+
+const mapStateToProps = (state) => ({
+  error: state.error
+});
 
 export default connect()(Settings);

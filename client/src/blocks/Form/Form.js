@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import './Form.scss';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 import { connect } from 'react-redux';
-import { saveConfig } from '../../actions';
+import { saveConfig, cleanSaveCode } from '../../actions';
 
 const inputReqClasses = {
   mods: {
@@ -63,6 +64,7 @@ const defaultConfig = {
 const Form = (props) => {
   const [config, setConfig] = useState(defaultConfig);
   const [state, setState] = useState(props);
+  const history = useHistory();
 
   useEffect(() => {
     if (Object.keys(props.config).length) {
@@ -74,6 +76,9 @@ const Form = (props) => {
     setState((prevState) => ({ ...prevState, ...{ configSaveRes: props.configSaveRes } }));
     if (props.configSaveRes && props.configSaveRes !== 200) {
       setState((prevState) => ({...prevState, ...{ isDisabled: false }}));
+    } else if (props.configSaveRes && props.configSaveRes === 200) {
+      props.cleanSaveCode();
+      history.push('/history');
     }
   }, [props.configSaveRes])
 
@@ -86,7 +91,6 @@ const Form = (props) => {
     event.preventDefault();
     props.saveConfig(config);
     setState((prevState) => ({...prevState, ...{ isDisabled: !state.isDisabled }}));
-    console.log('OnSubmit', state.isDisabled);
   }
 
   const clearInput = (event) => {
@@ -180,7 +184,7 @@ const Form = (props) => {
 }
 
 Form.defaultProps = {
-  isDisabled: true
+  isDisabled: false
 }
 
 const mapStateToProps = (state) => ({
@@ -189,7 +193,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  saveConfig: (data) => dispatch(saveConfig(data))
+  saveConfig: (data) => dispatch(saveConfig(data)),
+  cleanSaveCode: () => dispatch(cleanSaveCode()) 
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

@@ -1,4 +1,4 @@
-import { SAVE_CONFIG, GET_CONFIG, SERVER_URL, GET_TICKET_LIST, GET_BUILD_DETAILS } from './constants';
+import { SAVE_CONFIG, GET_CONFIG, SERVER_URL, GET_TICKET_LIST, GET_BUILD_DETAILS, CLEAN_SAVE_CODE } from './constants';
 
 export const saveConfig = (data) => {
   return async (dispatch) => {
@@ -84,3 +84,10 @@ export const addToQueue = async (commitHash) => {
   }
 };
 
+export const cleanSaveCode = () => {
+  return (dispatch) => {
+    dispatch({
+      type: CLEAN_SAVE_CODE
+    })
+  }
+};
