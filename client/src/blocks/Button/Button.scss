@@ -34,6 +34,7 @@
     &:active{
       background: var(--color-bg-control);
       border: var(--border-size-m) solid var(--border-color-button-control);
+      color: inherit;
     }
   }
 
@@ -45,6 +46,7 @@
     &:active{
       background: var(--color-bg-action);
       border: var(--border-size-m) solid var(--border-color-button-action);
+      color: inherit;
     }
   }
   &:disabled{

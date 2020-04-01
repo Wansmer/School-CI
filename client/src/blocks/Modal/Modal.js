@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import './Modal.scss';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
@@ -102,4 +101,4 @@ Modal.defaultProps = {
   commitHash: ''
 }
 
-export default connect()(Modal);
+export default Modal;

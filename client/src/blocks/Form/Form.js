@@ -95,6 +95,11 @@ const Form = (props) => {
     setState((prevState) => ({...prevState, ...{ isDisabled: !state.isDisabled }}));
   }
 
+  const goToHome = (event) => {
+    event.preventDefault();
+    history.push('/');
+  }
+
   const toggleErrorShow = (event) => {
     console.log('Toggle error show...');
     event.persist();
@@ -185,6 +190,7 @@ const Form = (props) => {
           classes={settingsButtonClasses} 
           text='Cancel' 
           isDisabled={state.isDisabled}
+          onClick={goToHome}
         />
       </div>
       <div className="Form-Field">

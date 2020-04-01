@@ -7,14 +7,16 @@ const settingsAnsi = {
   bg: '#FFF'
 };
 
-function Preformatted(props) {
-  const convert = new Convert(settingsAnsi);
-  const res = convert.toHtml(props.children);
-  const html = { __html: res };
+const convert = new Convert(settingsAnsi);
+
+const Preformatted = (props) => {
+  
+  const ansiLog = props.children ? convert.toHtml(props.children) : `<div>Waiting...</div>`;
+  const log = { __html: ansiLog };
+
   return (
     <div className="Preformatted TicketList-Log"
-         dangerouslySetInnerHTML={html} >
-      {/* {res || 'Waiting...'} */}
+         dangerouslySetInnerHTML={log} >
     </div>
   )
 }
