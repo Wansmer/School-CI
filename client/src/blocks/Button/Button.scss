@@ -47,6 +47,12 @@
       border: var(--border-size-m) solid var(--border-color-button-action);
     }
   }
+  &:disabled{
+    background: var(--color-bg-pre);
+    color: var(--text-disabled-color);
+    border: var(--border-size-m) solid transparent;
+    cursor: not-allowed;
+  }
 
   &_iconMix{
     padding-left: 3px;

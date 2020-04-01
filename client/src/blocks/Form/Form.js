@@ -180,7 +180,7 @@ const Form = (props) => {
 }
 
 Form.defaultProps = {
-  isDisabled: false
+  isDisabled: true
 }
 
 const mapStateToProps = (state) => ({
