@@ -25,25 +25,27 @@ app.get('/', (req, res) => {
 app.use('/api/settings', routerConf);
 app.use('/api/builds', routerBuild);
 
-function delay() {
-  return new Promise(resolve => setTimeout(resolve, 1000));
-}
+// TODO: проработать очередь
 
-async function delayedLog(item) {
-  await delay();
-  if (item.length) QuAPI.setStatus(JSON.parse(item).id, 'inProgress');
-  await delay();
-  if (item.length) QuAPI.deleteLine(JSON.parse(item).id);
-}
+// function delay() {
+//   return new Promise(resolve => setTimeout(resolve, 1000));
+// }
 
-async function startBuildFromQueue () {
-  const data = await readFile('./storage/queue.txt', 'utf8');
-  for (const line of data.split('\n')) {
-    await delayedLog(line);
-  }
-  setInterval(startBuildFromQueue, 10000);
-}
+// async function delayedLog(item) {
+//   await delay();
+//   if (item.length) QuAPI.setStatus(JSON.parse(item).id, 'inProgress');
+//   await delay();
+//   if (item.length) QuAPI.deleteLine(JSON.parse(item).id);
+// }
 
-startBuildFromQueue();
+// async function startBuildFromQueue () {
+//   const data = await readFile('./storage/queue.txt', 'utf8');
+//   for (const line of data.split('\n')) {
+//     await delayedLog(line);
+//   }
+//   setInterval(startBuildFromQueue, 10000);
+// }
+
+// startBuildFromQueue();
 
 app.listen(3001);
