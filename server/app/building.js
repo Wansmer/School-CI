@@ -24,14 +24,12 @@ process.on('message', (data) => {
   .then((arr) => {
     const status = !(arr[1] instanceof Error);
     const buildLog = arr[1].stderr + arr[1].stdout;
-    // console.log(buildLog);
     const buildEnd = {
       "buildId": data.buildId,
       "duration": Date.now() - new Date(arr[0].data.start),
       "success": status,
       "buildLog": buildLog
     }
-    console.log(Date.now() - new Date(arr[0].data.start));
     return build.setBuildFinish(buildEnd);
   })
   .then((res) => {

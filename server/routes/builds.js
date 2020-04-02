@@ -58,13 +58,10 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
     const commitInfo = JSON.parse(data);
     if (commitInfo.branchName === '') commitInfo.branchName = 'master';
     build.setBuildRequest(commitInfo)
-    .then((res) => {
-      console.log(res);
-      QuAPI.addLine(commitInfo.commitHash, res);
-      return build.getBuildList();
-    })
-    .then((response) => {
-      const buildId = response[0].id;
+    .then((buildInf) => {
+      console.log(buildInf);
+      QuAPI.addLine(commitInfo.commitHash, buildInf);
+      const buildId = buildInf.id;
       const startBuild = fork('app/building.js');
       startBuild.send({ settings, commitInfo, buildId });
       startBuild.on('exit', (code) => {
