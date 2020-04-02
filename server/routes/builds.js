@@ -1,7 +1,9 @@
 const express = require('express');
+const util = require('util');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const { spawn, fork, exec } = require('child_process');
+const promExec = util.promisify(exec);
 const { watcher } = require('../app/watcher');
 const jsonParser = bodyParser.json({extended: false});
 const { queueAPI } = require('../queueAPI');
@@ -53,29 +55,40 @@ router.get('/:buildId', async (req, res) => {
 
 router.post('/:commitHash', jsonParser, async (req, res) => {
   let settings = await conf.getConf();
-  const git = spawn('git', ['log', req.params.commitHash, '-n 1', '--pretty=format:{"authorName": "%an", "commitMessage": "%s", "commitHash": "%h","branchName": "%D"}'], { cwd: `./clone/${settings.repoName}`});
-  git.stdout.on('data', (data) => {
-    const commitInfo = JSON.parse(data);
-    if (commitInfo.branchName === '') commitInfo.branchName = 'master';
-    build.setBuildRequest(commitInfo)
-    .then((buildInf) => {
-      console.log(buildInf);
-      QuAPI.addLine(commitInfo.commitHash, buildInf);
-      const buildId = buildInf.id;
-      const startBuild = fork('app/building.js');
-      startBuild.send({ settings, commitInfo, buildId });
-      startBuild.on('exit', (code) => {
-        console.log('Код завершения процесса:', code);
-      })
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      throw error;
-    });
-  });
-  git.stderr.on('data', (data) => {
-    res.send(data);
-  });
+  let test = await promExec(`git log ${req.params.commitHash} -n 1 --pretty=format:%an:::%s:::%D`, { cwd: `./clone/${settings.repoName}`});
+  const [ authorName, commitMessage, branchName ] = test.stdout.split(':::');
+  const commitInfo = {
+    authorName, 
+    commitMessage, 
+    commitHash: req.params.commitHash,
+    branchName: branchName.split(', ')[branchName.split(', ').length - 1] || 'master'
+  }
+  const buildInfo = await build.setBuildRequest(commitInfo);
+  QuAPI.addLine(commitInfo.commitHash, buildInfo);
+  console.log(commitInfo, buildInfo);
+  // const git = spawn('git', ['log', req.params.commitHash, '-n 1', '--pretty=format:{"authorName": "%an", "commitMessage": "%s", "commitHash": "%h","branchName": "%D"}'], { cwd: `./clone/${settings.repoName}`});
+  // git.stdout.on('data', (data) => {
+  //   const commitInfo = JSON.parse(data);
+  //   if (commitInfo.branchName === '') commitInfo.branchName = 'master';
+  //   build.setBuildRequest(commitInfo)
+  //   .then((buildInf) => {
+  //     console.log(buildInf);
+  //     QuAPI.addLine(commitInfo.commitHash, buildInf);
+  //     const buildId = buildInf.id;
+  //     const startBuild = fork('app/building.js');
+  //     startBuild.send({ settings, commitInfo, buildId });
+  //     startBuild.on('exit', (code) => {
+  //       console.log('Код завершения процесса:', code);
+  //     })
+  //     res.sendStatus(200);
+  //   })
+  //   .catch((error) => {
+  //     throw error;
+  //   });
+  // });
+  // git.stderr.on('data', (data) => {
+  //   res.send(data);
+  // });
 })
 
 module.exports = router;
