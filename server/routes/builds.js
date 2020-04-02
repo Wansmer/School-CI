@@ -4,9 +4,12 @@ const bodyParser = require('body-parser');
 const { spawn, fork, exec } = require('child_process');
 const { watcher } = require('../app/watcher');
 const jsonParser = bodyParser.json({extended: false});
+const { queueAPI } = require('../queueAPI');
 
 const build = require('../api/build/build');
 const conf = require('../api/conf/conf');
+
+const QuAPI = new queueAPI('./storage/queue.txt');
 
 const statuses = {
   'Waiting': "Ticket_status_process",
@@ -55,7 +58,9 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
     const commitInfo = JSON.parse(data);
     if (commitInfo.branchName === '') commitInfo.branchName = 'master';
     build.setBuildRequest(commitInfo)
-    .then(() => {
+    .then((res) => {
+      console.log(res);
+      QuAPI.addLine(commitInfo.commitHash, res);
       return build.getBuildList();
     })
     .then((response) => {

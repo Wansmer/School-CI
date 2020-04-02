@@ -17,7 +17,7 @@ exports.getBuildList = async (offset = 0, limit = 25) => {
 exports.setBuildRequest = async (data) => {
   try {
     const response = await axios.post(BASE_URL + 'build/request', data, { headers });
-    return response.status;
+    return response.data.data;
   } catch (error) {
     return error;
   }
