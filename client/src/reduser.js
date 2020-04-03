@@ -12,7 +12,6 @@ const defaultState = {
 };
 
 export const rootReducer = (state = defaultState, action) => {
-  console.log('FROM ROOT_REDUCER: ', action.payload);
   switch (action.type) {
     case GET_CONFIG:
       return Object.keys(action.payload).length === 0 ? state : { ...state, config: action.payload };

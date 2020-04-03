@@ -1,11 +1,11 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import TicketList from '../blocks/TicketList/TicketList';
 import Ticket from '../blocks/Ticket/Ticket';
 import Header from '../blocks/Header/Header';
 import Title from '../blocks/Title/Title';
 import Button from '../blocks/Button/Button';
-import { getBuildDetails, addToQueue } from '../actions';
+import { getBuildDetails, addToQueue, cleanSaveCode } from '../actions';
 import Content from '../blocks/Content/Content';
 import Preformatted from '../blocks/Preformatted/Preformatted';
 import { useHistory } from 'react-router-dom';
@@ -47,16 +47,27 @@ const settingsButtonClasses = {
 }
 
 const Details = (props) => {
-
+  
+  const [data, setData] = useState(props);
   const history = useHistory();
 
   useEffect(() => {
     props.getBuildDetails(props.match.params.buildId)
   }, [])
 
+  useEffect(() => {
+    // setData((prevState) => ({ ...prevState, ...{ buildRequestRes: props.buildRequestRes } }));
+    console.log(props.buildRequestRes);
+    if (props.buildRequestRes && props.buildRequestRes.id) {
+      history.push(`/build/${props.buildRequestRes.id}`);
+      props.cleanSaveCode();
+    }
+  }, [props.buildRequestRes])
+
   const reBuild = (event) => {
     event.preventDefault();
-    addToQueue(props.ticket.commitHash);
+    props.addToQueue(props.ticket.commitHash);
+    setData((prevState) => ({...prevState, ...{ isDisabled: !data.isDisabled }}));
   }
 
   const clickHandler = (event) => {
@@ -78,12 +89,14 @@ const Details = (props) => {
           className='Icon Icon_rebuild Header-Button' 
           classes={buildButtonClasses} 
           text='Rebuild' 
+          isDisabled={props.isDisabled} 
           onClick={reBuild}
         />
         <Button 
           className='Icon Icon_gear Header-Button' 
           classes={settingsButtonClasses} 
           text='Settings' 
+          isDisabled={props.isDisabled} 
           onClick={clickHandler}
         />
       </Header>
@@ -105,14 +118,22 @@ const Details = (props) => {
   )
 }
 
+Details.defaultProps = {
+  isDisabled: false,
+  isShowError: false
+}
+
 const mapStateToProps = (state) => ({
   repoName: state.config.repoName,
   ticket: state.currentTicket.details,
-  ticketLog: state.currentTicket.log
+  ticketLog: state.currentTicket.log,
+  buildRequestRes: state.buildRequestRes
 })
 
 const mapDistpatchToProps = (dispatch) => ({
-  getBuildDetails: (id) => dispatch(getBuildDetails(id))
+  getBuildDetails: (id) => dispatch(getBuildDetails(id)),
+  addToQueue: (commitHash) => dispatch(addToQueue(commitHash)),
+  cleanSaveCode: () => dispatch(cleanSaveCode())
 })
 
 export default connect(mapStateToProps, mapDistpatchToProps)(Details);
