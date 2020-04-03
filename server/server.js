@@ -43,9 +43,10 @@ app.use('/api/builds', routerBuild);
 //   for (const line of data.split('\n')) {
 //     await delayedLog(line);
 //   }
+//   console.log('restart');
 //   setInterval(startBuildFromQueue, 10000);
 // }
 
-// startBuildFromQueue();
+startBuildFromQueue();
 
 app.listen(3001);
