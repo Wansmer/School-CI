@@ -47,6 +47,6 @@ app.use('/api/builds', routerBuild);
 //   setInterval(startBuildFromQueue, 10000);
 // }
 
-startBuildFromQueue();
+// startBuildFromQueue();
 
 app.listen(3001);
