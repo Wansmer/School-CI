@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import './Modal.scss';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
@@ -74,6 +75,7 @@ const Modal = (props) => {
                 className='Input-Input Input-Input_border_default' 
                 placeholder='Commit hash'
                 onChange={onChangeHandler}
+                value={data.commitHash}
               />
               { data.commitHash && <span className="Input-Icon Icon Icon_inputClear" onClick={clearInput}></span> }
             </Input>
@@ -101,4 +103,12 @@ Modal.defaultProps = {
   commitHash: ''
 }
 
-export default Modal;
+const mapStateToProps = (state) => ({
+
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  addToQueue: (commitHash) => dispatch(addToQueue(commitHash))
+})
+
+export default connect(mapStateToProps)(Modal);

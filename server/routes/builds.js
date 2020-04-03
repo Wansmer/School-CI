@@ -80,7 +80,7 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
       startBuild.on('exit', (code) => {
         console.log('Код завершения процесса:', code);
       })
-      res.sendStatus(200);
+      res.send(buildInf);
     })
     .catch((error) => {
       throw error;
