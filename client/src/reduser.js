@@ -1,4 +1,4 @@
-import { GET_CONFIG, SAVE_CONFIG, GET_TICKET_LIST, GET_BUILD_DETAILS, CLEAN_SAVE_CODE } from "./constants";
+import { GET_CONFIG, SAVE_CONFIG, GET_TICKET_LIST, GET_BUILD_DETAILS, CLEAN_SAVE_CODE, ADD_TO_QUEUE } from "./constants";
 
 const defaultState = {
   config: {},
@@ -7,21 +7,25 @@ const defaultState = {
     details: {},
     log: ''
   },
-  configSaveRes: ''
+  configSaveRes: '',
+  buildRequestRes: ''
 };
 
 export const rootReducer = (state = defaultState, action) => {
+  console.log('FROM ROOT_REDUCER: ', action.payload);
   switch (action.type) {
     case GET_CONFIG:
       return Object.keys(action.payload).length === 0 ? state : { ...state, config: action.payload };
     case SAVE_CONFIG:
       return { ...state, config: action.payload, configSaveRes: action.res };
     case CLEAN_SAVE_CODE:
-      return { ...state, configSaveRes: ''  };
+      return { ...state, configSaveRes: '', buildRequestRes: ''  };
     case GET_TICKET_LIST:
       return Object.keys(action.payload).length === 0 ? state : { ...state, ticketList: action.payload };
     case GET_BUILD_DETAILS:
       return Object.keys(action.payload).length === 0 ? state : { ...state, currentTicket: action.payload };
+    case ADD_TO_QUEUE:
+      return Object.keys(action.payload).length === 0 ? state : { ...state, buildRequestRes: action.payload };
     default: 
       return state;
   }

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './Modal.scss';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
-import { addToQueue } from '../../actions';
+import { addToQueue, cleanSaveCode } from '../../actions';
+import { useHistory } from 'react-router-dom';
 
 const inputClasses = {
   mods: {
@@ -35,6 +36,15 @@ const settingsButtonClasses = {
 const Modal = (props) => {
   
   const [ data, setData ] = useState(props);
+  const history = useHistory();
+
+  useEffect(() => {
+    setData((prevState) => ({ ...prevState, ...{ buildRequestRes: props.buildRequestRes } }))
+    if (props.buildRequestRes && props.buildRequestRes.id) {
+      history.push(`/build/${props.buildRequestRes.id}`);
+      props.cleanSaveCode();
+    }
+  }, [props.buildRequestRes])
 
   const onChangeHandler = (event) => {
     event.persist();
@@ -49,7 +59,8 @@ const Modal = (props) => {
 
   const onSubminHandler = (event) => {
     event.preventDefault();
-    addToQueue(data.commitHash);
+    props.addToQueue(data.commitHash);
+    setData((prevState) => ({...prevState, ...{ isDisabled: !data.isDisabled }}));
   }
 
   const clearInput = (event) => {
@@ -84,11 +95,13 @@ const Modal = (props) => {
                 type='submit' 
                 classes={saveButtonClasses} 
                 text='Run build' 
+                isDisabled={data.isDisabled}
               />
               <Button 
                 classes={settingsButtonClasses} 
                 className='Modal-Button Modal-Button_type_control' 
                 text='Cancel' 
+                isDisabled={data.isDisabled}
                 onClick={props.onClose} 
               />
             </div>
@@ -100,15 +113,18 @@ const Modal = (props) => {
 }
 
 Modal.defaultProps = {
-  commitHash: ''
+  commitHash: '',
+  isDisabled: false,
+  isShowError: false
 }
 
 const mapStateToProps = (state) => ({
-
+  buildRequestRes: state.buildRequestRes
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  addToQueue: (commitHash) => dispatch(addToQueue(commitHash))
+  addToQueue: (commitHash) => dispatch(addToQueue(commitHash)),
+  cleanSaveCode: () => dispatch(cleanSaveCode()) 
 })
 
-export default connect(mapStateToProps)(Modal);
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);
