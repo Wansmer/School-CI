@@ -56,7 +56,6 @@ const Details = (props) => {
   }, [])
 
   useEffect(() => {
-    // setData((prevState) => ({ ...prevState, ...{ buildRequestRes: props.buildRequestRes } }));
     console.log(props.buildRequestRes);
     if (props.buildRequestRes && props.buildRequestRes.id) {
       history.push(`/build/${props.buildRequestRes.id}`);
@@ -66,8 +65,8 @@ const Details = (props) => {
 
   const reBuild = (event) => {
     event.preventDefault();
-    props.addToQueue(props.ticket.commitHash);
     setData((prevState) => ({...prevState, ...{ isDisabled: !data.isDisabled }}));
+    props.addToQueue(props.ticket.commitHash);
   }
 
   const clickHandler = (event) => {

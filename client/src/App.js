@@ -23,6 +23,7 @@ export function App(props) {
           <Route path={'/settings'} component={Settings}/>
           <Route path={'/history'} component={ Object.keys(props.config).length ? History : Home }/>
           <Route path={'/build/:buildId'} component={Object.keys(props.config).length ? Details : Home}/>
+          <Route path={'/*'} component={Object.keys(props.config).length ? History : Home}/>
         </Switch>
       <Footer />
       </div>
