@@ -1,11 +1,13 @@
 const util = require('util');
+const fs = require('fs');
 const exec = util.promisify(require('child_process').exec);
+const readFile = util.promisify(fs.readFile);
 const { GIT_PATH } = require('../constants');
 const { queueAPI } = require('../queueAPI');
 const conf = require('../api/conf/conf');
 const build = require('../api/build/build');
 
-const QuAPI = new queueAPI('../storage/queue.txt');
+const QuAPI = new queueAPI('./storage/queue.txt');
 
 exports.cloneRepo = async (data) => {
   try {
@@ -26,14 +28,14 @@ exports.pullRepo = async (data) => {
   }
 };
 
-exports.installPackage = async (data) => {
+const installPackage = async (data) => {
   console.log('Start instal package inside func....');
 
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
     await exec(`npm i`, settings);
     console.log('End install package inside func....')
-    return true;
+    // return true;
   } catch (error) {
     console.log('Error install package inside func....')
     return error;
@@ -51,7 +53,7 @@ exports.getCommitInfo = async (commitHash, data) => {
   }
 }
 
-exports.goToCommit = async (commitHash, data) => {
+const goToCommit = async (commitHash, data) => {
   console.log('Start go to commit inside func....');
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
@@ -64,7 +66,7 @@ exports.goToCommit = async (commitHash, data) => {
   }
 }
 
-exports.startBuild = async (data) => {
+const startBuild = async (data) => {
   console.log('Start build inside func....');
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
@@ -80,7 +82,7 @@ exports.startBuild = async (data) => {
   }
 };
 
-exports.clearNodeModules = async (data) => {
+const clearNodeModules = async (data) => {
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
     await exec(`rm -Rf node_modules`, settings)
@@ -92,13 +94,13 @@ exports.clearNodeModules = async (data) => {
   }
 }
 
-exports.dirPreparation = async (commitHash, settings) => {
+const dirPreparation = async (commitHash, settings) => {
   await clearNodeModules(settings);
   await goToCommit(commitHash, settings);
   await installPackage(settings);
 }
 
-exports.builder = async (buildId, settings) => {
+const builder = async (buildId, settings) => {
   QuAPI.setStatus(buildId, 'inProgress');
   const dateTime = new Date().toISOString();
   build.setBuildStart({ buildId, dateTime });
@@ -110,12 +112,12 @@ exports.builder = async (buildId, settings) => {
   build.setBuildFinish(buildEnd);
 }
 
-exports.runBuildFromQueue = async ({ buildId, buildCommand, repoName, commitHash }) => {
+const runBuildFromQueue = async ({ buildId, buildCommand, repoName, commitHash }) => {
   const settings = { repoName, buildCommand };
   QuAPI.setStatus(buildId, 'inProgress');
   await dirPreparation(commitHash, settings);
   await builder(buildId, settings);
-  QuAPI.deleteLine(JSON.parse(current).id);
+  QuAPI.deleteLine(buildId);
 }
 
 exports.checkQueueAndRun = async () => {
@@ -125,6 +127,6 @@ exports.checkQueueAndRun = async () => {
     await runBuildFromQueue(current);
   }
   console.log('restart check');
-  setTimeout(checkQueueAndRun, 10000);
+  setTimeout(this.checkQueueAndRun, 10000);
 }
 
