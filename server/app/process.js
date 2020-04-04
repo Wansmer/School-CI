@@ -126,7 +126,7 @@ exports.checkQueueAndRun = async () => {
     current = JSON.parse(current); 
     await runBuildFromQueue(current);
   }
-  console.log('restart check');
+  QuAPI.cleanFile();
   setTimeout(this.checkQueueAndRun, 10000);
 }
 
