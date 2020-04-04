@@ -1,6 +1,8 @@
 const fs = require('fs');
 const util = require('util');
 const readFile = util.promisify(fs.readFile);
+const appendFile = util.promisify(fs.appendFile);
+const writeFile = util.promisify(fs.writeFile);
 
 exports.queueAPI = class {
 
@@ -8,45 +10,40 @@ exports.queueAPI = class {
     this.fileName = fileName;
   }
 
-  addLine(commitHash, buildInfo, settings) {
+  addLine = async (commitHash, buildInfo, settings) => {
     const { id, status } = buildInfo;
     const { repoName, buildCommand } = settings;
     const line = `{"commitHash": "${commitHash}","buildId": "${id}","status": "${status}", "repoName": "${repoName}", "buildCommand": "${buildCommand}"}`;
-    fs.appendFile(this.fileName, `${line}\n`, (err) => {
-      if (err) throw err;
-    })
+    await appendFile(this.fileName, `${line}\n`);
   }
 
-  setStatus(buildId, status) {
-    const array = readFile(this.fileName, 'utf8');
-    array.then((res) => {
-      res = res.split('\n')
-        .filter((elem) => !!elem)
-        .map((elem) => {
-          if (JSON.parse(elem).buildId && JSON.parse(elem).buildId === buildId) {
-            const newElem = JSON.parse(elem);
-            newElem.status = status;
-            elem = JSON.stringify(newElem);
-          }
-          return elem;
-        })
-        .join('\n');
-      return res;
-    }).then((res) => {
-      fs.writeFile(this.fileName, `${res}\n`, (err) => { if (err) console.log(err) });
-    })
+  setStatus = async (buildId, status) => {
+    const file = await readFile(this.fileName, 'utf8');
+    const storage = file.split('\n')
+                        .filter((elem) => !!elem)
+                        .map((elem) => JSON.parse(elem))
+                        .map((elem) => elem.buildId === buildId ? (elem.status = status, elem) : elem)
+                        .map((elem) => JSON.stringify(elem))
+                        .join('\n');
+    console.log('STORAGE: ', storage);
+    // await writeFile(this.fileName, `${storage}\n`);
+    fs.writeFileSync(this.fileName, `${storage}\n`);
   }
 
-  deleteLine (buildId) {
-    const array = readFile(this.fileName, 'utf8');
-    array.then((res) => {
-        res = res.split('\n')
-          .filter((elem) => !!elem && JSON.parse(elem).buildId !== buildId)
-          .join('\n');
-        return res;
-        }).then((res) => {
-          fs.writeFile(this.fileName, `${res}\n`, (err) => { if (err) console.log(err) });
-        })
+  deleteLine = async (buildId) => {
+    const file = await readFile(this.fileName, 'utf8');
+    const storage = file.split('\n')
+                        .filter((elem) => !!elem && JSON.parse(elem).buildId !== buildId)
+                        .join('\n');
+    fs.writeFileSync(this.fileName, `${storage}\n`);
+    // array.then((res) => {
+    //     res = res.split('\n')
+    //       .filter((elem) => !!elem && JSON.parse(elem).buildId !== buildId)
+    //       .join('\n');
+    //     return res;
+    //     }).then((res) => {
+    //       fs.writeFile(this.fileName, `${res}\n`, (err) => { if (err) console.log(err) });
+    //     })
   }
 
   cleanFile () {

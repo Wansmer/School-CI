@@ -13,7 +13,7 @@ exports.cloneRepo = async (data) => {
     const { stdout, stderr } = await exec(`git clone ${GIT_PATH}${data.repoName} clone/${data.repoName}`);
     return { stdout, stderr };
   } catch (error) {
-    // console.error(error);
+    console.log('Ошибка в cloneRepo.');
     throw error;
   }
 };
@@ -24,7 +24,7 @@ exports.pullRepo = async (data) => {
     await exec(`git pull ${GIT_USER}${data.repoName} clone/${data.repoName}`, settings);
     return true;
   } catch (error) {
-    // console.error(error);
+    console.log('Ошибка в pullRepo.');
     throw error;
   }
 };
@@ -34,7 +34,7 @@ const installPackage = async (data) => {
   try {
     await exec(`npm i`, settings);
   } catch (error) {
-    // console.error(error);
+    console.log('Ошибка в installPackage.');
     throw error;
   }
 };
@@ -46,7 +46,7 @@ exports.getCommitInfo = async (commitHash, data) => {
     branchName = branchName.split(', ')[branchName.split(', ').length - 1] || 'master';
     return { authorName, commitMessage, commitHash, branchName };
   } catch (error) {
-    // console.error(error);
+    console.log('Ошибка в getCommitInfo.');
     throw error;
   }
 }
@@ -57,7 +57,7 @@ const goToCommit = async (commitHash, data) => {
     const {stdout, stderr} = await exec(`git checkout ${commitHash} .`, settings);
     return {stdout, stderr};
   } catch (error) {
-    // console.error(error);
+    console.log('Ошибка в goToCommit.');
     throw error;
   }
 }
@@ -66,9 +66,9 @@ const startBuild = async (data) => {
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
     const { stdout, stderr } = await exec(`${data.buildCommand}`, settings);
-    console.log('START BUILD', stderr, stdout);
     return { stdout, stderr };
   } catch (error) {
+    console.log('Ошибка в startBuild.');
     return error;
   }
 };
@@ -78,7 +78,7 @@ const clearNodeModules = async (data) => {
   try {
     await exec(`rm -Rf node_modules`, settings)
   } catch (error) {
-    // console.error(error);
+    console.log('Ошибка в clearNodeModules.');
     throw error;
   }
 }
@@ -89,13 +89,13 @@ const dirPreparation = async (commitHash, settings) => {
     await goToCommit(commitHash, settings);
     await installPackage(settings);
   } catch (error) {
-    // console.error(error);
+    console.log('Ошибка в dirPreparation.');
     throw error;
   }
 }
 
 const builder = async (buildId, settings) => {
-  // try {
+  try {
     const dateTime = new Date().toISOString();
     build.setBuildStart({ buildId, dateTime });
     const buildLogObject = await startBuild(settings);
@@ -103,24 +103,24 @@ const builder = async (buildId, settings) => {
     const buildLog = buildLogObject.stderr + buildLogObject.stdout;
     const duration = Date.now() - new Date(dateTime);
     const buildEnd = { buildId, duration, success, buildLog };
-    build.setBuildFinish(buildEnd);
-  // } catch (error) {
-  //   // console.error(error);
-  //   console.log('Ошибка в билдер.')
-  //   throw error;
-  // }
+    const res = await build.setBuildFinish(buildEnd);
+  } catch (error) {
+    console.log('Ошибка в билдер.');
+    throw error;
+  }
 }
 
 const runBuildFromQueue = async ({ buildId, buildCommand, repoName, commitHash }) => {
   try {
     const settings = { repoName, buildCommand };
-    QuAPI.setStatus(buildId, 'inProgress');
+    await QuAPI.setStatus(buildId, 'inProgress');
     await dirPreparation(commitHash, settings);
-    console.log()
+    console.log('dirPreparation done...');
     await builder(buildId, settings);
-    QuAPI.deleteLine(buildId);
+    console.log('builder done...');
+    await QuAPI.deleteLine(buildId);
   } catch (error) {
-    // console.error(error);
+    console.log('Ошибка в runBuildFromQueue.');
     throw error;
   }
 }
@@ -132,7 +132,7 @@ exports.checkQueueAndRun = async () => {
       current = JSON.parse(current); 
       await runBuildFromQueue(current);
     }
-    QuAPI.cleanFile();
+    // QuAPI.cleanFile();
     setTimeout(this.checkQueueAndRun, 10000);
   } catch (error) {
     console.log('checkQueueAndRun: ', error);
