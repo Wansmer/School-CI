@@ -31,22 +31,41 @@ app.use('/api/builds', routerBuild);
 //   return new Promise(resolve => setTimeout(resolve, 1000));
 // }
 
-// async function delayedLog(item) {
-//   await delay();
-//   if (item.length) QuAPI.setStatus(JSON.parse(item).id, 'inProgress');
-//   await delay();
-//   if (item.length) QuAPI.deleteLine(JSON.parse(item).id);
-// }
+const { clearNodeModules, installPackage, goToCommit, startBuild } = require('./app/process');
+const conf = require('./api/conf/conf');
+const build = require('./api/build/build');
 
-// async function startBuildFromQueue () {
-//   const data = await readFile('./storage/queue.txt', 'utf8');
-//   for (const line of data.split('\n')) {
-//     await delayedLog(line);
-//   }
-//   console.log('restart');
-//   setInterval(startBuildFromQueue, 10000);
-// }
+async function delayedLog(item) {
+  const commitHash = JSON.parse(item).commitHash;
+  const settings = await conf.getConf();
+  await clearNodeModules(settings);
+  await goToCommit(commitHash, settings);
+  await installPackage(settings);
+  QuAPI.setStatus(JSON.parse(item).id, 'inProgress');
+  const start = new Date().toISOString();
+  build.setBuildStart({ buildId: JSON.parse(item).id, dateTime: start });
+  const buildLogObject = await startBuild(settings);
+  const status = !(buildLogObject instanceof Error);
+  const buildLog = buildLogObject.stderr + buildLogObject.stdout;
+  const buildEnd = {
+    "buildId": JSON.parse(item).id,
+    "duration": Date.now() - new Date(start),
+    "success": status,
+    "buildLog": buildLog
+  }
+  build.setBuildFinish(buildEnd);
+  if (item.length) QuAPI.deleteLine(JSON.parse(item).id);
+}
 
-// startBuildFromQueue();
+async function startBuildFromQueue () {
+  const data = await readFile('./storage/queue.txt', 'utf8');
+  for (const line of data.split('\n').filter(item => !!item)) {
+    await delayedLog(line);
+  }
+  console.log('restart');
+  setTimeout(startBuildFromQueue, 10000);
+}
+
+startBuildFromQueue();
 
 app.listen(3001);

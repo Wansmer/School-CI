@@ -25,7 +25,7 @@ exports.queueAPI = class {
           if (JSON.parse(elem).id && JSON.parse(elem).id === buildId) {
             const newElem = JSON.parse(elem);
             newElem.status = status;
-            console.log(newElem);
+            // console.log(newElem);
             elem = JSON.stringify(newElem);
           }
           return elem;
