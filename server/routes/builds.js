@@ -47,7 +47,7 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
     const commitInfo = await getCommitInfo(req.params.commitHash, settings);
     const buildInfo = await build.setBuildRequest(commitInfo);
     QuAPI.addLine(commitInfo.commitHash, buildInfo, settings);
-    res.sendStatus(200);
+    res.send(buildInfo);
   } catch (error) {
     res.send(error);
   }

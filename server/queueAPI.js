@@ -50,7 +50,7 @@ exports.queueAPI = class {
   }
 
   cleanFile () {
-    fs.writeFile(this.fileName, `\n`, (err) => { if (err) console.log(err) });
+    fs.writeFile(this.fileName, ``, (err) => { if (err) console.log(err) });
   }
 
 }
