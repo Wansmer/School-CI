@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const cp = require('child_process');
-const { REPO_NAME } = require('../constants');
 const jsonParser = bodyParser.json({extended: false});
 
 const conf = require('../api/conf/conf');

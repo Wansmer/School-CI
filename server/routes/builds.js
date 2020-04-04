@@ -1,9 +1,6 @@
 const express = require('express');
-const util = require('util');
 const router = express.Router();
 const bodyParser = require('body-parser');
-const { spawn, fork, exec } = require('child_process');
-const { watcher } = require('../app/watcher');
 const jsonParser = bodyParser.json({extended: false});
 const { getCommitInfo } = require('../app/process');
 const { queueAPI } = require('../queueAPI');
@@ -12,15 +9,6 @@ const build = require('../api/build/build');
 const conf = require('../api/conf/conf');
 
 const QuAPI = new queueAPI('./storage/queue.txt');
-
-const statuses = {
-  'Waiting': "Ticket_status_process",
-  'InProgress': "Ticket_status_process",
-  'Success': "Ticket_status_success",
-  'Fail': "Ticket_status_error",
-  'Canceled': "Ticket_status_success",
-  undefined: ''
-  }
 
 router.get('/', async (req, res) => {
   try {

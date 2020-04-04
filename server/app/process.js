@@ -112,4 +112,3 @@ exports.checkQueueAndRun = async () => {
   QuAPI.cleanFile();
   setTimeout(this.checkQueueAndRun, 10000);
 }
-
