@@ -36,6 +36,17 @@ exports.installPackage = async (data) => {
   }
 };
 
+exports.getCommitInfo = async (commitHash, data) => {
+  try {
+    const result = await exec(`git log ${commitHash} -n 1 --pretty=format:%an:::%s:::%D`, { cwd: `./clone/${data.repoName}`});
+    let [ authorName, commitMessage, branchName ] = result.stdout.split(':::');
+    branchName = branchName.split(', ')[branchName.split(', ').length - 1] || 'master';
+    return { authorName, commitMessage, commitHash, branchName };
+  } catch (error) {
+    return error;
+  }
+}
+
 exports.goToCommit = async (commitHash, data) => {
   console.log('Start go to commit inside func....');
   const settings = { cwd: `./clone/${data.repoName}` };
