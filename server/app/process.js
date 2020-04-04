@@ -29,15 +29,10 @@ exports.pullRepo = async (data) => {
 };
 
 const installPackage = async (data) => {
-  console.log('Start instal package inside func....');
-
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
     await exec(`npm i`, settings);
-    console.log('End install package inside func....')
-    // return true;
   } catch (error) {
-    console.log('Error install package inside func....')
     return error;
   }
 };
@@ -54,30 +49,21 @@ exports.getCommitInfo = async (commitHash, data) => {
 }
 
 const goToCommit = async (commitHash, data) => {
-  console.log('Start go to commit inside func....');
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
     const {stdout, stderr} = await exec(`git checkout ${commitHash} .`, settings);
-    console.log('End go to commit inside func....', stderr);
     return {stdout, stderr};
   } catch (error) {
-    console.log('Error go to commit inside func....', error);
     return error;
   }
 }
 
 const startBuild = async (data) => {
-  console.log('Start build inside func....');
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
-    const command = data.buildCommand;
-    console.log('Command: ', command);
     const { stdout, stderr } = await exec(`${data.buildCommand}`, settings);
-    console.log('End build inside func....');
-    console.log('Stdout, Stderr: ', command, stdout, stderr)
     return { stdout, stderr };
   } catch (error) {
-    console.log('Error go to commit inside func....');
     return error;
   }
 };
@@ -86,10 +72,8 @@ const clearNodeModules = async (data) => {
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
     await exec(`rm -Rf node_modules`, settings)
-    console.log('Delete all node modules...');
     return true;
   } catch (error) {
-    console.log('Error of clear node modules: ', error);
     return error;
   }
 }
@@ -97,7 +81,6 @@ const clearNodeModules = async (data) => {
 const dirPreparation = async (commitHash, settings) => {
   await clearNodeModules(settings);
   await goToCommit(commitHash, settings);
-  console.log(settings);
   await installPackage(settings);
 }
 
