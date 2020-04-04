@@ -1,0 +1,2 @@
+{"commitHash": "5c9686b","buildId": "undefined","status": "Waiting", "repoName": "testOfBuild", "buildCommand": "npm run build"}
+{"commitHash": "5c9686b","buildId": "a03e3833-cf25-4a0e-875d-9bd2dbf64634","status": "Waiting", "repoName": "testOfBuild", "buildCommand": "npm run build"}

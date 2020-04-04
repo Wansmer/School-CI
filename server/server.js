@@ -35,37 +35,38 @@ const { clearNodeModules, installPackage, goToCommit, startBuild } = require('./
 const conf = require('./api/conf/conf');
 const build = require('./api/build/build');
 
-async function delayedLog(item) {
-  const commitHash = JSON.parse(item).commitHash;
+async function runBuildFromQueue(current) {
   const settings = await conf.getConf();
+  const commitHash = JSON.parse(current).commitHash;
+  const buildId = JSON.parse(current).id;
   await clearNodeModules(settings);
   await goToCommit(commitHash, settings);
   await installPackage(settings);
-  QuAPI.setStatus(JSON.parse(item).id, 'inProgress');
+  QuAPI.setStatus(JSON.parse(current).id, 'inProgress');
   const start = new Date().toISOString();
-  build.setBuildStart({ buildId: JSON.parse(item).id, dateTime: start });
+  build.setBuildStart({ buildId: buildId, dateTime: start });
   const buildLogObject = await startBuild(settings);
   const status = !(buildLogObject instanceof Error);
   const buildLog = buildLogObject.stderr + buildLogObject.stdout;
   const buildEnd = {
-    "buildId": JSON.parse(item).id,
+    "buildId": buildId,
     "duration": Date.now() - new Date(start),
     "success": status,
     "buildLog": buildLog
   }
   build.setBuildFinish(buildEnd);
-  if (item.length) QuAPI.deleteLine(JSON.parse(item).id);
+  QuAPI.deleteLine(JSON.parse(current).id);
 }
 
-async function startBuildFromQueue () {
+async function checkQueueAndRun () {
   const data = await readFile('./storage/queue.txt', 'utf8');
-  for (const line of data.split('\n').filter(item => !!item)) {
-    await delayedLog(line);
+  for (const current of data.split('\n').filter(item => !!item)) {
+    await runBuildFromQueue(current);
   }
-  console.log('restart');
-  setTimeout(startBuildFromQueue, 10000);
+  console.log('restart check');
+  setTimeout(checkQueueAndRun, 10000);
 }
 
-startBuildFromQueue();
+checkQueueAndRun();
 
 app.listen(3001);

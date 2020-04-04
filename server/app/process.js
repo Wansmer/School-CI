@@ -1,7 +1,11 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
-const cp = require('child_process');
 const { GIT_PATH } = require('../constants');
+const { queueAPI } = require('../queueAPI');
+const conf = require('../api/conf/conf');
+const build = require('../api/build/build');
+
+const QuAPI = new queueAPI('../storage/queue.txt');
 
 exports.cloneRepo = async (data) => {
   try {
@@ -87,3 +91,40 @@ exports.clearNodeModules = async (data) => {
     return error;
   }
 }
+
+exports.dirPreparation = async (commitHash, settings) => {
+  await clearNodeModules(settings);
+  await goToCommit(commitHash, settings);
+  await installPackage(settings);
+}
+
+exports.builder = async (buildId, settings) => {
+  QuAPI.setStatus(buildId, 'inProgress');
+  const dateTime = new Date().toISOString();
+  build.setBuildStart({ buildId, dateTime });
+  const buildLogObject = await startBuild(settings);
+  const success = !(buildLogObject instanceof Error);
+  const buildLog = buildLogObject.stderr + buildLogObject.stdout;
+  const duration = Date.now() - new Date(dateTime);
+  const buildEnd = { buildId, duration, success, buildLog };
+  build.setBuildFinish(buildEnd);
+}
+
+exports.runBuildFromQueue = async ({ buildId, buildCommand, repoName, commitHash }) => {
+  const settings = { repoName, buildCommand };
+  QuAPI.setStatus(buildId, 'inProgress');
+  await dirPreparation(commitHash, settings);
+  await builder(buildId, settings);
+  QuAPI.deleteLine(JSON.parse(current).id);
+}
+
+exports.checkQueueAndRun = async () => {
+  const data = await readFile('./storage/queue.txt', 'utf8');
+  for (let current of data.split('\n').filter(item => !!item)) {
+    current = JSON.parse(current); 
+    await runBuildFromQueue(current);
+  }
+  console.log('restart check');
+  setTimeout(checkQueueAndRun, 10000);
+}
+

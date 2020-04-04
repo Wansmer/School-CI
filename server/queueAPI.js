@@ -8,9 +8,10 @@ exports.queueAPI = class {
     this.fileName = fileName;
   }
 
-  addLine(commitHash, buildInfo) {
+  addLine(commitHash, buildInfo, settings) {
     const { id, status } = buildInfo;
-    const line = `{"commitHash": "${commitHash}","id": "${id}","status": "${status}"}`;
+    const { repoName, buildCommand } = settings;
+    const line = `{"commitHash": "${commitHash}","buildId": "${id}","status": "${status}", "repoName": "${repoName}", "buildCommand": "${buildCommand}"}`;
     fs.appendFile(this.fileName, `${line}\n`, (err) => {
       if (err) throw err;
     })
@@ -22,10 +23,9 @@ exports.queueAPI = class {
       res = res.split('\n')
         .filter((elem) => !!elem)
         .map((elem) => {
-          if (JSON.parse(elem).id && JSON.parse(elem).id === buildId) {
+          if (JSON.parse(elem).buildId && JSON.parse(elem).buildId === buildId) {
             const newElem = JSON.parse(elem);
             newElem.status = status;
-            // console.log(newElem);
             elem = JSON.stringify(newElem);
           }
           return elem;
@@ -41,7 +41,7 @@ exports.queueAPI = class {
     const array = readFile(this.fileName, 'utf8');
     array.then((res) => {
         res = res.split('\n')
-          .filter((elem) => !!elem && JSON.parse(elem).id !== buildId)
+          .filter((elem) => !!elem && JSON.parse(elem).buildId !== buildId)
           .join('\n');
         return res;
         }).then((res) => {
