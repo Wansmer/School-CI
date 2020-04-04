@@ -87,6 +87,7 @@ const Modal = (props) => {
                 placeholder='Commit hash'
                 onChange={onChangeHandler}
                 value={data.commitHash}
+                required
               />
               { data.commitHash && <span className="Input-Icon Icon Icon_inputClear" onClick={clearInput}></span> }
             </Input>
