@@ -57,7 +57,7 @@ const goToCommit = async (commitHash, data) => {
   console.log('Start go to commit inside func....');
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
-    const {stdout, stderr} = await exec(`git checkout master && git checkout ${commitHash}`, settings);
+    const {stdout, stderr} = await exec(`git checkout ${commitHash} .`, settings);
     console.log('End go to commit inside func....', stderr);
     return {stdout, stderr};
   } catch (error) {
@@ -97,11 +97,11 @@ const clearNodeModules = async (data) => {
 const dirPreparation = async (commitHash, settings) => {
   await clearNodeModules(settings);
   await goToCommit(commitHash, settings);
+  console.log(settings);
   await installPackage(settings);
 }
 
 const builder = async (buildId, settings) => {
-  QuAPI.setStatus(buildId, 'inProgress');
   const dateTime = new Date().toISOString();
   build.setBuildStart({ buildId, dateTime });
   const buildLogObject = await startBuild(settings);

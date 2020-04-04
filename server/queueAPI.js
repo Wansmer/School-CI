@@ -45,7 +45,7 @@ exports.queueAPI = class {
           .join('\n');
         return res;
         }).then((res) => {
-          fs.writeFile(this.fileName, `${res}`, (err) => { if (err) console.log(err) });
+          fs.writeFile(this.fileName, `${res}\n`, (err) => { if (err) console.log(err) });
         })
   }
 
