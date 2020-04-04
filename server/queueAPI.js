@@ -14,40 +14,36 @@ exports.queueAPI = class {
     const { id, status } = buildInfo;
     const { repoName, buildCommand } = settings;
     const line = `{"commitHash": "${commitHash}","buildId": "${id}","status": "${status}", "repoName": "${repoName}", "buildCommand": "${buildCommand}"}`;
-    await appendFile(this.fileName, `${line}\n`);
+    // await appendFile(this.fileName, `${line}\n`);
+    fs.appendFileSync(this.fileName, `${line}\n`);
   }
 
   setStatus = async (buildId, status) => {
-    const file = await readFile(this.fileName, 'utf8');
+    // const file = await readFile(this.fileName, 'utf8');
+    console.log(buildId);
+    const file = fs.readFileSync(this.fileName, 'utf8');
     const storage = file.split('\n')
                         .filter((elem) => !!elem)
                         .map((elem) => JSON.parse(elem))
                         .map((elem) => elem.buildId === buildId ? (elem.status = status, elem) : elem)
                         .map((elem) => JSON.stringify(elem))
                         .join('\n');
-    console.log('STORAGE: ', storage);
-    // await writeFile(this.fileName, `${storage}\n`);
+    console.log(storage);
     fs.writeFileSync(this.fileName, `${storage}\n`);
   }
 
   deleteLine = async (buildId) => {
-    const file = await readFile(this.fileName, 'utf8');
+    // const file = await readFile(this.fileName, 'utf8');
+    const file = fs.readFileSync(this.fileName, 'utf8');
     const storage = file.split('\n')
                         .filter((elem) => !!elem && JSON.parse(elem).buildId !== buildId)
                         .join('\n');
+    console.log('AFTER DELETE: ', storage);
     fs.writeFileSync(this.fileName, `${storage}\n`);
-    // array.then((res) => {
-    //     res = res.split('\n')
-    //       .filter((elem) => !!elem && JSON.parse(elem).buildId !== buildId)
-    //       .join('\n');
-    //     return res;
-    //     }).then((res) => {
-    //       fs.writeFile(this.fileName, `${res}\n`, (err) => { if (err) console.log(err) });
-    //     })
   }
 
   cleanFile () {
-    fs.writeFile(this.fileName, ``, (err) => { if (err) console.log(err) });
+    fs.writeFileSync(this.fileName, ``);
   }
 
 }

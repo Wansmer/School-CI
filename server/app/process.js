@@ -113,12 +113,12 @@ const builder = async (buildId, settings) => {
 const runBuildFromQueue = async ({ buildId, buildCommand, repoName, commitHash }) => {
   try {
     const settings = { repoName, buildCommand };
-    await QuAPI.setStatus(buildId, 'inProgress');
+    // await QuAPI.setStatus(buildId, 'inProgress');
     await dirPreparation(commitHash, settings);
     console.log('dirPreparation done...');
     await builder(buildId, settings);
     console.log('builder done...');
-    await QuAPI.deleteLine(buildId);
+    // await QuAPI.deleteLine(buildId);
   } catch (error) {
     console.log('Ошибка в runBuildFromQueue.');
     throw error;
@@ -130,9 +130,12 @@ exports.checkQueueAndRun = async () => {
   try {
     for (let current of data.split('\n').filter(item => !!item)) {
       current = JSON.parse(current); 
+      QuAPI.setStatus(current.buildId, 'inProgress');
       await runBuildFromQueue(current);
+      QuAPI.deleteLine(current.buildId);
     }
     // QuAPI.cleanFile();
+    console.log('restart queue');
     setTimeout(this.checkQueueAndRun, 10000);
   } catch (error) {
     console.log('checkQueueAndRun: ', error);
