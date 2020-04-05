@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "sync": "browser-sync start --ss './dist/' --server --files './dist/style.css'",
-    "watch": "postcss  ./src/style.post.css -o ./dist/style.css -w"
+    "watch": "postcss  ./src/style.post.css -o ./dist/style.css -w",
+    "dev": "cd client && npm run start && cd .. && cd server && npm run listen"
   },
   "repository": {
     "type": "git",
