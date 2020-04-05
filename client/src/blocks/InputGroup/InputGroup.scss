@@ -32,6 +32,11 @@
       opacity: 1;
       color: var(--text-placeholder-color);
     }
+    
+    &_small{
+      width: 52px;
+      text-align: right;
+    }
   }
 
   &-Text{

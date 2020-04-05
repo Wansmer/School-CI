@@ -39,6 +39,14 @@ const inputClasses = {
 const inputGorClasses = {
   mods: {
     direction: 'row'
+  },
+  elems: {
+    Input: {
+      mods: {
+        border: 'default',
+        small: ''
+      }
+    }
   }
 }
 
@@ -135,67 +143,47 @@ const Form = (props) => {
           clearInput={ clearInput }
         />
       </FormField>
-      {/* <div className="Form-Field">
-        <Input classes={inputReqClasses} required={true}>
-          <label htmlFor="repoName" className="Input-Label">GitHub repository</label>
-          <input 
-            type="text" 
-            name="repoName" id="repoName" 
-            className="Input-Input Input-Input_border_default" 
-            placeholder="user-name/repo-name" 
-            value={config.repoName}
-            onChange={onChangeHandler}
-            required
-          />
-          { config.repoName && <span className="Input-Icon Icon Icon_inputClear" onClick={clearInput}></span> }
-        </Input>
-      </div>
-      <div className="Form-Field">
-        <Input classes={inputReqClasses} required={true}>
-          <label htmlFor="buildCommand" className="Input-Label">Build command</label>
-          <input 
-            type="text" 
-            name="buildCommand" 
-            id="buildCommand" 
-            className="Input-Input Input-Input_border_default" 
-            placeholder="my command for build" 
-            value={config.buildCommand} 
-            onChange={onChangeHandler}
-            required
-          />
-          { config.buildCommand && <span className="Input-Icon Icon Icon_inputClear" onClick={clearInput}></span> }
-        </Input>
-      </div>
-      <div className="Form-Field">
-        <Input classes={inputClasses} required={true}>
-          <label htmlFor="mainBranch" className="Input-Label">Main branch</label>
-          <input 
-            type="text" 
-            name="mainBranch" 
-            id="mainBranch" 
-            className="Input-Input Input-Input_border_default" 
-            placeholder="name of branch" 
-            value={config.mainBranch}
-            onChange={onChangeHandler}
-          />
-          { config.mainBranch && <span className="Input-Icon Icon Icon_inputClear" onClick={clearInput}></span> }
-        </Input>
-      </div>
-      <div className="Form-Field">
-        <Input className="Content-Form-Input" classes={inputGorClasses}>
-          <label htmlFor="period" className="Input-Label">Synchronize every</label>
-          <input 
-            type="text" 
-            pattern="^[ 0-9]+$"
-            name="period" 
-            id="period" 
-            className="Input-Input Input-Input_border_default Content-Form-Input_small" 
-            value={config.period} 
-            onChange={onChangeHandler}
-          />
-          <div className="Input-Text">minutes</div>
-        </Input>
-      </div> */}
+      <FormField className="Form-Field">
+        <InputGroup 
+          classes={ inputReqClasses } 
+          id="buildCommand" 
+          label="Build command" 
+          name="buildCommand"
+          placeholder="my command for build"
+          value={config.buildCommand}
+          onChange={onChangeHandler}
+          required
+          clearInput={ clearInput }
+        />
+      </FormField>
+      <FormField className="Form-Field">
+        <InputGroup 
+          classes={ inputClasses } 
+          id="mainBranch" 
+          label="Main branch" 
+          name="mainBranch"
+          placeholder="name of branch"
+          value={config.mainBranch}
+          onChange={onChangeHandler}
+          clearInput={ clearInput }
+        />
+      </FormField>
+      <FormField className="Form-Field">
+        <InputGroup 
+          className="Content-Form-Input"
+          classes={ inputGorClasses } 
+          id="period" 
+          label="Synchronize every" 
+          name="period"
+          placeholder="10"
+          value={config.period}
+          onChange={onChangeHandler}
+          clearInput={ clearInput }
+          pattern="^[ 0-9]+$"
+          icon={ false }
+          describe="minutes"
+        />
+      </FormField>
       <div className="Form-Field Content-Form-Field">
         <Button 
           type='submit' 
