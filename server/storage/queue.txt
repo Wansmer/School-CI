@@ -1,0 +1,1 @@
+{"commitHash":"5c9686b","buildId":"05144343-02c5-4f7a-8705-2f743d591099","status":"inProgress","repoName":"testOfBuild","buildCommand":"npm run build"}
