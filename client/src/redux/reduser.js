@@ -1,4 +1,4 @@
-import { GET_CONFIG, SAVE_CONFIG, GET_TICKET_LIST, GET_BUILD_DETAILS, CLEAN_SAVE_CODE, ADD_TO_QUEUE } from "./constants";
+import { GET_CONFIG, SAVE_CONFIG, GET_TICKET_LIST, GET_BUILD_DETAILS, CLEAN_SAVE_CODE, ADD_TO_QUEUE } from "../constants";
 
 const defaultState = {
   config: {},

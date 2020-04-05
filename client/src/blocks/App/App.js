@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { connect } from "react-redux";
 import './App.scss';
-import { Home } from './pages/Home';
-import Settings from './pages/Settings';
-import History from './pages/History';
-import Details from './pages/Details';
-import Footer from './blocks/Footer/Footer';
-import { getConfig } from './actions';
+import { Home } from '../../pages/Home';
+import Settings from '../../pages/Settings';
+import History from '../../pages/History';
+import Details from '../../pages/Details';
+import Footer from '../Footer/Footer';
+import { getConfig } from '../../redux/actions';
 
 export function App(props) {
 

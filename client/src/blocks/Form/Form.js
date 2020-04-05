@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import Error from '../Error/Error';
 
 import { connect } from 'react-redux';
-import { saveConfig, cleanSaveCode } from '../../actions';
+import { saveConfig, cleanSaveCode } from '../../redux/actions';
 
 const inputReqClasses = {
   mods: {

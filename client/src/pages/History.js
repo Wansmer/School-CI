@@ -9,7 +9,7 @@ import Title from '../blocks/Title/Title';
 import Content from '../blocks/Content/Content';
 import Button from '../blocks/Button/Button';
 import Modal from '../blocks/Modal/Modal';
-import { getTicketList, addToQueue } from '../actions';
+import { getTicketList, addToQueue } from '../redux/actions';
 
 const TitleClasses = {
   mods: {

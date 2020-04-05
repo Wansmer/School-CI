@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './Modal.scss';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
-import { addToQueue, cleanSaveCode } from '../../actions';
+import { addToQueue, cleanSaveCode } from '../../redux/actions';
 import { useHistory } from 'react-router-dom';
 
 const inputClasses = {

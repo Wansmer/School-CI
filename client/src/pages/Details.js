@@ -5,7 +5,7 @@ import Ticket from '../blocks/Ticket/Ticket';
 import Header from '../blocks/Header/Header';
 import Title from '../blocks/Title/Title';
 import Button from '../blocks/Button/Button';
-import { getBuildDetails, addToQueue, cleanSaveCode } from '../actions';
+import { getBuildDetails, addToQueue, cleanSaveCode } from '../redux/actions';
 import Content from '../blocks/Content/Content';
 import Preformatted from '../blocks/Preformatted/Preformatted';
 import { useHistory } from 'react-router-dom';
