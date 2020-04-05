@@ -9,7 +9,7 @@ import Title from '../blocks/Title/Title';
 import Content from '../blocks/Content/Content';
 import Button from '../blocks/Button/Button';
 import Modal from '../blocks/Modal/Modal';
-import { getTicketList, addToQueue } from '../redux/actions';
+import { getTicketList, cleanSaveCode } from '../redux/actions';
 
 const TitleClasses = {
   mods: {
@@ -141,7 +141,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getTicketList: () => dispatch(getTicketList())
+  getTicketList: () => dispatch(getTicketList()),
+  cleanSaveCode: () => dispatch(cleanSaveCode())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(History);

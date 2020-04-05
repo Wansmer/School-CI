@@ -10,7 +10,7 @@ const actionButtonClasses = {
   }
 }
 
-function Land() {
+const Land = React.memo(() => {
 
   const history = useHistory();
 
@@ -33,6 +33,6 @@ function Land() {
       />
     </div>
   );
-}
+});
 
 export default Land;

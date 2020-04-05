@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import './Form.scss';
-import InputGroup from '../InputGroup/InputGroup';
-import Button from '../Button/Button';
-import Error from '../Error/Error';
-
 import { connect } from 'react-redux';
+import './Form.scss';
 import { saveConfig, cleanSaveCode } from '../../redux/actions';
+import InputGroup from '../InputGroup/InputGroup';
 import FormField from '../FormField/FormField';
+import Button from '../Button/Button';
+import ErrorSettings from '../ErrorSettings/ErrorSettings';
 
 const inputReqClasses = {
   mods: {
@@ -103,8 +102,10 @@ const Form = (props) => {
 
   const onSubminHandler = (event) => {
     event.preventDefault();
-    props.saveConfig(config);
-    setState((prevState) => ({...prevState, ...{ isDisabled: !state.isDisabled }}));
+    if (config.repoName.trim() && config.buildCommand.trim()) {
+      props.saveConfig(config);
+      setState((prevState) => ({...prevState, ...{ isDisabled: !state.isDisabled }}));
+    }
   }
 
   const goToHome = (event) => {
@@ -140,7 +141,7 @@ const Form = (props) => {
           value={config.repoName}
           onChange={onChangeHandler}
           required
-          clearInput={ clearInput }
+          onClearInput={ clearInput }
         />
       </FormField>
       <FormField className="Form-Field">
@@ -153,7 +154,7 @@ const Form = (props) => {
           value={config.buildCommand}
           onChange={onChangeHandler}
           required
-          clearInput={ clearInput }
+          onClearInput={ clearInput }
         />
       </FormField>
       <FormField className="Form-Field">
@@ -165,7 +166,7 @@ const Form = (props) => {
           placeholder="name of branch"
           value={config.mainBranch}
           onChange={onChangeHandler}
-          clearInput={ clearInput }
+          onClearInput={ clearInput }
         />
       </FormField>
       <FormField className="Form-Field">
@@ -178,9 +179,9 @@ const Form = (props) => {
           placeholder="10"
           value={config.period}
           onChange={onChangeHandler}
-          clearInput={ clearInput }
+          onClearInput={ clearInput }
           pattern="^[ 0-9]+$"
-          icon={ false }
+          isIcon={ false }
           describe="minutes"
         />
       </FormField>
@@ -199,7 +200,7 @@ const Form = (props) => {
         />
       </div>
       <div className="Form-Field">
-        { state.isShowError && <Error onClick={toggleErrorShow} errorText={state.configSaveRes.stderr} /> }
+        { state.isShowError && <ErrorSettings onClick={toggleErrorShow} errorText={state.configSaveRes.stderr} /> }
       </div>
     </form>
   )

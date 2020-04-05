@@ -1,6 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
-import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
+import React, { Fragment } from "react";
 import Header from "../blocks/Header/Header";
 import Content from "../blocks/Content/Content";
 import Form from '../blocks/Form/Form';
@@ -14,8 +12,6 @@ const TitleClasses = {
 
 const Settings = (props) => {
 
-  const [state, setState] = useState(props);
-
   return (
     <Fragment>
       <Header className="Page-Header" >
@@ -24,7 +20,9 @@ const Settings = (props) => {
           text={props.title}
           classes={TitleClasses}
           path='/'
-        >{ props.title }</Title>
+        >
+          { props.title }
+        </Title>
       </Header>
       <Content 
         className="Page-Content"
@@ -39,4 +37,4 @@ Settings.defaultProps = {
   title: 'School CI server'
 }
 
-export default connect()(Settings);
+export default Settings;

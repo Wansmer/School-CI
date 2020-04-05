@@ -1,9 +1,8 @@
 import React from 'react';
 import './Button.scss';
-import {expandClasses} from '../../utils';
+import { expandClasses } from '../../utils';
 
-
-function Button(props) {
+const Button = React.memo((props) => {
   const { isDisabled, className, classes, onClick, text } = {...props};
   return (
     <button 
@@ -14,7 +13,7 @@ function Button(props) {
       <span className="Button-Text">{text}</span>
     </button>
   )
-}
+});
 
 Button.defaultProps = {
   text: 'Button'

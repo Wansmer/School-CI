@@ -9,7 +9,7 @@ const settingsAnsi = {
 
 const convert = new Convert(settingsAnsi);
 
-const Preformatted = (props) => {
+const Preformatted = React.memo((props) => {
   
   const ansiLog = props.children ? convert.toHtml(props.children) : `<div>Waiting...</div>`;
   const log = { __html: ansiLog };
@@ -19,6 +19,6 @@ const Preformatted = (props) => {
          dangerouslySetInnerHTML={log} >
     </div>
   )
-}
+});
 
 export default Preformatted;

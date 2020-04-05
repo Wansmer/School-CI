@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.scss';
 
-function Header(props) {
+const Header = React.memo((props) => {
   return (
     <header className={'Header ' + props.className}>
       <div className="Header-Inner Container">
@@ -9,6 +9,6 @@ function Header(props) {
       </div>
     </header>
   )
-}
+});
 
 export default Header;

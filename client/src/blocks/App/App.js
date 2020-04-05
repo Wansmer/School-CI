@@ -9,7 +9,7 @@ import Details from '../../pages/Details';
 import Footer from '../Footer/Footer';
 import { getConfig } from '../../redux/actions';
 
-export function App(props) {
+const App = (props) => {
 
   useEffect(() => {
     props.getConfig();
@@ -40,9 +40,4 @@ const mapDispatchToProps = (dispatch) => ({
   getConfig: () => dispatch(getConfig())
 });
 
-export const ConnectedApp = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
-
-// export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

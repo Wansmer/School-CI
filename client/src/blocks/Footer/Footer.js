@@ -2,7 +2,7 @@ import React from 'react';
 import './Footer.scss';
 import Nav from '../Nav/Nav';
 
-function Footer(props) {
+const Footer = React.memo(() => {
   return (
     <footer className="Footer  Page-Footer">
       <div className="Footer-Inner Container">
@@ -11,6 +11,6 @@ function Footer(props) {
       </div>
     </footer>
   )
-}
+});
 
 export default Footer;

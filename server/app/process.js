@@ -97,7 +97,7 @@ const dirPreparation = async (commitHash, settings) => {
 const builder = async (buildId, settings) => {
   try {
     const dateTime = new Date().toISOString();
-    build.setBuildStart({ buildId, dateTime });
+    await build.setBuildStart({ buildId, dateTime });
     const buildLogObject = await startBuild(settings);
     const success = !(buildLogObject instanceof Error);
     const buildLog = buildLogObject.stderr + buildLogObject.stdout;
@@ -113,12 +113,10 @@ const builder = async (buildId, settings) => {
 const runBuildFromQueue = async ({ buildId, buildCommand, repoName, commitHash }) => {
   try {
     const settings = { repoName, buildCommand };
-    // await QuAPI.setStatus(buildId, 'inProgress');
     await dirPreparation(commitHash, settings);
     console.log('dirPreparation done...');
     await builder(buildId, settings);
     console.log('builder done...');
-    // await QuAPI.deleteLine(buildId);
   } catch (error) {
     console.log('Ошибка в runBuildFromQueue.');
     throw error;

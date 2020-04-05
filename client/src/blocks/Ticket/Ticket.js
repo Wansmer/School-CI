@@ -3,7 +3,7 @@ import './Ticket.scss';
 import { Link } from 'react-router-dom';
 import { getHumanDate, getHumanDuration } from '../../utils';
 
-function Ticket(props) {
+const Ticket = (props) => {
   return (
     <div className={'Ticket Ticket_status_' + props.value.status} onClick={props.goToDetails} id={props.id} >
       <div className="Ticket-Info">

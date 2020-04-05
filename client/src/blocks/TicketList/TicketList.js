@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import './TicketList.scss';
 
-function TicketList(props) {
+const TicketList = (props) => {
   return (
     <div className="TicketList">
       {props.children}
@@ -10,4 +9,4 @@ function TicketList(props) {
   )
 }
 
-export default connect()(TicketList);
+export default TicketList;

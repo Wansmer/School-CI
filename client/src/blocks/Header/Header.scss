@@ -15,9 +15,9 @@
 
   &-Button{
     @media screen and (max-width: 856px){
-      padding-right: 3px;
+      padding-right: 3px !important;
       &:before{
-        margin-right: 2px;
+        margin-right: 2px !important;
       }
       .Button-Text{
         max-width: 0;

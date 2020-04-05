@@ -1,12 +1,11 @@
 import React from 'react';
 import './InputGroup.scss';
-
 import { expandClasses } from '../../utils';
 import Label from '../Label/Label';
 import Input from '../Input/Input';
 
 
-function InputGroup(props) {
+const InputGroup = React.memo((props) => {
   return (
     <div className={expandClasses(props.classes, 'Input', '', props.className || '')}>
       { props.label && <Label htmlFor={props.id} className="Input-Label" >{ props.label }</Label> }
@@ -14,7 +13,7 @@ function InputGroup(props) {
       { props.describe && <div className="Input-Text">{ props.describe }</div> }
     </div>
   )
-}
+});
 
 InputGroup.defaultProps = {
   classes: {
