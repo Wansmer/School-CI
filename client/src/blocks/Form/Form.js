@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Form.scss';
-import Input from '../Input/Input';
+import InputGroup from '../InputGroup/InputGroup';
 import Button from '../Button/Button';
 import Error from '../Error/Error';
 
 import { connect } from 'react-redux';
 import { saveConfig, cleanSaveCode } from '../../redux/actions';
+import FormField from '../FormField/FormField';
 
 const inputReqClasses = {
   mods: {
@@ -86,6 +87,9 @@ const Form = (props) => {
 
   const onChangeHandler = (event) => {
     event.persist();
+    console.dir('name', event);
+    console.dir('value', event.target.value);
+    console.log(config.repoName);
     setConfig((prevState) => ({...prevState, ...{ [event.target.name]: event.target.value }}));
   }
 
@@ -118,7 +122,20 @@ const Form = (props) => {
         <h2 className="Form-Title">Settings</h2>
         <p className="Form-Text">Configure repository connection and&#160;synchronization settings.</p>
       </div>
-      <div className="Form-Field">
+      <FormField className="Form-Field">
+        <InputGroup 
+          classes={ inputReqClasses } 
+          id="repoName" 
+          label="GitHub repository" 
+          name="repoName"
+          placeholder="user-name/repo-name"
+          value={config.repoName}
+          onChange={onChangeHandler}
+          required
+          clearInput={ clearInput }
+        />
+      </FormField>
+      {/* <div className="Form-Field">
         <Input classes={inputReqClasses} required={true}>
           <label htmlFor="repoName" className="Input-Label">GitHub repository</label>
           <input 
@@ -178,7 +195,7 @@ const Form = (props) => {
           />
           <div className="Input-Text">minutes</div>
         </Input>
-      </div>
+      </div> */}
       <div className="Form-Field Content-Form-Field">
         <Button 
           type='submit' 

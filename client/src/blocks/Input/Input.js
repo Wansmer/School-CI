@@ -1,23 +1,18 @@
-import React from 'react';
-import './Input.scss';
-
+import React, { Fragment, useState } from 'react';
 import { expandClasses } from '../../utils';
 
-
-function Input(props) {
+const Input = React.memo((props) => {
   return (
-    <div className={expandClasses(props.classes, 'Input', '', props.className)}>
-      {props.children}
-    </div>
+    <Fragment>
+      <input {...props} onChange={ props.onChange } classes='' className={ expandClasses(props.classes, 'Input', 'Input', 'Input-Input', props.className) } />
+      { (props.icon && props.value !== '') && <span className="Input-Icon Icon Icon_inputClear" onClick={props.clearInput}></span> }
+    </Fragment>
   )
-}
+});
 
 Input.defaultProps = {
-  classes: {
-    mods: {
-      direction: 'column'
-    }
-  }
+  type: 'text',
+  icon: true
 }
 
 export default Input;
