@@ -1,4 +1,4 @@
-import { SAVE_CONFIG, GET_CONFIG, SERVER_URL, GET_TICKET_LIST, GET_BUILD_DETAILS, CLEAN_SAVE_CODE, ADD_TO_QUEUE } from '../constants';
+import { SAVE_CONFIG, GET_CONFIG, SERVER_URL, GET_TICKET_LIST, GET_BUILD_DETAILS, CLEAN_SAVE_CODE, ADD_TO_QUEUE, SHOW_LOADER, HIDE_LOADER } from '../constants';
 
 export const saveConfig = (data) => {
   return async (dispatch) => {
@@ -23,11 +23,21 @@ export const saveConfig = (data) => {
   }
 };
 
+export const showLoader = () => ({
+  type: SHOW_LOADER
+});
+
+export const hideLoader = () => ({
+  type: HIDE_LOADER
+});
+
 export const getConfig = () => {
   return async (dispatch) => {
     try {
+      dispatch(showLoader());
       const response = await fetch(`${SERVER_URL}settings`);
       const config = await response.json();
+      dispatch(hideLoader());
       dispatch({
         type: GET_CONFIG,
         payload: config

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import './App.scss';
 import { Home } from '../../pages/Home';
 import Settings from '../../pages/Settings';
@@ -8,12 +8,21 @@ import History from '../../pages/History';
 import Details from '../../pages/Details';
 import Footer from '../Footer/Footer';
 import { getConfig } from '../../redux/actions';
+import Loader from '../Loader/Loader';
 
 const App = (props) => {
+
+  const loading = useSelector(state => state.loading);
 
   useEffect(() => {
     props.getConfig();
   }, [])
+
+  if (loading) {
+    return (
+      <Loader />
+    )
+  }
   
   return (
     <Router>
@@ -33,7 +42,8 @@ const App = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  config: state.config
+  config: state.config,
+  loading: state.loading
 });
 
 const mapDispatchToProps = (dispatch) => ({
