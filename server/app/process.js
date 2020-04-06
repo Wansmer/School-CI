@@ -43,7 +43,7 @@ exports.getCommitInfo = async (commitHash, data) => {
   try {
     const result = await exec(`git log ${commitHash} -n 1 --pretty=format:%an:::%s:::%D`, { cwd: `./clone/${data.repoName}`});
     let [ authorName, commitMessage, branchName ] = result.stdout.split(':::');
-    branchName = branchName.split(', ')[branchName.split(', ').length - 1].replace('origin/', '') || 'master';
+    branchName = getBranchName(branchName);
     return { authorName, commitMessage, commitHash, branchName };
   } catch (error) {
     console.log('Ошибка в getCommitInfo.');
@@ -52,7 +52,10 @@ exports.getCommitInfo = async (commitHash, data) => {
 }
 
 const getBranchName = (data) => {
-  const last = data.split(', ').length - 1;
+  const arrBranch = data.split(', ');
+  const last = arrBranch.length - 1;
+  const branch = data.split(', ')[last].replace('origin/', '') || 'master';
+  return branch;
 }
 
 const goToCommit = async (commitHash, data) => {
@@ -100,6 +103,7 @@ const dirPreparation = async (commitHash, settings) => {
 
 const builder = async (buildId, settings) => {
   try {
+    QuAPI.setStatus(buildId, 'inProgress');
     const dateTime = new Date().toISOString();
     await build.setBuildStart({ buildId, dateTime });
     const buildLogObject = await startBuild(settings);
@@ -107,6 +111,7 @@ const builder = async (buildId, settings) => {
     const buildLog = buildLogObject.stderr + buildLogObject.stdout;
     const duration = Date.now() - new Date(dateTime);
     const buildEnd = { buildId, duration, success, buildLog };
+    QuAPI.deleteLine(buildId);
     const res = await build.setBuildFinish(buildEnd);
   } catch (error) {
     console.log('Ошибка в билдер.');
@@ -132,9 +137,9 @@ exports.checkQueueAndRun = async () => {
   try {
     for (let current of data.split('\n').filter(item => !!item)) {
       current = JSON.parse(current); 
-      QuAPI.setStatus(current.buildId, 'inProgress');
+      // QuAPI.setStatus(current.buildId, 'inProgress');
       await runBuildFromQueue(current);
-      QuAPI.deleteLine(current.buildId);
+      // QuAPI.deleteLine(current.buildId);
     }
     // QuAPI.cleanFile();
     console.log('restart queue');
