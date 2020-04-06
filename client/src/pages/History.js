@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TicketList from '../blocks/TicketList/TicketList';
 import Ticket from '../blocks/Ticket/Ticket';
@@ -58,16 +58,13 @@ const settingsButtonClasses = {
 const History = (props) => {
 
   const [state, setState] = useState(props);
+  const repoName = useSelector((state) => state.settings.config.repoName);
+  const loading = useSelector((state) => state.builds.loading);
   const history = useHistory();
-
+  
   useEffect(() => {
     props.getTicketList();
-    setState((prevState) => ({ ...prevState, loading: false }))
   }, [])
-
-  useEffect(() => {
-    setState((prevState) => ({...prevState, ...{ ticketList: props.TicketList }}))
-  }, [props.ticketList])
 
   const toggleModalShow = (event) => {
     event.persist();
@@ -84,8 +81,7 @@ const History = (props) => {
     history.push('/settings');
   }
 
-  const tickets = props.ticketList;
-  const listTickets = tickets.map((ticket) => (
+  const listTickets = props.ticketList.map((ticket) => (
       <Ticket 
         value={ticket} 
         id={ticket.id}
@@ -102,7 +98,7 @@ const History = (props) => {
           className="Header-Title"
           classes={TitleClasses}
           path='/history'
-        >{props.repoName}</Title>
+        >{repoName}</Title>
         <Button 
           className='Icon Icon_build Header-Button' 
           classes={buildButtonClasses} 
@@ -118,7 +114,7 @@ const History = (props) => {
       </Header>
       <Content className='Page-Content'
                classes={contentClasses} >
-        { state.loading ? <Loader /> : (        
+        { loading ? <Loader /> : (
           <TicketList >
             { listTickets.length ? listTickets : 'No builds here yet. Push a button "Run build" for adding new build...' }
             <Button classes={moreButtonClasses} text='Show more' />
@@ -136,13 +132,11 @@ const History = (props) => {
 }
 
 History.defaultProps = {
-  isShowModal: false,
-  loading: true
+  isShowModal: false
 }
 
 const mapStateToProps = (state) => ({
-  repoName: state.config.repoName,
-  ticketList: state.ticketList
+  ticketList: state.builds.ticketList
 })
 
 const mapDispatchToProps = (dispatch) => ({

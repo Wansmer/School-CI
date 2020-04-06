@@ -12,7 +12,7 @@ import Loader from '../Loader/Loader';
 
 const App = (props) => {
 
-  const loading = useSelector(state => state.loading);
+  const loading = useSelector((state) => state.settings.loading);
 
   useEffect(() => {
     props.getConfig();
@@ -44,7 +44,7 @@ const App = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  config: state.config
+  config: state.settings.config
 });
 
 const mapDispatchToProps = (dispatch) => ({

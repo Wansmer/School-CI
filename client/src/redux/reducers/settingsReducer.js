@@ -1,4 +1,4 @@
-import { SAVE_CONFIG, GET_CONFIG, SHOW_LOADER, HIDE_LOADER } from '../../constants';
+import { SAVE_CONFIG, GET_CONFIG, SHOW_LOADER, HIDE_LOADER, CLEAN_SAVE_CODE } from '../../constants';
 
 const defaultState = {
   config: {},
@@ -6,7 +6,8 @@ const defaultState = {
   configSaveRes: ''
 }
 
-export const settingsReduser = (state = defaultState, action) =>{
+export const settingsReducer = (state = defaultState, action) =>{
+  console.log('FROM SETTINGS REDUCER: ', action);
   switch (action.type) {
     case SAVE_CONFIG:
       return { ...state, config: action.payload, configSaveRes: action.res };

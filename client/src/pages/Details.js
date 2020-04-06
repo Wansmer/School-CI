@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import TicketList from '../blocks/TicketList/TicketList';
 import Ticket from '../blocks/Ticket/Ticket';
 import Header from '../blocks/Header/Header';
@@ -49,17 +49,17 @@ const settingsButtonClasses = {
 
 const Details = (props) => {
   
+  const repoName = useSelector((state) => state.settings.config.repoName);
+  const loading = useSelector((state) => state.ticket.loading);
   const [data, setData] = useState(props);
   const history = useHistory();
 
   useEffect(() => {
     props.getBuildDetails(props.match.params.buildId);
-    setData((prevState) => ({ ...prevState, loading: false }))
   }, [])
 
   useEffect(() => {
-    console.log(props.buildRequestRes);
-    if (props.buildRequestRes && props.buildRequestRes.id) {
+    if (props.buildRequestRes) {
       history.push(`/build/${props.buildRequestRes.id}`);
       props.cleanSaveCode();
     }
@@ -84,7 +84,7 @@ const Details = (props) => {
           classes={TitleClasses}
           path='/history'
         >
-          {props.repoName}
+          {repoName}
         </Title>
         <Button 
           className='Icon Icon_rebuild Header-Button' 
@@ -105,11 +105,10 @@ const Details = (props) => {
         classes={contentClasses} 
         className='Page-Content'
       >
-      { data.loading ? <Loader /> : (
+      { loading ? <Loader /> : (
         <TicketList>
           <Ticket 
             className='Ticket_show_details' 
-            
             value={props.ticket}
           />
           <Preformatted>
@@ -124,15 +123,13 @@ const Details = (props) => {
 
 Details.defaultProps = {
   isDisabled: false,
-  isShowError: false,
-  loading: true
+  isShowError: false
 }
 
 const mapStateToProps = (state) => ({
-  repoName: state.config.repoName,
-  ticket: state.currentTicket.details,
-  ticketLog: state.currentTicket.log,
-  buildRequestRes: state.buildRequestRes
+  ticket: state.ticket.currentTicket.details,
+  ticketLog: state.ticket.currentTicket.log,
+  buildRequestRes: state.ticket.buildRequestRes
 })
 
 const mapDistpatchToProps = (dispatch) => ({

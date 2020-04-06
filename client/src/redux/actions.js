@@ -67,6 +67,9 @@ export const getTicketList = () => {
 export const getBuildDetails = (id) => {
   return async (dispatch) => {
     try {
+      dispatch({
+        type: CLEAN_SAVE_CODE
+      })
       const response = await fetch(`${SERVER_URL}builds/${id}`);
       const answer = await fetch(`${SERVER_URL}builds/${id}/logs`);
       const details = await response.json();
@@ -85,6 +88,9 @@ export const addToQueue = (commitHash) => {
   console.log('addToQueue');
   return async (dispatch) => {
     try {
+      dispatch({
+        type: CLEAN_SAVE_CODE
+      });
       const response = await fetch(`${SERVER_URL}builds/${commitHash}`, {
         method: 'POST',
         headers: {

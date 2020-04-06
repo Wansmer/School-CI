@@ -212,8 +212,8 @@ Form.defaultProps = {
 }
 
 const mapStateToProps = (state) => ({
-  config: state.config,
-  configSaveRes: state.configSaveRes
+  config: state.settings.config,
+  configSaveRes: state.settings.configSaveRes
 })
 
 const mapDispatchToProps = (dispatch) => ({
