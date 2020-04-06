@@ -1,7 +1,1 @@
-{"commitHash":"5c9686b","buildId":"78ecca5a-cae3-4ff4-9bc4-5d31d1dc102a","status":"inProgress","repoName":"testOfBuild","buildCommand":"npm run build"}
-{"commitHash":"5c9686b","buildId":"0f091994-8b21-4847-8f2a-af676d479d0c","status":"Waiting","repoName":"testOfBuild","buildCommand":"npm run build"}
-{"commitHash":"5c9686b","buildId":"3b879ba5-8c2d-4b8a-b5e8-cefa4711eb06","status":"Waiting","repoName":"testOfBuild","buildCommand":"npm run build"}
-{"commitHash":"5c9686b","buildId":"88d2afd7-bd2b-46f6-af2b-5934dda4ec47","status":"Waiting","repoName":"testOfBuild","buildCommand":"npm run build"}
-{"commitHash":"5c9686b","buildId":"fc2ed83d-3452-4119-9a68-80cd673801d1","status":"Waiting","repoName":"testOfBuild","buildCommand":"npm run build"}
-{"commitHash":"5c9686b","buildId":"67b069c6-c8bd-4c5c-bd5f-ad9b59f6a094","status":"Waiting","repoName":"testOfBuild","buildCommand":"npm run build"}
-{"commitHash":"5c9686b","buildId":"3e556802-a2cb-4d32-903d-846f67c333b7","status":"Waiting","repoName":"testOfBuild","buildCommand":"npm run build"}
+{"commitHash":"5c9686b","buildId":"7ae560a5-687b-4e90-9717-de4dfd1c816d","status":"inProgress","repoName":"testOfBuild","buildCommand":"npm run build"}

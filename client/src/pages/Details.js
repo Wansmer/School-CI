@@ -56,12 +56,12 @@ const Details = (props) => {
 
   useEffect(() => {
     props.getBuildDetails(props.match.params.buildId);
-  }, [])
+  }, [props.match.params.buildId])
 
   useEffect(() => {
-    if (props.buildRequestRes) {
+    if (props.buildRequestRes && props.buildRequestRes.id) {
       history.push(`/build/${props.buildRequestRes.id}`);
-      props.cleanSaveCode();
+      // props.cleanSaveCode();
     }
   }, [props.buildRequestRes])
 
