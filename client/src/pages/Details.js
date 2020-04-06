@@ -61,7 +61,6 @@ const Details = (props) => {
   useEffect(() => {
     if (props.buildRequestRes && props.buildRequestRes.id) {
       history.push(`/build/${props.buildRequestRes.id}`);
-      // props.cleanSaveCode();
     }
   }, [props.buildRequestRes])
 

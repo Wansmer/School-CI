@@ -46,7 +46,6 @@ const Modal = React.memo((props) => {
       setData((prevState) => ({...prevState, ...{ isDisabled: false, isShowError: true }}));
     } else if (props.buildRequestRes && props.buildRequestRes.code === 200) {
       history.push(`/build/${props.buildRequestRes.id}`);
-      props.cleanSaveCode();
     }
   }, [props.buildRequestRes])
 
@@ -133,7 +132,7 @@ Modal.defaultProps = {
 }
 
 const mapStateToProps = (state) => ({
-  buildRequestRes: state.buildRequestRes
+  buildRequestRes: state.ticket.buildRequestRes
 })
 
 const mapDispatchToProps = (dispatch) => ({

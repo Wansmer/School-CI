@@ -1,4 +1,4 @@
-import { SHOW_LOADER, HIDE_LOADER, GET_BUILD_DETAILS, ADD_TO_QUEUE, CLEAN_SAVE_CODE } from '../../constants';
+import { GET_BUILD_DETAILS, ADD_TO_QUEUE, CLEAN_SAVE_CODE } from '../../constants';
 
 const defaultState = {
   currentTicket: {
@@ -10,7 +10,7 @@ const defaultState = {
 }
 
 export const ticketReducer = (state = defaultState, action) => {
-  console.log('FROM TICKET REDUCER: ', action);
+  console.log('FROM TICKET REDUCER: ', action.type, action.payload);
   switch (action.type) {
     case GET_BUILD_DETAILS:
       return Object.keys(action.payload).length === 0 ? state : { ...state, currentTicket: action.payload, loading: false };
