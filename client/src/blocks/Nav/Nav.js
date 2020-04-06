@@ -8,6 +8,6 @@ const Nav = (props) => {
       <a href='https://account.shri.yandex' className="Link Link_color_secondary">Learning</a>
     </nav>
   )
-});
+};
 
 export default React.memo(Nav);

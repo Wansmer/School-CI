@@ -71,9 +71,12 @@ export const getBuildDetails = (id) => {
         type: CLEAN_SAVE_CODE
       });
       const response = await fetch(`${SERVER_URL}builds/${id}`);
-      const answer = await fetch(`${SERVER_URL}builds/${id}/logs`);
       const details = await response.json();
-      const log = await answer.json();
+      let log = ''
+      if (details.status === 'Success' || details.status === 'Fail') {
+        const answer = await fetch(`${SERVER_URL}builds/${id}/logs`);
+        log = await answer.json();
+      }
       dispatch({
         type: GET_BUILD_DETAILS,
         payload: { details, log }

@@ -6,7 +6,6 @@ const defaultState = {
 };
 
 export const buildsReducer = (state = defaultState, action) =>{
-  console.log('FROM BUILDS REDUCER: ', action);
   switch (action.type) {
   case GET_TICKET_LIST:
     return { ...state, ticketList: action.payload, loading: false };
