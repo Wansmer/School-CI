@@ -20,7 +20,7 @@ export const saveConfig = (data) => {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 };
 
 export const showLoader = () => ({
@@ -46,7 +46,7 @@ export const getConfig = () => {
       console.log(err);
       dispatch(hideLoader());
     }
-  }
+  };
 };
 
 export const getTicketList = () => {
@@ -57,19 +57,19 @@ export const getTicketList = () => {
       dispatch({
         type: GET_TICKET_LIST,
         payload: ticketList
-      })
+      });
     } catch (err) {
       console.log(err);
     }
-  }
-}
+  };
+};
 
 export const getBuildDetails = (id) => {
   return async (dispatch) => {
     try {
       dispatch({
         type: CLEAN_SAVE_CODE
-      })
+      });
       const response = await fetch(`${SERVER_URL}builds/${id}`);
       const answer = await fetch(`${SERVER_URL}builds/${id}/logs`);
       const details = await response.json();
@@ -77,12 +77,12 @@ export const getBuildDetails = (id) => {
       dispatch({
         type: GET_BUILD_DETAILS,
         payload: { details, log }
-      })
+      });
     } catch (err) {
       console.log(err);
     }
-  }
-}
+  };
+};
 
 export const addToQueue = (commitHash) => {
   console.log('addToQueue');
@@ -101,17 +101,17 @@ export const addToQueue = (commitHash) => {
       dispatch({
         type: ADD_TO_QUEUE,
         payload: result
-      })
+      });
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 };
 
 export const cleanSaveCode = () => {
   return (dispatch) => {
     dispatch({
       type: CLEAN_SAVE_CODE
-    })
-  }
+    });
+  };
 };

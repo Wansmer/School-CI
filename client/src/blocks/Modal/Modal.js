@@ -18,53 +18,53 @@ const inputClasses = {
       }
     }
   }
-}
+};
 
 const saveButtonClasses = {
   mods: {
     type: 'action',
     size: 'l'
   }
-}
+};
 
 const settingsButtonClasses = {
   mods: {
     type: 'control',
     size: 'l'
   }
-}
+};
 
-const Modal = React.memo((props) => {
-  
+const Modal = (props) => {
+
   const [ data, setData ] = useState(props);
   const history = useHistory();
 
   useEffect(() => {
-    setData((prevState) => ({ ...prevState, ...{ buildRequestRes: props.buildRequestRes } }))
+    setData((prevState) => ({ ...prevState, ...{ buildRequestRes: props.buildRequestRes } }));
     console.log('buildRequestRes: ', props.buildRequestRes);
     if (props.buildRequestRes && props.buildRequestRes.code !== 200) {
       setData((prevState) => ({...prevState, ...{ isDisabled: false, isShowError: true }}));
     } else if (props.buildRequestRes && props.buildRequestRes.code === 200) {
       history.push(`/build/${props.buildRequestRes.id}`);
     }
-  }, [props.buildRequestRes])
+  }, [props.buildRequestRes]);
 
   const toggleErrorShow = (event) => {
     console.log('Toggle error show...');
     event.persist();
     setData((prevState) => ({...prevState, ...{ isErrorModal: !data.isErrorModal }}));
-  }
+  };
 
   const onChangeHandler = (event) => {
     event.persist();
     setData((prevState) => ({...prevState, ...{ [event.target.name]: event.target.value }}));
-  }
+  };
 
   const onClose = (event) => {
     if (event.target === event.currentTarget) {
       props.onClose(event);
     }
-  }
+  };
 
   const onSubminHandler = (event) => {
     event.preventDefault();
@@ -72,13 +72,13 @@ const Modal = React.memo((props) => {
       setData((prevState) => ({...prevState, ...{ isDisabled: !data.isDisabled }}));
       props.addToQueue(data.commitHash);
     }
-  }
+  };
 
   const clearInput = (event) => {
     event.persist();
     const target = event.target.offsetParent.getElementsByTagName('input')[0].name;
     setData((prevState) => ({...prevState, ...{ [target]: '' }}));
-  }
+  };
 
   return (
     <div className='Modal'>
@@ -91,8 +91,8 @@ const Modal = React.memo((props) => {
             </div>
             <InputGroup
               classes={ inputClasses }
-              id='commitHash' 
-              name='commitHash' 
+              id='commitHash'
+              name='commitHash'
               placeholder='Commit hash'
               onChange={ onChangeHandler }
               onClearInput={ clearInput }
@@ -101,43 +101,43 @@ const Modal = React.memo((props) => {
               required
             />
             <div className='Modal-ButtonsGroup'>
-              <Button 
-                type='submit' 
-                classes={saveButtonClasses} 
-                text='Run build' 
+              <Button
+                type='submit'
+                classes={saveButtonClasses}
+                text='Run build'
                 isDisabled={data.isDisabled}
               />
-              <Button 
-                classes={settingsButtonClasses} 
-                className='Modal-Button Modal-Button_type_control' 
-                text='Cancel' 
+              <Button
+                classes={settingsButtonClasses}
+                className='Modal-Button Modal-Button_type_control'
+                text='Cancel'
                 isDisabled={data.isDisabled}
-                onClick={props.onClose} 
+                onClick={props.onClose}
               />
             </div>
             <div className="Form-Field">
-            { data.isShowError && <ErrorSettings onClick={toggleErrorShow} errorText={data.buildRequestRes.stderr} /> }
+              { data.isShowError && <ErrorSettings onClick={toggleErrorShow} errorText={data.buildRequestRes.stderr} /> }
             </div>
           </form>
         </div>
       </div>
     </div>
-  )
-});
+  );
+};
 
 Modal.defaultProps = {
   commitHash: '',
   isDisabled: false,
   isShowError: false
-}
+};
 
 const mapStateToProps = (state) => ({
   buildRequestRes: state.ticket.buildRequestRes
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   addToQueue: (commitHash) => dispatch(addToQueue(commitHash)),
-  cleanSaveCode: () => dispatch(cleanSaveCode()) 
-})
+  cleanSaveCode: () => dispatch(cleanSaveCode())
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Modal));

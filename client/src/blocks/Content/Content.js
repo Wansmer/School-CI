@@ -2,17 +2,17 @@ import React from 'react';
 import './Content.scss';
 import {expandClasses} from '../../utils';
 
-const Content = React.memo((props) => {
+const Content = (props) => {
   return (
     <section className={'Content ' + props.className}>
-      <div className={'Content-Inner ' + 
+      <div className={'Content-Inner ' +
                         expandClasses(props.classes, 'Content', 'Inner', 'Container')}
       >
         {props.children}
       </div>
     </section>
-  )
-});
+  );
+};
 
 Content.defaultProps = {
   classes: {
@@ -25,6 +25,6 @@ Content.defaultProps = {
       }
     }
   }
-}
+};
 
-export default Content;
+export default React.memo(Content);

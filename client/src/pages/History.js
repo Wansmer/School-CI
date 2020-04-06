@@ -16,7 +16,7 @@ const TitleClasses = {
   mods: {
     color: 'main'
   }
-}
+};
 
 const contentClasses = {
   elems: {
@@ -27,14 +27,14 @@ const contentClasses = {
       }
     }
   }
-}
+};
 
 const moreButtonClasses = {
   mods: {
     type: 'control',
     size: 'm'
   }
-}
+};
 
 const buildButtonClasses = {
   mods: {
@@ -43,7 +43,7 @@ const buildButtonClasses = {
     iconMix: '',
     icon: 'left'
   }
-}
+};
 
 const settingsButtonClasses = {
   mods: {
@@ -53,7 +53,7 @@ const settingsButtonClasses = {
     icon: 'left',
     text: 'hidden'
   }
-}
+};
 
 const History = (props) => {
 
@@ -61,59 +61,59 @@ const History = (props) => {
   const repoName = useSelector((state) => state.settings.config.repoName);
   const loading = useSelector((state) => state.builds.loading);
   const history = useHistory();
-  
+
   useEffect(() => {
     props.getTicketList();
-  }, [])
+  }, []);
 
   const toggleModalShow = (event) => {
     event.persist();
     setState((prevState) => ({...prevState, ...{ isShowModal: !(state.isShowModal) }}));
-  }
+  };
 
   const goToDetails = (event) => {
     event.persist();
     history.push(`/build/${event.currentTarget.id}`);
-  }
+  };
 
   const clickHandler = (event) => {
     event.preventDefault();
     history.push('/settings');
-  }
+  };
 
   const listTickets = props.ticketList.map((ticket) => (
-      <Ticket 
-        value={ticket} 
-        id={ticket.id}
-        key={ticket.id} 
-        goToDetails={goToDetails}
-      />
-    )
+    <Ticket
+      value={ticket}
+      id={ticket.id}
+      key={ticket.id}
+      goToDetails={goToDetails}
+    />
   )
+  );
 
   return (
     <Fragment>
       <Header className="Page-Header" >
-        <Title 
+        <Title
           className="Header-Title"
           classes={TitleClasses}
           path='/history'
         >{repoName}</Title>
-        <Button 
-          className='Icon Icon_build Header-Button' 
-          classes={buildButtonClasses} 
-          text='Run build' 
+        <Button
+          className='Icon Icon_build Header-Button'
+          classes={buildButtonClasses}
+          text='Run build'
           onClick={toggleModalShow}
         />
-        <Button 
-          className='Icon Icon_gear Header-Button' 
-          classes={settingsButtonClasses} 
-          text='Settings' 
+        <Button
+          className='Icon Icon_gear Header-Button'
+          classes={settingsButtonClasses}
+          text='Settings'
           onClick={clickHandler}
         />
       </Header>
       <Content className='Page-Content'
-               classes={contentClasses} >
+        classes={contentClasses} >
         { loading ? <Loader /> : (
           <TicketList >
             { listTickets.length ? listTickets : 'No builds here yet. Push a button "Run build" for adding new build...' }
@@ -128,20 +128,20 @@ const History = (props) => {
         )}
       </div>
     </Fragment>
-  )
-}
+  );
+};
 
 History.defaultProps = {
   isShowModal: false
-}
+};
 
 const mapStateToProps = (state) => ({
   ticketList: state.builds.ticketList
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getTicketList: () => dispatch(getTicketList()),
   cleanSaveCode: () => dispatch(cleanSaveCode())
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(History);

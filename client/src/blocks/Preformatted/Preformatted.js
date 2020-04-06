@@ -9,16 +9,16 @@ const settingsAnsi = {
 
 const convert = new Convert(settingsAnsi);
 
-const Preformatted = React.memo((props) => {
-  
-  const ansiLog = props.children ? convert.toHtml(props.children) : `<div>Waiting...</div>`;
+const Preformatted = (props) => {
+
+  const ansiLog = props.children ? convert.toHtml(props.children) : '<div>Waiting...</div>';
   const log = { __html: ansiLog };
 
   return (
     <div className="Preformatted TicketList-Log"
-         dangerouslySetInnerHTML={log} >
+      dangerouslySetInnerHTML={log} >
     </div>
-  )
-});
+  );
+};
 
-export default Preformatted;
+export default React.memo(Preformatted);

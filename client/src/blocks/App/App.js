@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import { connect, useSelector } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { connect, useSelector } from 'react-redux';
 import './App.scss';
 import { Home } from '../../pages/Home';
 import Settings from '../../pages/Settings';
@@ -16,32 +16,32 @@ const App = (props) => {
 
   useEffect(() => {
     props.getConfig();
-  }, [])
+  }, []);
 
   if (loading) {
     return (
       <Loader />
-    )
+    );
   }
-  
+
   return (
     <Router>
-      { loading ? <Loader /> : (
+      {loading ? <Loader /> : (
         <div className="Page">
           <Switch>
-            <Route path={'/'} exact component={ Object.keys(props.config).length ? History : Home}/>
-            <Route path={'/settings'} component={Settings}/>
-            <Route path={'/history'} component={ Object.keys(props.config).length ? History : Home }/>
-            <Route path={'/build/:buildId'} component={Object.keys(props.config).length ? Details : Home}/>
-            <Route path={'/*'} component={Object.keys(props.config).length ? History : Home}/>
+            <Route path={'/'} exact component={Object.keys(props.config).length ? History : Home} />
+            <Route path={'/settings'} component={Settings} />
+            <Route path={'/history'} component={Object.keys(props.config).length ? History : Home} />
+            <Route path={'/build/:buildId'} component={Object.keys(props.config).length ? Details : Home} />
+            <Route path={'/*'} component={Object.keys(props.config).length ? History : Home} />
           </Switch>
           <Footer />
         </div>
-      ) }
+      )}
     </Router>
 
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   config: state.settings.config

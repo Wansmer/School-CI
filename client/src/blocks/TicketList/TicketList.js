@@ -6,7 +6,7 @@ const TicketList = (props) => {
     <div className="TicketList">
       {props.children}
     </div>
-  )
-}
+  );
+};
 
 export default TicketList;

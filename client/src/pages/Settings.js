@@ -1,14 +1,14 @@
-import React, { Fragment } from "react";
-import Header from "../blocks/Header/Header";
-import Content from "../blocks/Content/Content";
+import React, { Fragment } from 'react';
+import Header from '../blocks/Header/Header';
+import Content from '../blocks/Content/Content';
 import Form from '../blocks/Form/Form';
-import Title from "../blocks/Title/Title";
+import Title from '../blocks/Title/Title';
 
 const TitleClasses = {
   mods: {
     color: 'faded'
   }
-}
+};
 
 const Settings = (props) => {
 
@@ -24,7 +24,7 @@ const Settings = (props) => {
           { props.title }
         </Title>
       </Header>
-      <Content 
+      <Content
         className="Page-Content"
       >
         <Form />
@@ -35,6 +35,6 @@ const Settings = (props) => {
 
 Settings.defaultProps = {
   title: 'School CI server'
-}
+};
 
 export default Settings;

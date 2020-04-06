@@ -32,7 +32,7 @@ const Ticket = (props) => {
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Ticket;

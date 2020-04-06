@@ -2,7 +2,7 @@ import React from 'react';
 import './Footer.scss';
 import Nav from '../Nav/Nav';
 
-const Footer = React.memo(() => {
+const Footer = () => {
   return (
     <footer className="Footer  Page-Footer">
       <div className="Footer-Inner Container">
@@ -10,7 +10,7 @@ const Footer = React.memo(() => {
         <div className="Footer-Copyright">© 2020 Your Name</div>
       </div>
     </footer>
-  )
-});
+  );
+};
 
-export default Footer;
+export default React.memo(Footer);

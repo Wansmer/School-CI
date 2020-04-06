@@ -2,21 +2,21 @@ import React from 'react';
 import './Button.scss';
 import { expandClasses } from '../../utils';
 
-const Button = React.memo((props) => {
+const Button = (props) => {
   const { isDisabled, className, classes, onClick, text } = {...props};
   return (
-    <button 
-      onClick={onClick} 
+    <button
+      onClick={onClick}
       className={expandClasses(classes, 'Button', '', className)}
       disabled={isDisabled}
     >
       <span className="Button-Text">{text}</span>
     </button>
-  )
-});
+  );
+};
 
 Button.defaultProps = {
   text: 'Button'
-}
+};
 
-export default Button;
+export default React.memo(Button);

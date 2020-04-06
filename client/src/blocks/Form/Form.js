@@ -20,7 +20,7 @@ const inputReqClasses = {
       }
     }
   }
-}
+};
 
 const inputClasses = {
   mods: {
@@ -33,7 +33,7 @@ const inputClasses = {
       }
     }
   }
-}
+};
 
 const inputGorClasses = {
   mods: {
@@ -47,21 +47,21 @@ const inputGorClasses = {
       }
     }
   }
-}
+};
 
 const saveButtonClasses = {
   mods: {
     type: 'action',
     size: 'l'
   }
-}
+};
 
 const settingsButtonClasses = {
   mods: {
     type: 'control',
     size: 'l'
   }
-}
+};
 
 const defaultConfig = {
   id: '',
@@ -69,7 +69,7 @@ const defaultConfig = {
   mainBranch: '',
   buildCommand: '',
   period: 10
-}
+};
 
 const Form = (props) => {
   const [config, setConfig] = useState(defaultConfig);
@@ -90,7 +90,7 @@ const Form = (props) => {
       props.cleanSaveCode();
       history.push('/history');
     }
-  }, [props.configSaveRes])
+  }, [props.configSaveRes]);
 
   const onChangeHandler = (event) => {
     event.persist();
@@ -98,7 +98,7 @@ const Form = (props) => {
     console.dir('value', event.target.value);
     console.log(config.repoName);
     setConfig((prevState) => ({...prevState, ...{ [event.target.name]: event.target.value }}));
-  }
+  };
 
   const onSubminHandler = (event) => {
     event.preventDefault();
@@ -106,24 +106,24 @@ const Form = (props) => {
       props.saveConfig(config);
       setState((prevState) => ({...prevState, ...{ isDisabled: !state.isDisabled }}));
     }
-  }
+  };
 
   const goToHome = (event) => {
     event.preventDefault();
     history.push('/');
-  }
+  };
 
   const toggleErrorShow = (event) => {
     console.log('Toggle error show...');
     event.persist();
     setState((prevState) => ({...prevState, ...{ isErrorModal: !state.isErrorModal }}));
-  }
+  };
 
   const clearInput = (event) => {
     event.persist();
     const target = event.target.offsetParent.getElementsByTagName('input')[0].name;
     setConfig((prevState) => ({...prevState, ...{ [target]: '' }}));
-  }
+  };
 
   return (
     <form className="Form Content-Form" onSubmit={onSubminHandler}>
@@ -132,10 +132,10 @@ const Form = (props) => {
         <p className="Form-Text">Configure repository connection and&#160;synchronization settings.</p>
       </div>
       <FormField className="Form-Field">
-        <InputGroup 
-          classes={ inputReqClasses } 
-          id="repoName" 
-          label="GitHub repository" 
+        <InputGroup
+          classes={ inputReqClasses }
+          id="repoName"
+          label="GitHub repository"
           name="repoName"
           placeholder="user-name/repo-name"
           value={config.repoName}
@@ -145,10 +145,10 @@ const Form = (props) => {
         />
       </FormField>
       <FormField className="Form-Field">
-        <InputGroup 
-          classes={ inputReqClasses } 
-          id="buildCommand" 
-          label="Build command" 
+        <InputGroup
+          classes={ inputReqClasses }
+          id="buildCommand"
+          label="Build command"
           name="buildCommand"
           placeholder="my command for build"
           value={config.buildCommand}
@@ -158,10 +158,10 @@ const Form = (props) => {
         />
       </FormField>
       <FormField className="Form-Field">
-        <InputGroup 
-          classes={ inputClasses } 
-          id="mainBranch" 
-          label="Main branch" 
+        <InputGroup
+          classes={ inputClasses }
+          id="mainBranch"
+          label="Main branch"
           name="mainBranch"
           placeholder="name of branch"
           value={config.mainBranch}
@@ -170,11 +170,11 @@ const Form = (props) => {
         />
       </FormField>
       <FormField className="Form-Field">
-        <InputGroup 
+        <InputGroup
           className="Content-Form-Input"
-          classes={ inputGorClasses } 
-          id="period" 
-          label="Synchronize every" 
+          classes={ inputGorClasses }
+          id="period"
+          label="Synchronize every"
           name="period"
           placeholder="10"
           value={config.period}
@@ -186,15 +186,15 @@ const Form = (props) => {
         />
       </FormField>
       <div className="Form-Field Content-Form-Field">
-        <Button 
-          type='submit' 
-          classes={saveButtonClasses} 
+        <Button
+          type='submit'
+          classes={saveButtonClasses}
           text='Save'
           isDisabled={state.isDisabled}
         />
-        <Button 
-          classes={settingsButtonClasses} 
-          text='Cancel' 
+        <Button
+          classes={settingsButtonClasses}
+          text='Cancel'
           isDisabled={state.isDisabled}
           onClick={goToHome}
         />
@@ -203,22 +203,22 @@ const Form = (props) => {
         { state.isShowError && <ErrorSettings onClick={toggleErrorShow} errorText={state.configSaveRes.stderr} /> }
       </div>
     </form>
-  )
-}
+  );
+};
 
 Form.defaultProps = {
   isDisabled: false,
   isShowError: false
-}
+};
 
 const mapStateToProps = (state) => ({
   config: state.settings.config,
   configSaveRes: state.settings.configSaveRes
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   saveConfig: (data) => dispatch(saveConfig(data)),
-  cleanSaveCode: () => dispatch(cleanSaveCode()) 
-})
+  cleanSaveCode: () => dispatch(cleanSaveCode())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

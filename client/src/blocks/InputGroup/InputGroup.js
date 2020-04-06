@@ -5,15 +5,15 @@ import Label from '../Label/Label';
 import Input from '../Input/Input';
 
 
-const InputGroup = React.memo((props) => {
+const InputGroup = (props) => {
   return (
     <div className={expandClasses(props.classes, 'Input', '', props.className || '')}>
       { props.label && <Label htmlFor={props.id} className="Input-Label" >{ props.label }</Label> }
       <Input {...props} />
       { props.describe && <div className="Input-Text">{ props.describe }</div> }
     </div>
-  )
-});
+  );
+};
 
 InputGroup.defaultProps = {
   classes: {
@@ -21,6 +21,6 @@ InputGroup.defaultProps = {
       direction: 'column'
     }
   }
-}
+};
 
-export default InputGroup;
+export default React.memo(InputGroup);

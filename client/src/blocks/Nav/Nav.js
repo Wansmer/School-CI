@@ -1,7 +1,7 @@
 import React from 'react';
 import './Nav.scss';
 
-const Nav = React.memo((props) => {
+const Nav = (props) => {
   return (
     <nav className={ props.className + ' Nav' }>
       <a href='https://yandex.ru/support/' className="Link Link_color_secondary">Support</a>
@@ -10,4 +10,4 @@ const Nav = React.memo((props) => {
   )
 });
 
-export default Nav;
+export default React.memo(Nav);

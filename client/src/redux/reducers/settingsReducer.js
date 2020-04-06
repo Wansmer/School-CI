@@ -1,13 +1,13 @@
+/* eslint-disable indent */
 import { SAVE_CONFIG, GET_CONFIG, SHOW_LOADER, HIDE_LOADER, CLEAN_SAVE_CODE } from '../../constants';
 
 const defaultState = {
   config: {},
   loading: true,
   configSaveRes: ''
-}
+};
 
 export const settingsReducer = (state = defaultState, action) =>{
-  console.log('FROM SETTINGS REDUCER: ', action);
   switch (action.type) {
     case SAVE_CONFIG:
       return { ...state, config: action.payload, configSaveRes: action.res };
@@ -22,4 +22,4 @@ export const settingsReducer = (state = defaultState, action) =>{
     default:
       return state;
   }
-}
+};

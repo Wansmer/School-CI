@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Label = React.memo(({ children, htmlFor, className }) => {
+const Label = ({ children, htmlFor, className }) => {
   return (
     <label htmlFor={ htmlFor } className={ className }>
       { children }
     </label>
-  )
-});
+  );
+};
 
-export default Label;
+export default React.memo(Label);

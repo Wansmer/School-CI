@@ -6,7 +6,7 @@ const ErrorSettings = (props) => {
     <div className='Error' onClick={props.onClick}>
       <span>Error: { props.errorText || 'This is a text of this error...' }</span>
     </div>
-  )
-}
+  );
+};
 
-export default ErrorSettings;
+export default React.memo(ErrorSettings);

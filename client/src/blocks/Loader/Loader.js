@@ -1,16 +1,16 @@
 import React from 'react';
 import './Loader.scss';
 
-const Loader = React.memo(() => {
+const Loader = () => {
   return (
     <div className='Loader'>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         style={{
-          margin: "auto",
-          backgroundImage: "none",
-          backgroundPosition: "initial initial",
-          backgroundRepeat: "initial initial"
+          margin: 'auto',
+          backgroundImage: 'none',
+          backgroundPosition: 'initial initial',
+          backgroundRepeat: 'initial initial'
         }}
         width="200"
         height="200"
@@ -69,7 +69,7 @@ const Loader = React.memo(() => {
         </circle>
       </svg>
     </div>
-  )
-});
+  );
+};
 
-export default Loader;
+export default React.memo(Loader);

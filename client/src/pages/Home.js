@@ -1,17 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
-import Header from "../blocks/Header/Header";
-import Content from "../blocks/Content/Content";
+import Header from '../blocks/Header/Header';
+import Content from '../blocks/Content/Content';
 import Button from '../blocks/Button/Button';
 import Title from '../blocks/Title/Title';
-import Land from "../blocks/Land/Land";
-import Loader from "../blocks/Loader/Loader";
+import Land from '../blocks/Land/Land';
+import Loader from '../blocks/Loader/Loader';
 
 const TitleClasses = {
   mods: {
     color: 'faded'
   }
-}
+};
 
 const settingsButtonClasses = {
   mods: {
@@ -20,7 +20,7 @@ const settingsButtonClasses = {
     size: 'm',
     icon: 'left'
   }
-}
+};
 
 const contentClasses = {
   elems: {
@@ -31,7 +31,7 @@ const contentClasses = {
       }
     }
   }
-}
+};
 
 export const Home = (props) => {
   const history = useHistory();
@@ -39,7 +39,7 @@ export const Home = (props) => {
   const clickHandler = (event) => {
     event.preventDefault();
     history.push('/settings');
-  }
+  };
 
   return (
     <Fragment>
@@ -59,8 +59,8 @@ export const Home = (props) => {
           onClick={clickHandler}
         />
       </Header>
-      <Content 
-        className="Page-Content" 
+      <Content
+        className="Page-Content"
         classes={ contentClasses }>
         <Land />
       </Content>
@@ -70,4 +70,4 @@ export const Home = (props) => {
 
 Home.defaultProps = {
   title: 'School CI server'
-}
+};
