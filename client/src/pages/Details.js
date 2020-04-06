@@ -9,6 +9,7 @@ import { getBuildDetails, addToQueue, cleanSaveCode } from '../redux/actions';
 import Content from '../blocks/Content/Content';
 import Preformatted from '../blocks/Preformatted/Preformatted';
 import { useHistory } from 'react-router-dom';
+import Loader from '../blocks/Loader/Loader';
 
 const TitleClasses = {
   mods: {
@@ -52,7 +53,8 @@ const Details = (props) => {
   const history = useHistory();
 
   useEffect(() => {
-    props.getBuildDetails(props.match.params.buildId)
+    props.getBuildDetails(props.match.params.buildId);
+    setData((prevState) => ({ ...prevState, loading: false }))
   }, [])
 
   useEffect(() => {
@@ -103,15 +105,18 @@ const Details = (props) => {
         classes={contentClasses} 
         className='Page-Content'
       >
+      { data.loading ? <Loader /> : (
         <TicketList>
           <Ticket 
             className='Ticket_show_details' 
+            
             value={props.ticket}
           />
           <Preformatted>
             {props.ticketLog}
           </Preformatted>
         </TicketList>
+      ) }
       </Content>
     </Fragment>
   )
@@ -119,7 +124,8 @@ const Details = (props) => {
 
 Details.defaultProps = {
   isDisabled: false,
-  isShowError: false
+  isShowError: false,
+  loading: true
 }
 
 const mapStateToProps = (state) => ({

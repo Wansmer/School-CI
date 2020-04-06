@@ -26,24 +26,25 @@ const App = (props) => {
   
   return (
     <Router>
-      <div className="Page">
-        <Switch>
-          <Route path={'/'} exact component={ Object.keys(props.config).length ? History : Home}/>
-          <Route path={'/settings'} component={Settings}/>
-          <Route path={'/history'} component={ Object.keys(props.config).length ? History : Home }/>
-          <Route path={'/build/:buildId'} component={Object.keys(props.config).length ? Details : Home}/>
-          <Route path={'/*'} component={Object.keys(props.config).length ? History : Home}/>
-        </Switch>
-      <Footer />
-      </div>
+      { loading ? <Loader /> : (
+        <div className="Page">
+          <Switch>
+            <Route path={'/'} exact component={ Object.keys(props.config).length ? History : Home}/>
+            <Route path={'/settings'} component={Settings}/>
+            <Route path={'/history'} component={ Object.keys(props.config).length ? History : Home }/>
+            <Route path={'/build/:buildId'} component={Object.keys(props.config).length ? Details : Home}/>
+            <Route path={'/*'} component={Object.keys(props.config).length ? History : Home}/>
+          </Switch>
+          <Footer />
+        </div>
+      ) }
     </Router>
 
   );
 }
 
 const mapStateToProps = (state) => ({
-  config: state.config,
-  loading: state.loading
+  config: state.config
 });
 
 const mapDispatchToProps = (dispatch) => ({

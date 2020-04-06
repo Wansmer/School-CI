@@ -37,13 +37,14 @@ export const getConfig = () => {
       dispatch(showLoader());
       const response = await fetch(`${SERVER_URL}settings`);
       const config = await response.json();
-      dispatch(hideLoader());
       dispatch({
         type: GET_CONFIG,
         payload: config
       });
+      dispatch(hideLoader());
     } catch (err) {
       console.log(err);
+      dispatch(hideLoader());
     }
   }
 };

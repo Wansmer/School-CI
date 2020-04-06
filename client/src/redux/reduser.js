@@ -1,7 +1,7 @@
 import { GET_CONFIG, SAVE_CONFIG, GET_TICKET_LIST, GET_BUILD_DETAILS, CLEAN_SAVE_CODE, ADD_TO_QUEUE, SHOW_LOADER, HIDE_LOADER } from "../constants";
 
 const defaultState = {
-  loading: false,
+  loading: true,
   config: {},
   ticketList: [],
   currentTicket: {

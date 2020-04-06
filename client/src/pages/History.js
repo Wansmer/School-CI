@@ -9,6 +9,7 @@ import Title from '../blocks/Title/Title';
 import Content from '../blocks/Content/Content';
 import Button from '../blocks/Button/Button';
 import Modal from '../blocks/Modal/Modal';
+import Loader from '../blocks/Loader/Loader';
 import { getTicketList, cleanSaveCode } from '../redux/actions';
 
 const TitleClasses = {
@@ -61,6 +62,7 @@ const History = (props) => {
 
   useEffect(() => {
     props.getTicketList();
+    setState((prevState) => ({ ...prevState, loading: false }))
   }, [])
 
   useEffect(() => {
@@ -116,10 +118,12 @@ const History = (props) => {
       </Header>
       <Content className='Page-Content'
                classes={contentClasses} >
-        <TicketList >
-          { listTickets.length ? listTickets : 'No builds here yet. Push a button "Run build" for adding new build...' }
-          <Button classes={moreButtonClasses} text='Show more' />
-        </TicketList>
+        { state.loading ? <Loader /> : (        
+          <TicketList >
+            { listTickets.length ? listTickets : 'No builds here yet. Push a button "Run build" for adding new build...' }
+            <Button classes={moreButtonClasses} text='Show more' />
+          </TicketList>
+        )}
       </Content>
       <div>
         {state.isShowModal && ReactDOM.createPortal(
@@ -132,7 +136,8 @@ const History = (props) => {
 }
 
 History.defaultProps = {
-  isShowModal: false
+  isShowModal: false,
+  loading: true
 }
 
 const mapStateToProps = (state) => ({

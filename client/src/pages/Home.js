@@ -52,7 +52,6 @@ export const Home = (props) => {
         >
           {props.title}
         </Title>
-        <Loader/>
         <Button
           className="Header-Button Icon Icon_gear"
           text="Settings"
