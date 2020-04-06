@@ -140,6 +140,7 @@ const Form = (props) => {
           placeholder="user-name/repo-name"
           value={config.repoName}
           onChange={onChangeHandler}
+          pattern="^[\w-]+\/[\w-]+$"
           required
           onClearInput={ clearInput }
         />
@@ -180,7 +181,7 @@ const Form = (props) => {
           value={config.period}
           onChange={onChangeHandler}
           onClearInput={ clearInput }
-          pattern="^[ 0-9]+$"
+          pattern="^[0-9]+$"
           isIcon={ false }
           describe="minutes"
         />

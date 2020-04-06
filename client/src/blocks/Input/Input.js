@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { expandClasses } from '../../utils';
 
-const Input = ({ id, name, placeholder, onChange, classes, className, value, isIcon, onClearInput, required }) => {
+const Input = ({ id, name, placeholder, onChange, classes, className, value, isIcon, onClearInput, required, pattern }) => {
 
   return (
     <Fragment>
@@ -12,6 +12,7 @@ const Input = ({ id, name, placeholder, onChange, classes, className, value, isI
         onChange={ onChange }
         required={ required }
         value={ value }
+        pattern={ pattern }
         className={ expandClasses(classes, 'Input', 'Input', 'Input-Input', className) }
       />
       { (isIcon && value !== '') && <span className="Input-Icon Icon Icon_inputClear" onClick={ onClearInput }></span> }

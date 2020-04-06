@@ -43,12 +43,16 @@ exports.getCommitInfo = async (commitHash, data) => {
   try {
     const result = await exec(`git log ${commitHash} -n 1 --pretty=format:%an:::%s:::%D`, { cwd: `./clone/${data.repoName}`});
     let [ authorName, commitMessage, branchName ] = result.stdout.split(':::');
-    branchName = branchName.split(', ')[branchName.split(', ').length - 1] || 'master';
+    branchName = branchName.split(', ')[branchName.split(', ').length - 1].replace('origin/', '') || 'master';
     return { authorName, commitMessage, commitHash, branchName };
   } catch (error) {
     console.log('Ошибка в getCommitInfo.');
     throw error;
   }
+}
+
+const getBranchName = (data) => {
+  const last = data.split(', ').length - 1;
 }
 
 const goToCommit = async (commitHash, data) => {
