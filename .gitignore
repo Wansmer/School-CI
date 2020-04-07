@@ -1,6 +1,7 @@
 /node_modules/
 /server/node_modules/
-.DS_Store
-/server/.env
-/server/clone/
 /client/node_modules/
+/server/clone/
+/server/storage/
+/server/.env
+.DS_Store
