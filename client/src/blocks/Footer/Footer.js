@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="Footer  Page-Footer">
       <div className="Footer-Inner Container">
         <Nav className="Footer-Nav"/>
-        <div className="Footer-Copyright">© 2020 Your Name</div>
+        <div className="Footer-Copyright">© 2020 Wansmer (special for SHRI)</div>
       </div>
     </footer>
   );
