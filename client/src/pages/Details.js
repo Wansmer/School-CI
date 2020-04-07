@@ -89,7 +89,7 @@ const Details = (props) => {
           className='Icon Icon_rebuild Header-Button'
           classes={buildButtonClasses}
           text='Rebuild'
-          isDisabled={props.isDisabled}
+          isDisabled={ loading }
           onClick={reBuild}
         />
         <Button
