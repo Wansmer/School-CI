@@ -32,7 +32,7 @@ exports.queueAPI = class {
                         .filter((elem) => !!elem && JSON.parse(elem).buildId !== buildId)
                         .join('\n');
     console.log('AFTER DELETE: ', storage);
-    fs.writeFileSync(this.fileName, `${storage}`);
+    fs.writeFileSync(this.fileName, `${storage}\n`);
   }
 
   cleanFile () {

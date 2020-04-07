@@ -55,7 +55,7 @@ const getBranchName = (data) => {
   const arrBranch = data.split(', ');
   const last = arrBranch.length - 1;
   const branch = data.split(', ')[last].replace('origin/', '') || 'master';
-  return branch;
+  return branch === 'HEAD' ? 'master' : branch;
 }
 
 const goToCommit = async (commitHash, data) => {
