@@ -104,6 +104,7 @@ const History = (props) => {
           classes={buildButtonClasses}
           text='Run build'
           onClick={toggleModalShow}
+          isDisabled={ loading }
         />
         <Button
           className='Icon Icon_gear Header-Button'
@@ -117,7 +118,11 @@ const History = (props) => {
         { loading ? <Loader /> : (
           <TicketList >
             { listTickets.length ? listTickets : 'No builds here yet. Push a button "Run build" for adding new build...' }
-            <Button classes={moreButtonClasses} text='Show more' />
+            <Button 
+              classes={moreButtonClasses}
+              text='Show more'
+              isDisabled={ loading }
+            />
           </TicketList>
         )}
       </Content>

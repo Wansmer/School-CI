@@ -1,2 +1,1 @@
 
-{"commitHash": "013cee7","buildId": "49b1fbdb-4985-4e52-b793-4d80b20334e3","status": "Waiting", "repoName": "Wansmer/testOfBuild", "buildCommand": "npm run build"}
