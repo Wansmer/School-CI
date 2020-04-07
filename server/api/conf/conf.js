@@ -8,7 +8,7 @@ exports.getConf = async () => {
   } catch (error) {
     throw new Error(error);
   }
-}
+};
 
 exports.setConf = async (data) => {
   try {
@@ -16,15 +16,15 @@ exports.setConf = async (data) => {
     const response = await axios.post(BASE_URL + 'conf', data, { headers });
     return response.status;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
-}
+};
 
 exports.deleteConf = async () => {
   try {
     const response = await axios.delete(BASE_URL + 'conf', { headers });
     return response.status;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
-}
+};

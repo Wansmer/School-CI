@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
   } catch (error) {
     res.send(error);
   }
-})
+});
 
 router.get('/:buildId/logs', async (req, res) => {
   try {
@@ -29,7 +29,7 @@ router.get('/:buildId/logs', async (req, res) => {
   } catch (error) {
     res.send(error);
   }
-})
+});
 
 router.get('/:buildId', async (req, res) => {
   try {
@@ -39,7 +39,7 @@ router.get('/:buildId', async (req, res) => {
   } catch (error) {
     res.send(error);
   }
-})
+});
 
 router.post('/:commitHash', jsonParser, async (req, res) => {
   try {
@@ -52,6 +52,6 @@ router.post('/:commitHash', jsonParser, async (req, res) => {
   } catch (error) {
     res.send(error);
   }
-})
+});
 
 module.exports = router;

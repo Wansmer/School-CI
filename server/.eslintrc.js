@@ -6,7 +6,6 @@ module.exports = {
     },
     'extends': [
         'eslint:recommended',
-        ''
     ],
     'globals': {
         'Atomics': 'readonly',
@@ -18,7 +17,7 @@ module.exports = {
     'rules': {
         'indent': [
             'error',
-            4
+            2
         ],
         'linebreak-style': [
             'error',

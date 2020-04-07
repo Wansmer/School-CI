@@ -27,18 +27,18 @@ router.post('/', jsonParser, async (req, res) => {
     cloneRepo.send(data);
     await cloneRepo.on('message', (data) => {
       res.send(data);
-    })
+    });
   } catch (error) {
     res.send(error);
   }
-})
+});
 
 router.delete('/', (req, res) => {
   conf.deleteConf().then((response) => {
     res.render('/');
   }).catch((error) => {
     res.send(error);
-  })
+  });
 });
 
 module.exports = router;

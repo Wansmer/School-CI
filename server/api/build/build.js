@@ -12,7 +12,7 @@ exports.getBuildList = async (offset = 0, limit = 25) => {
   } catch (error) {
     return error;
   }
-}
+};
 
 exports.setBuildRequest = async (data) => {
   try {
@@ -21,7 +21,7 @@ exports.setBuildRequest = async (data) => {
   } catch (error) {
     return error;
   }
-}
+};
 
 exports.getBuildLog = async (buildId) => {
   const params = { buildId };
@@ -31,7 +31,7 @@ exports.getBuildLog = async (buildId) => {
   } catch (error) {
     return error;
   }
-}
+};
 
 exports.getBuildDetails = async (buildId) => {
   const params = { buildId };
@@ -41,7 +41,7 @@ exports.getBuildDetails = async (buildId) => {
   } catch (error) {
     return error;
   }
-}
+};
 
 exports.setBuildStart = async (data) => {
   try {
@@ -50,7 +50,7 @@ exports.setBuildStart = async (data) => {
   } catch (error) {
     return error;
   }
-}
+};
 
 exports.setBuildFinish = async (data) => {
   try {
@@ -59,7 +59,7 @@ exports.setBuildFinish = async (data) => {
   } catch (error) {
     return error;
   }
-}
+};
 
 exports.setBuildCancel = async (data) => {
   try {
@@ -68,4 +68,4 @@ exports.setBuildCancel = async (data) => {
   } catch (error) {
     return error;
   }
-}
+};
