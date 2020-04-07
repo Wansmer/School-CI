@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const app = express();
 require('dotenv').config();
+const { checkQueueAndRun } = require('./app/process');
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -14,7 +15,6 @@ const routerBuild = require('./routes/builds');
 app.use('/api/settings', routerConf);
 app.use('/api/builds', routerBuild);
 
-const { checkQueueAndRun } = require('./app/process');
 
 checkQueueAndRun();
 
