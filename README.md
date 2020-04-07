@@ -16,14 +16,16 @@ NODE_TLS_REJECT_UNAUTHORIZED = '0'
 2. В командной строке перейти в директорию проекта и запустить команды последовательно: 
 1. Предварительная установка пакетов:
 ```bash
-&~ npm i
+% npm i
 ``` 
 2. Установка пакетов в поддиректориях `./client` и `./server`:
 ```bash
-&~ npm run postinstall
+% npm run postinstall
 ```
 3. Запуск серверов (client - порт 3000, server - порт 3001):
 ```bash
-&~ npm run start
+% npm run start
 ```
+4. ...
+5. PROFIT! Проект запущен и автоматически открылся в вашем браузере по адресу [http://localhost:3000](http://localhost:3000).
 
