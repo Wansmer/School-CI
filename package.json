@@ -1,0 +1,26 @@
+{
+  "name": "School-CI",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd server && npm run listen",
+    "web": "cd client && npm run start",
+    "start": "concurrently \"npm run server\" \"npm run web\"",
+    "postinstall": "cd client && npm i && cd .. && cd server && npm i"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wansmer/School-CI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wansmer/School-CI/issues"
+  },
+  "homepage": "https://github.com/Wansmer/School-CI#readme",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  }
+}
