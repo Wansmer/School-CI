@@ -11,10 +11,6 @@ app.use(morgan('dev'));
 const routerConf = require('./routes/settings');
 const routerBuild = require('./routes/builds');
 
-app.get('/', (req, res) => {
-  res.render('index')
-});
-
 app.use('/api/settings', routerConf);
 app.use('/api/builds', routerBuild);
 

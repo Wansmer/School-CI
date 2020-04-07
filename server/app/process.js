@@ -137,11 +137,8 @@ exports.checkQueueAndRun = async () => {
   try {
     for (let current of data.split('\n').filter(item => !!item)) {
       current = JSON.parse(current); 
-      // QuAPI.setStatus(current.buildId, 'inProgress');
       await runBuildFromQueue(current);
-      // QuAPI.deleteLine(current.buildId);
     }
-    // QuAPI.cleanFile();
     console.log('restart queue');
     setTimeout(this.checkQueueAndRun, 10000);
   } catch (error) {
