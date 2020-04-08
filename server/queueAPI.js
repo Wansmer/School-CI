@@ -1,5 +1,4 @@
 const fs = require('fs');
-const util = require('util');
 
 exports.queueAPI = class {
 
@@ -22,7 +21,6 @@ exports.queueAPI = class {
                         .map((elem) => elem.buildId === buildId ? (elem.status = status, elem) : elem)
                         .map((elem) => JSON.stringify(elem))
                         .join('\n');
-    console.log('AFTER INSERT: ', storage);
     fs.writeFileSync(this.fileName, `${storage}\n`);
   }
 
@@ -31,7 +29,6 @@ exports.queueAPI = class {
     const storage = file.split('\n')
                         .filter((elem) => !!elem && JSON.parse(elem).buildId !== buildId)
                         .join('\n');
-    console.log('AFTER DELETE: ', storage);
     fs.writeFileSync(this.fileName, `${storage}\n`);
   }
 
