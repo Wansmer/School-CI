@@ -21,7 +21,7 @@ exports.cloneRepo = async (data) => {
 exports.pullRepo = async (data) => {
   const settings = { cwd: `./clone/${data.repoName}` };
   try {
-    await exec(`git pull ${data.repoName} clone/${data.repoName}`, settings);
+    await exec(`git checkout ${data.branchName} && git pull`, settings);
     return true;
   } catch (error) {
     console.log('Ошибка в pullRepo.');

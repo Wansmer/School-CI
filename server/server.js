@@ -15,7 +15,6 @@ const routerBuild = require('./routes/builds');
 app.use('/api/settings', routerConf);
 app.use('/api/builds', routerBuild);
 
-
 checkQueueAndRun();
 
 app.listen(3001);
