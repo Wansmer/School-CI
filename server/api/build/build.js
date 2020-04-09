@@ -37,8 +37,8 @@ exports.Build = class {
   getBuildDetails = async (buildId) => {
     const params = { buildId };
     try {
-      const response = await axios.get(BASE_URL + 'build/details', { headers, params });
-      return response.data;
+      const response = await this.axios.get(BASE_URL + 'build/details', { headers, params });
+      return response.data.data;
     } catch (error) {
       return error;
     }

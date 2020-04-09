@@ -37,7 +37,7 @@ router.get('/:buildId/logs', async (req, res) => {
 router.get('/:buildId', async (req, res) => {
   try {
     const response = await build.getBuildDetails(req.params.buildId);
-    const data = response.data;
+    const data = response;
     res.send(data);
   } catch (error) {
     res.send(error);

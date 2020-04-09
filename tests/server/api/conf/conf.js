@@ -67,7 +67,6 @@ describe('Работа с БД: Модуль настроек', () => {
 		})
 		it('Возвращает корректные данные', async () => {
 			const res = await conf.setConf(sendData);
-			console.log(res);
 			expect(res).to.equal(200);
 		})
 	})
@@ -79,7 +78,6 @@ describe('Работа с БД: Модуль настроек', () => {
 		})
 		it('Возвращает корректные данные', async () => {
 			const res = await conf.deleteConf();
-			console.log(res);
 			expect(res).to.equal(200);
 		})
 	})
