@@ -1,6 +1,5 @@
 const { getCommitInfo } = require('../app/process');
 const { queueAPI } = require('../queueAPI');
-
 const { Build } = require('../api/build/build');
 const { Conf } = require('../api/conf/conf');
 
@@ -10,6 +9,7 @@ const conf = new Conf();
 const QuAPI = new queueAPI('./storage/queue.txt');
 
 exports.BuildController = class  {
+
   constructor () {
     this.getBuildList = build.getBuildList;
     this.getBuildLog = build.getBuildLog;
@@ -34,8 +34,7 @@ exports.BuildController = class  {
     const buildId = req.params.buildId;
     try {
       const response = await this.getBuildLog(buildId);
-      let data = response.data;
-      data = JSON.stringify(data);
+      let data = JSON.stringify(response.data);
       res.send(data);
     } catch (error) {
       res.send(error);
@@ -46,8 +45,7 @@ exports.BuildController = class  {
     const buildId = req.params.buildId;
     try {
       const response = await this.getBuildDetails(buildId);
-      const data = response;
-      res.send(data);
+      res.send(response);
     } catch (error) {
       res.send(error);
     }

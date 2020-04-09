@@ -1,27 +1,21 @@
 const bodyParser = require('body-parser');
 const cp = require('child_process');
-const jsonParser = bodyParser.json({extended: false});
-
 const { Conf } = require('../api/conf/conf');
 const conf = new Conf();
 
 exports.ConfController = class {
 
-  constructor () {
+  constructor (repo) {
     this.getConf = conf.getConf;
     this.setConf = conf.setConf;
     this.deleteConf = conf.deleteConf;
-    this.cloneRepo = cp.fork('app/cloneRepo.js');
+    this.cloneRepo = repo || cp.fork('app/cloneRepo.js');
   }
 
   getSettings = async (req, res) => {
     try {
       const response = await this.getConf();
-      const data = {};
-      for (const prop in response) {
-        data[prop] = response[prop];
-      }
-      res.send(data);
+      res.send(response);
     } catch (error) {
       res.send(error);
     }
