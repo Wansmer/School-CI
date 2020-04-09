@@ -4,7 +4,8 @@ const exec = util.promisify(require('child_process').exec);
 const readFile = util.promisify(fs.readFile);
 const { GIT_PATH } = require('../constants');
 const { queueAPI } = require('../queueAPI');
-const build = require('../api/build/build');
+const { Build } = require('../api/build/build');
+const build = new Build();
 
 const QuAPI = new queueAPI('./storage/queue.txt');
 

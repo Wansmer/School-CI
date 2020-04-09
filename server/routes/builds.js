@@ -5,8 +5,11 @@ const jsonParser = bodyParser.json({extended: false});
 const { getCommitInfo } = require('../app/process');
 const { queueAPI } = require('../queueAPI');
 
-const build = require('../api/build/build');
-const conf = require('../api/conf/conf');
+const { Build } = require('../api/build/build');
+const { Conf } = require('../api/conf/conf');
+
+const build = new Build();
+const conf = new Conf();
 
 const QuAPI = new queueAPI('./storage/queue.txt');
 

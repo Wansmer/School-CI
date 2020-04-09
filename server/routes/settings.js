@@ -22,8 +22,7 @@ router.get('/', async (req, res) => {
 router.post('/', jsonParser, async (req, res) => {
   const data = req.body;
   try {
-    const req = await conf.setConf(data);
-    console.log('ОТВЕТ: ', req);
+    await conf.setConf(data);
     const cloneRepo = cp.fork('app/cloneRepo.js');
     cloneRepo.send(data);
     await cloneRepo.on('message', (data) => {
