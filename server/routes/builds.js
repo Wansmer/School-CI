@@ -2,59 +2,16 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json({extended: false});
-const { getCommitInfo } = require('../app/process');
-const { queueAPI } = require('../queueAPI');
 
-const { Build } = require('../api/build/build');
-const { Conf } = require('../api/conf/conf');
+const { BuildController } = require('../models/builds');
+const buildController = new BuildController();
 
-const build = new Build();
-const conf = new Conf();
+router.get('/', buildController.fetchBuildsList);
 
-const QuAPI = new queueAPI('./storage/queue.txt');
+router.get('/:buildId/logs', buildController.fetchBuildLog);
 
-router.get('/', async (req, res) => {
-  try {
-    const response = await build.getBuildList();
-    const data = response;
-    res.send(data);
-  } catch (error) {
-    res.send(error);
-  }
-});
+router.get('/:buildId', buildController.fetchBuildDetails);
 
-router.get('/:buildId/logs', async (req, res) => {
-  try {
-    const response = await build.getBuildLog(req.params.buildId);
-    let data = response.data;
-    data = JSON.stringify(data);
-    res.send(data);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-router.get('/:buildId', async (req, res) => {
-  try {
-    const response = await build.getBuildDetails(req.params.buildId);
-    const data = response;
-    res.send(data);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-router.post('/:commitHash', jsonParser, async (req, res) => {
-  try {
-    const settings = await conf.getConf();
-    const commitInfo = await getCommitInfo(req.params.commitHash, settings);
-    const buildInfo = await build.setBuildRequest(commitInfo);
-    QuAPI.addLine(commitInfo.commitHash, buildInfo, settings);
-    buildInfo.code = 200;
-    res.send(buildInfo);
-  } catch (error) {
-    res.send(error);
-  }
-});
+router.post('/:commitHash', jsonParser, buildController.sendBuildRequest);
 
 module.exports = router;

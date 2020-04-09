@@ -11,6 +11,7 @@ exports.ConfController = class {
     this.getConf = conf.getConf;
     this.setConf = conf.setConf;
     this.deleteConf = conf.deleteConf;
+    this.cloneRepo = cp.fork('app/cloneRepo.js');
   }
 
   getSettings = async (req, res) => {
@@ -30,9 +31,8 @@ exports.ConfController = class {
     const data = req.body;
     try {
       await this.setConf(data);
-      const cloneRepo = cp.fork('app/cloneRepo.js');
-      cloneRepo.send(data);
-      await cloneRepo.on('message', (data) => {
+      this.cloneRepo.send(data);
+      this.cloneRepo.on('message', (data) => {
         res.send(data);
       });
     } catch (error) {
