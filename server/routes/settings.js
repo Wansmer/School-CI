@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const cp = require('child_process');
 const jsonParser = bodyParser.json({extended: false});
 
-const conf = require('../api/conf/conf');
-
+const { Conf } = require('../api/conf/conf');
+const conf = new Conf();
 router.get('/', async (req, res) => {
   try {
     const response = await conf.getConf();

@@ -8,7 +8,7 @@
     "web": "cd client && npm run start",
     "start": "concurrently \"npm run server\" \"npm run web\"",
     "postinstall": "cd client && npm i && cd .. && cd server && npm i",
-    "test": "mocha ./tests/server/queueAPI.js"
+    "test": "mocha ./tests/index.js"
   },
   "repository": {
     "type": "git",

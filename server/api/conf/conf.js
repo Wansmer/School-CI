@@ -1,30 +1,38 @@
 const axios = require('axios');
 const { BASE_URL, headers } = require('../../constants');
 
-exports.getConf = async () => {
-  try {
-    const response = await axios.get(BASE_URL + 'conf', { headers });
-    return response.data.data;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
+exports.Conf = class {
 
-exports.setConf = async (data) => {
-  try {
-    data.period = +data.period;
-    const response = await axios.post(BASE_URL + 'conf', data, { headers });
-    return response.status;
-  } catch (error) {
-    throw new Error(error);
+  constructor() {
+    this.axios = axios;
   }
-};
 
-exports.deleteConf = async () => {
-  try {
-    const response = await axios.delete(BASE_URL + 'conf', { headers });
-    return response.status;
-  } catch (error) {
-    throw new Error(error);
+  getConf = async () => {
+    try {
+      const response = await this.axios.get(BASE_URL + 'conf', { headers });
+      return response.data.data;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
   }
-};
+
+  setConf = async (data) => {
+    try {
+      data.period = +data.period;
+      const response = await this.axios.post(BASE_URL + 'conf', data, { headers });
+      return response.status;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  deleteConf = async () => {
+    try {
+      const response = await this.axios.delete(BASE_URL + 'conf', { headers });
+      return response.status;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+}
