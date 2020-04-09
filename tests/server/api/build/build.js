@@ -65,10 +65,10 @@ describe('Работа с БД: Информация о сборках', () => {
 
     const returnData = {
       data: {
-        "data": {
-          "id": "8cee3685-e1ac-4e12-8970-2d52164c392f",
-          "buildNumber": 15,
-          "status": "Waiting"
+        'data': {
+          'id': '8cee3685-e1ac-4e12-8970-2d52164c392f',
+          'buildNumber': 15,
+          'status': 'Waiting'
         }
       }
     }
@@ -120,15 +120,15 @@ describe('Работа с БД: Информация о сборках', () => {
 
     const returnData = {
       data: {
-        "data": {
-          "id": "8cee3685-e1ac-4e12-8970-2d52164c392f",
-          "configurationId": "e7bd6d4b-a290-47df-8937-450e1d5e266b",
-          "buildNumber": 15,
-          "commitMessage": "string",
-          "commitHash": "string",
-          "branchName": "string",
-          "authorName": "string",
-          "status": "Waiting"
+        'data': {
+          'id': '8cee3685-e1ac-4e12-8970-2d52164c392f',
+          'configurationId': 'e7bd6d4b-a290-47df-8937-450e1d5e266b',
+          'buildNumber': 15,
+          'commitMessage': 'string',
+          'commitHash': 'string',
+          'branchName': 'string',
+          'authorName': 'string',
+          'status': 'Waiting'
         }
       }
     };

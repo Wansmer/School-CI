@@ -6,39 +6,14 @@ const jsonParser = bodyParser.json({extended: false});
 
 const { Conf } = require('../api/conf/conf');
 const conf = new Conf();
-router.get('/', async (req, res) => {
-  try {
-    const response = await conf.getConf();
-    const data = {};
-    for (const prop in response) {
-      data[prop] = response[prop];
-    }
-    res.send(data);
-  } catch (error) {
-    res.send(error);
-  }
-});
 
-router.post('/', jsonParser, async (req, res) => {
-  const data = req.body;
-  try {
-    await conf.setConf(data);
-    const cloneRepo = cp.fork('app/cloneRepo.js');
-    cloneRepo.send(data);
-    await cloneRepo.on('message', (data) => {
-      res.send(data);
-    });
-  } catch (error) {
-    res.send(error);
-  }
-});
+const { ConfController } = require('../models/settings');
+const confController = new ConfController();
 
-router.delete('/', (req, res) => {
-  conf.deleteConf().then((response) => {
-    res.render('/');
-  }).catch((error) => {
-    res.send(error);
-  });
-});
+router.get('/', confController.getSettings);
+
+router.post('/', jsonParser, confController.setSettings);
+
+router.delete('/', confController.deleteSettings);
 
 module.exports = router;
