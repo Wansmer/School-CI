@@ -14,11 +14,17 @@ const { GitHelper } = require('../app/GitHelper');
 const gitHelper = new GitHelper(GIT_PATH);
 
 exports.Builder = class {
+  constructor () {
+    this.exec = exec;
+    this.goToCommit = gitHelper.goToCommit;
+    this.setStatus = QuAPI.setStatus;
+    this.deleteLine = QuAPI.deleteLine;
+  }
 
   clearNodeModules = async (data) => {
     const settings = { cwd: `./clone/${data.repoName}` };
     try {
-      await exec('rm -Rf node_modules', settings);
+      await this.exec('rm -Rf node_modules', settings);
     } catch (error) {
       throw error;
     }
@@ -27,7 +33,7 @@ exports.Builder = class {
   installPackage = async (data) => {
     const settings = { cwd: `./clone/${data.repoName}` };
     try {
-      await exec('npm i', settings);
+      await this.exec('npm i', settings);
     } catch (error) {
       throw error;
     }
@@ -36,10 +42,9 @@ exports.Builder = class {
   dirPreparation = async (commitHash, settings) => {
     try {
       await this.clearNodeModules(settings);
-      await gitHelper.goToCommit(commitHash, settings);
+      await this.goToCommit(commitHash, settings);
       await this.installPackage(settings);
     } catch (error) {
-      console.log('ERROR FROM DIR_PREPARATION: ', error);
       throw error;
     }
   };
@@ -47,7 +52,7 @@ exports.Builder = class {
   startBuild = async (data) => {
     const settings = { cwd: `./clone/${data.repoName}` };
     try {
-      const { stdout, stderr } = await exec(`${data.buildCommand}`, settings);
+      const { stdout, stderr } = await this.exec(`${data.buildCommand}`, settings);
       return { stdout, stderr };
     } catch (error) {
       return error;
@@ -56,11 +61,11 @@ exports.Builder = class {
 
   building = async (buildId, settings) => {
     try {
-      QuAPI.setStatus(buildId, 'inProgress');
+      this.setStatus(buildId, 'inProgress');
       const dateTime = new Date().toISOString();
       await build.setBuildStart({ buildId, dateTime });
       const buildLogObject = await this.startBuild(settings);
-      QuAPI.deleteLine(buildId);
+      this.deleteLine(buildId);
       const success = !(buildLogObject instanceof Error);
       const buildLog = buildLogObject.stderr + buildLogObject.stdout;
       const duration = Date.now() - new Date(dateTime);
