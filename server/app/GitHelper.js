@@ -27,7 +27,9 @@ exports.GitHelper = class {
 
   getCommitInfo = async (commitHash, data) => {
     try {
+      console.log('get result START');
       const result = await exec(`git log ${commitHash} -n 1 --pretty=format:%an:::%s:::%D`, { cwd: `./clone/${data.repoName}`});
+      console.log('get result DONE', result);
       let [ authorName, commitMessage, branchName ] = result.stdout.split(':::');
       branchName = this.getBranchName(branchName);
       return { authorName, commitMessage, commitHash, branchName };

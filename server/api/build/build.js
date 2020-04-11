@@ -2,9 +2,11 @@ const axios = require('axios');
 const { BASE_URL, headers } = require('../../constants');
 
 exports.Build = class {
+
   constructor() {
     this.axios = axios;
   }
+
   getBuildList = async (offset = 0, limit = 25) => {
     const params = {
       offset,
@@ -12,11 +14,13 @@ exports.Build = class {
     };
     try {
       const response = await this.axios.get(BASE_URL + 'build/list', { headers, params });
+      // console.log('GET BUILD LIST FROM API', response.data.data);
       return response.data.data;
     } catch (error) {
       return error;
     }
   };
+
   setBuildRequest = async (data) => {
     try {
       const response = await this.axios.post(BASE_URL + 'build/request', data, { headers });
@@ -25,22 +29,24 @@ exports.Build = class {
       return error;
     }
   };
+
   getBuildLog = async (buildId) => {
     const params = { buildId };
     try {
       const response = await this.axios.get(BASE_URL + 'build/log', { headers, params });
       return response;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
+
   getBuildDetails = async (buildId) => {
     const params = { buildId };
     try {
       const response = await this.axios.get(BASE_URL + 'build/details', { headers, params });
       return response.data.data;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
@@ -70,4 +76,5 @@ exports.Build = class {
       return error;
     }
   };
+
 }

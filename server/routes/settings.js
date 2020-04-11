@@ -7,7 +7,7 @@ const jsonParser = bodyParser.json({extended: false});
 const { Conf } = require('../api/conf/conf');
 const conf = new Conf();
 
-const { ConfController } = require('../models/settings');
+const { ConfController } = require('../controllers/settings');
 const confController = new ConfController();
 
 router.get('/', confController.getSettings);

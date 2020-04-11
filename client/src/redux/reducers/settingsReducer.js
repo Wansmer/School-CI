@@ -8,6 +8,7 @@ const defaultState = {
 };
 
 export const settingsReducer = (state = defaultState, action) =>{
+  console.log(action.res);
   switch (action.type) {
     case SAVE_CONFIG:
       return { ...state, config: action.payload, configSaveRes: action.res };

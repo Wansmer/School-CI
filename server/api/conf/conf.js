@@ -10,9 +10,8 @@ exports.Conf = class {
   getConf = async () => {
     try {
       const response = await this.axios.get(BASE_URL + 'conf', { headers });
-      return response.data.data;
+      return response.data.data || {};
     } catch (error) {
-      console.log(error);
       throw new Error(error);
     }
   }

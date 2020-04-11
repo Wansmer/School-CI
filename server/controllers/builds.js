@@ -1,7 +1,10 @@
-const { getCommitInfo } = require('../app/process');
 const { queueAPI } = require('../queueAPI');
 const { Build } = require('../api/build/build');
 const { Conf } = require('../api/conf/conf');
+const { GIT_PATH } = require('../constants');
+const { GitHelper } = require('../app/GitHelper');
+
+const gitHelper = new GitHelper(GIT_PATH);
 
 const build = new Build();
 const conf = new Conf();
@@ -16,15 +19,14 @@ exports.BuildController = class  {
     this.getBuildDetails = build.getBuildDetails;
     this.setBuildRequest = build.setBuildRequest;
     this.getConf = conf.getConf;
-    this.getCommitInfo = getCommitInfo;
+    this.getCommitInfo = gitHelper.getCommitInfo;
     this.QuAPI = QuAPI;
   }
 
   fetchBuildsList = async (req, res) => {
     try {
       const response = await this.getBuildList();
-      const data = response;
-      res.send(data);
+      res.send(response);
     } catch (error) {
       res.send(error);
     }
@@ -34,7 +36,8 @@ exports.BuildController = class  {
     const buildId = req.params.buildId;
     try {
       const response = await this.getBuildLog(buildId);
-      let data = JSON.stringify(response.data);
+      let data = response.data;
+      data = JSON.stringify(data);
       res.send(data);
     } catch (error) {
       res.send(error);
@@ -55,8 +58,11 @@ exports.BuildController = class  {
     const commitHash = req.params.commitHash;
     try {
       const settings = await this.getConf();
+      console.log('commitInfo START');
       const commitInfo = await this.getCommitInfo(commitHash, settings);
+      console.log('commitInfo DONE');
       const buildInfo = await this.setBuildRequest(commitInfo);
+      console.log('buildInfo DONE');
       this.QuAPI.addLine(commitInfo.commitHash, buildInfo, settings);
       buildInfo.code = 200;
       res.send(buildInfo);

@@ -137,6 +137,7 @@ const History = (props) => {
 };
 
 History.defaultProps = {
+  ticketList: [],
   isShowModal: false
 };
 
@@ -149,4 +150,4 @@ const mapDispatchToProps = (dispatch) => ({
   cleanSaveCode: () => dispatch(cleanSaveCode())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(History);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(History));

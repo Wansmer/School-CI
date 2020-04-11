@@ -3,7 +3,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json({extended: false});
 
-const { BuildController } = require('../models/builds');
+const { BuildController } = require('../controllers/builds');
 const buildController = new BuildController();
 
 router.get('/', buildController.fetchBuildsList);

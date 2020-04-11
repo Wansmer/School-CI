@@ -1,24 +1,8 @@
 const {describe, it} = require('mocha');
 const { expect } = require('chai');
-const { ConfController } = require('../../../server/models/settings');
+const { ConfController } = require('../../../server/controllers/settings');
 
-const cloneRepo = {
-  send (data) {
-    return data
-  },
-  on (string, fn) {
-    fn({code: 200})
-  }
-};
-
-class testSettingsController extends ConfController {
-  constructor () {
-    super();
-    this.cloneRepo = cloneRepo;
-  }
-}
-
-const settingsController = new testSettingsController();
+const settingsController = new ConfController();
 
 describe('Контроллер по работе с настройками', () => {
   const settingsData = {
@@ -29,6 +13,9 @@ describe('Контроллер по работе с настройками', () 
     period: 10
   };
 
+  settingsController.cloneRepo = () => {
+    return Promise.resolve({code: 200});
+  }
   settingsController.getConf = () => {
     return Promise.resolve(settingsData);
   };
@@ -39,7 +26,14 @@ describe('Контроллер по работе с настройками', () 
     return Promise.resolve({ code: 200 });
   };
 
-  const req = {};
+  const req = {
+    body: {
+      "repoName": "Wansmer/testOfBuild",
+      "buildCommand": "npm run build",
+      "mainBranch": "master",
+      "period": 10
+    }
+  };
 
   const res =  {
     data: {},

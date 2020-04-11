@@ -58,7 +58,10 @@ export const getTicketList = () => {
         payload: ticketList
       });
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: GET_TICKET_LIST,
+        payload: []
+      });
     }
   };
 };
@@ -74,6 +77,7 @@ export const getBuildDetails = (id) => {
       let log = ''
       if (details.status === 'Success' || details.status === 'Fail') {
         const answer = await fetch(`${SERVER_URL}builds/${id}/logs`);
+        console.log(answer);
         log = await answer.json();
       }
       dispatch({
