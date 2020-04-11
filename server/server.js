@@ -18,5 +18,3 @@ app.use('/api/builds', routerBuild);
 checkQueueAndRun();
 
 app.listen(3001);
-
-exports.app = app;

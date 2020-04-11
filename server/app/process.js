@@ -11,10 +11,8 @@ const QuAPI = new queueAPI('./storage/queue.txt');
 
 exports.cloneRepo = async (data) => {
   try {
-    const { stdout, stderr } = await exec(`git clone ${GIT_PATH}${data.repoName} clone/${data.repoName}`);
-    return { stdout, stderr };
+    await exec(`git clone ${GIT_PATH}${data.repoName} clone/${data.repoName}`);
   } catch (error) {
-    console.log('Ошибка в cloneRepo.');
     throw error;
   }
 };
@@ -25,7 +23,6 @@ exports.pullRepo = async (data) => {
     await exec(`git checkout ${data.branchName} && git pull`, settings);
     return true;
   } catch (error) {
-    console.log('Ошибка в pullRepo.');
     throw error;
   }
 };
@@ -35,7 +32,6 @@ const installPackage = async (data) => {
   try {
     await exec('npm i', settings);
   } catch (error) {
-    console.log('Ошибка в installPackage.');
     throw error;
   }
 };
@@ -47,7 +43,6 @@ exports.getCommitInfo = async (commitHash, data) => {
     branchName = getBranchName(branchName);
     return { authorName, commitMessage, commitHash, branchName };
   } catch (error) {
-    console.log('Ошибка в getCommitInfo.');
     throw error;
   }
 };
@@ -65,7 +60,6 @@ const goToCommit = async (commitHash, data) => {
     const {stdout, stderr} = await exec(`git checkout ${commitHash} .`, settings);
     return {stdout, stderr};
   } catch (error) {
-    console.log('Ошибка в goToCommit.');
     throw error;
   }
 };
@@ -76,7 +70,6 @@ const startBuild = async (data) => {
     const { stdout, stderr } = await exec(`${data.buildCommand}`, settings);
     return { stdout, stderr };
   } catch (error) {
-    console.log('Ошибка в startBuild.');
     return error;
   }
 };
@@ -86,7 +79,6 @@ const clearNodeModules = async (data) => {
   try {
     await exec('rm -Rf node_modules', settings);
   } catch (error) {
-    console.log('Ошибка в clearNodeModules.');
     throw error;
   }
 };
@@ -97,7 +89,6 @@ const dirPreparation = async (commitHash, settings) => {
     await goToCommit(commitHash, settings);
     await installPackage(settings);
   } catch (error) {
-    console.log('Ошибка в dirPreparation.');
     throw error;
   }
 };
@@ -112,10 +103,9 @@ const builder = async (buildId, settings) => {
     const buildLog = buildLogObject.stderr + buildLogObject.stdout;
     const duration = Date.now() - new Date(dateTime);
     const buildEnd = { buildId, duration, success, buildLog };
-    QuAPI.deleteLine(buildId);
     await build.setBuildFinish(buildEnd);
+    QuAPI.deleteLine(buildId);
   } catch (error) {
-    console.log('Ошибка в билдер.');
     throw error;
   }
 };
@@ -128,7 +118,6 @@ const runBuildFromQueue = async ({ buildId, buildCommand, repoName, commitHash }
     await builder(buildId, settings);
     console.log('builder done...');
   } catch (error) {
-    console.log('Ошибка в runBuildFromQueue.');
     throw error;
   }
 };

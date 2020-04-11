@@ -2,6 +2,10 @@ const bodyParser = require('body-parser');
 const cp = require('child_process');
 const { Conf } = require('../api/conf/conf');
 const conf = new Conf();
+const { GIT_PATH } = require('../constants');
+const { GitHelper } = require('../app/GitHelper');
+
+const gitHelper = new GitHelper(GIT_PATH);
 
 exports.ConfController = class {
 
@@ -9,7 +13,7 @@ exports.ConfController = class {
     this.getConf = conf.getConf;
     this.setConf = conf.setConf;
     this.deleteConf = conf.deleteConf;
-    this.cloneRepo = repo || cp.fork('app/cloneRepo.js');
+    this.gitHelper = gitHelper;
   }
 
   getSettings = async (req, res) => {
@@ -25,10 +29,8 @@ exports.ConfController = class {
     const data = req.body;
     try {
       await this.setConf(data);
-      this.cloneRepo.send(data);
-      this.cloneRepo.on('message', (data) => {
-        res.send(data);
-      });
+      const cloneResCode = await this.gitHelper.cloneRepo(data);
+      res.send(cloneResCode);
     } catch (error) {
       res.send(error);
     }
