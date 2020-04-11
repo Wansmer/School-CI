@@ -28,7 +28,7 @@ exports.BuildController = class  {
       const response = await this.getBuildList();
       res.send(response);
     } catch (error) {
-      res.send(error);
+      res.send([]);
     }
   }
 

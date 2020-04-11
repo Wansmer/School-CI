@@ -60,12 +60,12 @@ exports.Builder = class {
       const dateTime = new Date().toISOString();
       await build.setBuildStart({ buildId, dateTime });
       const buildLogObject = await this.startBuild(settings);
+      QuAPI.deleteLine(buildId);
       const success = !(buildLogObject instanceof Error);
       const buildLog = buildLogObject.stderr + buildLogObject.stdout;
       const duration = Date.now() - new Date(dateTime);
       const buildEnd = { buildId, duration, success, buildLog };
       await build.setBuildFinish(buildEnd);
-      QuAPI.deleteLine(buildId);
     } catch (error) {
       throw error;
     }
@@ -88,10 +88,11 @@ exports.Builder = class {
         current = JSON.parse(current);
         await this.runBuildFromQueue(current);
       }
+    } catch (error) {
+      console.log('checkQueueAndRun: ERROR', error.response.status, error.config.url);
+    } finally {
       console.log('restart queue');
       setTimeout(this.checkQueueAndRun, 10000);
-    } catch (error) {
-      console.log('checkQueueAndRun: ', error);
     }
   };
 }

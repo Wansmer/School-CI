@@ -10,6 +10,7 @@ exports.queueAPI = class {
     const { id, status } = buildInfo;
     const { repoName, buildCommand } = settings;
     const line = `{"commitHash": "${commitHash}","buildId": "${id}","status": "${status}", "repoName": "${repoName}", "buildCommand": "${buildCommand}"}`;
+    console.log('СМЕНА СТАТУСА СБОРКИ В ОЧЕРЕДИ');
     fs.appendFileSync(this.fileName, `${line}\n`);
   }
 
@@ -21,7 +22,9 @@ exports.queueAPI = class {
                         .map((elem) => elem.buildId === buildId ? (elem.status = status, elem) : elem)
                         .map((elem) => JSON.stringify(elem))
                         .join('\n');
+    console.log('ИЗМЕНЕНИЕ СТАТУСА');
     fs.writeFileSync(this.fileName, `${storage}\n`);
+    console.log('СТАТУС ИЗМЕНЕН');
   }
 
   deleteLine = (buildId) => {
@@ -29,7 +32,9 @@ exports.queueAPI = class {
     const storage = file.split('\n')
                         .filter((elem) => !!elem && JSON.parse(elem).buildId !== buildId)
                         .join('\n');
+    console.log('УДАЛЕНИЕ СБОРКИ ИЗ ОЧЕРЕДИ', buildId);
     fs.writeFileSync(this.fileName, `${storage}\n`);
+    console.log('УДАЛЕНО');
   }
 
   cleanFile () {

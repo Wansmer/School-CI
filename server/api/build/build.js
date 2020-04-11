@@ -14,10 +14,9 @@ exports.Build = class {
     };
     try {
       const response = await this.axios.get(BASE_URL + 'build/list', { headers, params });
-      // console.log('GET BUILD LIST FROM API', response.data.data);
       return response.data.data;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
@@ -26,7 +25,7 @@ exports.Build = class {
       const response = await this.axios.post(BASE_URL + 'build/request', data, { headers });
       return response.data.data;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
@@ -55,7 +54,7 @@ exports.Build = class {
       const response = await this.axios.post(BASE_URL + 'build/start', data, { headers });
       return response.status;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
@@ -64,7 +63,7 @@ exports.Build = class {
       const response = await this.axios.post(BASE_URL + 'build/finish', data, { headers });
       return response.status;
     } catch (error) {
-      return error;
+      throw error;
     }
   };
 
