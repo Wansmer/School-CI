@@ -4,7 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const app = express();
 require('dotenv').config();
-const { Builder } = require('./app/builder');
+const { Builder } = require('./app/Builder');
 const builder = new Builder();
 
 app.use(cors());

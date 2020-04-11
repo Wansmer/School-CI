@@ -4,11 +4,12 @@ const exec = util.promisify(require('child_process').exec);
 exports.GitHelper = class {
   constructor (gitPath) {
     this.gitPath = gitPath;
+    this.exec = exec;
   }
 
   cloneRepo = async (data) => {
     try {
-      await exec(`git clone ${this.gitPath}${data.repoName} clone/${data.repoName}`);
+      await this.exec(`git clone ${this.gitPath}${data.repoName} clone/${data.repoName}`);
       return { code: 200 };
     } catch (error) {
       return error;
@@ -18,18 +19,17 @@ exports.GitHelper = class {
   pullRepo = async (data) => {
     const settings = { cwd: `./clone/${data.repoName}` };
     try {
-      await exec(`git checkout ${data.branchName} && git pull`, settings);
-      return true;
+      await this.exec(`git checkout ${data.branchName} && git pull`, settings);
+      return { code: 200 };
     } catch (error) {
-      throw error;
+      return error;
     }
   };
 
   getCommitInfo = async (commitHash, data) => {
+    const settings = { cwd: `./clone/${data.repoName}`};
     try {
-      console.log('get result START');
-      const result = await exec(`git log ${commitHash} -n 1 --pretty=format:%an:::%s:::%D`, { cwd: `./clone/${data.repoName}`});
-      console.log('get result DONE', result);
+      const result = await this.exec(`git log ${commitHash} -n 1 --pretty=format:%an:::%s:::%D`, settings);
       let [ authorName, commitMessage, branchName ] = result.stdout.split(':::');
       branchName = this.getBranchName(branchName);
       return { authorName, commitMessage, commitHash, branchName };
@@ -41,15 +41,14 @@ exports.GitHelper = class {
   getBranchName = (data) => {
     const arrBranch = data.split(', ');
     const last = arrBranch.length - 1;
-    const branch = data.split(', ')[last].replace('origin/', '') || 'master';
-    return branch === 'HEAD' ? 'master' : branch;
+    const branch = arrBranch[last].replace('origin/', '') || 'master';
+    return branch === 'HEAD' ? 'master' : branch.trim();
   };
 
   goToCommit = async (commitHash, data) => {
     const settings = { cwd: `./clone/${data.repoName}` };
     try {
-      const {stdout, stderr} = await exec(`git checkout ${commitHash} .`, settings);
-      return {stdout, stderr};
+      await this.exec(`git checkout ${commitHash} .`, settings);
     } catch (error) {
       throw error;
     }
