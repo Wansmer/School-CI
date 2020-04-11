@@ -1,7 +1,5 @@
 const util = require('util');
-const fs = require('fs');
 const exec = util.promisify(require('child_process').exec);
-const readFile = util.promisify(fs.readFile);
 const { GIT_PATH } = require('../constants');
 
 const { queueAPI } = require('../queueAPI');
@@ -18,7 +16,8 @@ exports.Builder = class {
     this.exec = exec;
     this.goToCommit = gitHelper.goToCommit;
     this.setStatus = QuAPI.setStatus;
-    this.deleteLine = QuAPI.deleteLine;
+    this.deleteFromQueue = QuAPI.deleteFromQueue;
+    this.getQueue = QuAPI.getQueue;
   }
 
   clearNodeModules = async (data) => {
@@ -65,7 +64,7 @@ exports.Builder = class {
       const dateTime = new Date().toISOString();
       await build.setBuildStart({ buildId, dateTime });
       const buildLogObject = await this.startBuild(settings);
-      this.deleteLine(buildId);
+      this.deleteFromQueue(buildId);
       const success = !(buildLogObject instanceof Error);
       const buildLog = buildLogObject.stderr + buildLogObject.stdout;
       const duration = Date.now() - new Date(dateTime);
@@ -87,9 +86,9 @@ exports.Builder = class {
   };
 
   checkQueueAndRun = async () => {
-    const data = await readFile('./storage/queue.txt', 'utf8');
+    const queue = await this.getQueue();
     try {
-      for (let current of data.split('\n').filter(item => !!item)) {
+      for (let current of queue) {
         current = JSON.parse(current);
         await this.runBuildFromQueue(current);
       }

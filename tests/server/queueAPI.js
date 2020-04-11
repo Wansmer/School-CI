@@ -15,7 +15,7 @@ const isValidJSON = (string) => {
 	}
 }
 
-describe('Работа с файлом очереди: ', () => {
+describe('Работа с файлом очереди (queueAPI): ', () => {
 	const commitHash = '1234567';
 	const buildInfo = {
 		id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -32,12 +32,12 @@ describe('Работа с файлом очереди: ', () => {
 	const {repoName, buildCommand} = settings;
 	const line = `{"commitHash": "${commitHash}","buildId": "${id}","status": "${status}", "repoName": "${repoName}", "buildCommand": "${buildCommand}"}`;
 
-	describe('Метод addLine', () => {
+	describe('Метод addToQueue', () => {
 		const storageBefore = fs.readFileSync(fileName, 'utf8')
 			.split('\n')
 			.filter((elem) => !!elem);
 
-		api.addLine(commitHash, buildInfo, settings);
+		api.addToQueue(commitHash, buildInfo, settings);
 
 		const storageAfter = fs.readFileSync(fileName, 'utf8')
 			.split('\n')
@@ -58,9 +58,9 @@ describe('Работа с файлом очереди: ', () => {
 	describe('Метод setStatus', () => {
 		const {id1, id2} = {id1: 1, id2: 2};
 		buildInfo.id = id1;
-		api.addLine(commitHash, buildInfo, settings);
+		api.addToQueue(commitHash, buildInfo, settings);
 		buildInfo.id = id2;
-		api.addLine(commitHash, buildInfo, settings);
+		api.addToQueue(commitHash, buildInfo, settings);
 		const storageBefore = fs.readFileSync(fileName, 'utf8')
 			.split('\n')
 			.filter((elem) => !!elem)
@@ -78,18 +78,18 @@ describe('Работа с файлом очереди: ', () => {
 		});
 		fs.writeFileSync(fileName, '', 'utf8');
 	})
-	describe('Метод deleteLine', () => {
+	describe('Метод deleteFromQueue', () => {
 		const {id1, id2} = {id1: '1', id2: '2'};
 		buildInfo.id = id1;
-		api.addLine(commitHash, buildInfo, settings);
+		api.addToQueue(commitHash, buildInfo, settings);
 		buildInfo.id = id2;
-		api.addLine(commitHash, buildInfo, settings);
+		api.addToQueue(commitHash, buildInfo, settings);
 		const storageBefore = fs.readFileSync(fileName, 'utf8')
 			.split('\n')
 			.filter((elem) => !!elem)
 			.map((elem) => JSON.parse(elem));
 		const deletedLine = storageBefore[0];
-		api.deleteLine(id1);
+		api.deleteFromQueue(id1);
 		const storageAfter = fs.readFileSync(fileName, 'utf8')
 			.split('\n')
 			.filter((elem) => !!elem)
@@ -107,16 +107,16 @@ describe('Работа с файлом очереди: ', () => {
 		fs.writeFileSync(fileName, '', 'utf8');
 	});
 
-	describe('Метод clearFile', () => {
+	describe('Метод clearQueue', () => {
 		const {id1, id2} = {id1: '1', id2: '2'};
 		buildInfo.id = id1;
-		api.addLine(commitHash, buildInfo, settings);
+		api.addToQueue(commitHash, buildInfo, settings);
 		buildInfo.id = id2;
-		api.addLine(commitHash, buildInfo, settings);
+		api.addToQueue(commitHash, buildInfo, settings);
 		const storageBefore = fs.readFileSync(fileName, 'utf8')
 			.split('\n')
 			.filter((elem) => !!elem);
-		api.cleanFile();
+		api.clearQueue();
 		const storageAfter = fs.readFileSync(fileName, 'utf8')
 			.split('\n')
 			.filter((elem) => !!elem);

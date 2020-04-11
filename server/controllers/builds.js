@@ -63,7 +63,7 @@ exports.BuildController = class  {
       console.log('commitInfo DONE');
       const buildInfo = await this.setBuildRequest(commitInfo);
       console.log('buildInfo DONE');
-      this.QuAPI.addLine(commitInfo.commitHash, buildInfo, settings);
+      this.QuAPI.addToQueue(commitInfo.commitHash, buildInfo, settings);
       buildInfo.code = 200;
       res.send(buildInfo);
     } catch (error) {
