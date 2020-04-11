@@ -25,6 +25,8 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "concurrently": "^5.1.0",
+    "hermione": "^3.1.0",
+    "html-reporter": "^5.15.2",
     "mocha": "^7.1.1",
     "sinon": "^9.0.2",
     "supertest": "^4.0.2"

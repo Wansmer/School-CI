@@ -119,6 +119,6 @@ describe('Модуль Builder', () => {
   });
 
   describe('Метод checkQueueAndRun', () => {
-    //.
+    // .
   });
 });

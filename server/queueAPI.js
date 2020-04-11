@@ -6,6 +6,7 @@ exports.queueAPI = class {
 
   constructor(fileName) {
     this.fileName = fileName;
+    this.readFile = readFile;
   }
 
   addToQueue = (commitHash, buildInfo, settings) => {
@@ -36,7 +37,7 @@ exports.queueAPI = class {
   }
 
   getQueue = async () => {
-    const data = await readFile(this.fileName, 'utf8');
+    const data = await this.readFile(this.fileName, 'utf8');
     return data.split('\n').filter(item => !!item);
   }
 

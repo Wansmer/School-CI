@@ -30,7 +30,7 @@ buildController.setBuildRequest = () => Promise.resolve({ code: 200 });
 buildController.getConf = () => Promise.resolve(settingsData);
 buildController.getCommitInfo = () => Promise.resolve({});
 buildController.QuAPI = {
-  addLine: () => ''
+  addToQueue: () => ''
 };
 
 const req = {
