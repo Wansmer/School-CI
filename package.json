@@ -8,7 +8,8 @@
     "web": "cd client && npm run start",
     "start": "concurrently \"npm run server\" \"npm run web\"",
     "postinstall": "cd client && npm i && cd .. && cd server && npm i",
-    "test": "mocha ./tests/index.js"
+    "test": "mocha ./tests/index.js",
+    "hermione": "./node_modules/.bin/hermione tests/hermione/simple.hermione.js"
   },
   "repository": {
     "type": "git",

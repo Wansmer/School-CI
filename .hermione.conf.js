@@ -5,12 +5,13 @@ module.exports = {
     chrome: {
       desiredCapabilities: {
         browserName: 'chrome' // this browser should be installed on your OS
-      }
+      },
+      pageLoadTimeout: 10000
     }
   },
   plugins: {
     'html-reporter/hermione': {
-      path: 'hermione-html-report'
+      path: 'tests/hermione/hermione-html-report'
     }
   }
 };
