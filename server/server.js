@@ -19,3 +19,5 @@ app.use('/api/builds', routerBuild);
 builder.checkQueueAndRun();
 
 app.listen(3001);
+
+module.exports = app;
