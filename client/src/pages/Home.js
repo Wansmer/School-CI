@@ -5,7 +5,6 @@ import Content from '../blocks/Content/Content';
 import Button from '../blocks/Button/Button';
 import Title from '../blocks/Title/Title';
 import Land from '../blocks/Land/Land';
-import Loader from '../blocks/Loader/Loader';
 
 const TitleClasses = {
   mods: {
