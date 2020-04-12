@@ -59,7 +59,8 @@ describe('Работа с БД: Информация о сборках', () => {
       const res = await build.getBuildList();
       expect(res).to.be.an('array');
     })
-  })
+  });
+
   describe('Метод setBuildRequest', () => {
     const build = new Build();
 
@@ -88,7 +89,8 @@ describe('Работа с БД: Информация о сборках', () => {
       const res = await build.setBuildRequest({});
       expect(res).to.deep.equal(returnData.data.data);
     })
-  })
+  });
+
   describe('Метод getBuildLog', () => {
     const build = new Build();
 
@@ -113,7 +115,7 @@ describe('Работа с БД: Информация о сборках', () => {
       const res = await build.getBuildLog({});
       expect(res.lenght).to.not.equal(0);
     })
-  })
+  });
 
   describe('Метод getBuildDetails', () => {
     const build = new Build();
@@ -148,7 +150,8 @@ describe('Работа с БД: Информация о сборках', () => {
       const res = await build.getBuildDetails('buildId');
       expect(res).to.deep.equal(returnData.data.data);
     })
-  })
+  });
+
   describe('Метод setBuildStart', () => {
     const build = new Build();
 
@@ -168,7 +171,8 @@ describe('Работа с БД: Информация о сборках', () => {
       const res = await build.setBuildStart('buildId');
       expect(res).to.deep.equal(200);
     })
-  })
+  });
+
   describe('Метод setBuildFinish', () => {
     const build = new Build();
 
@@ -188,7 +192,8 @@ describe('Работа с БД: Информация о сборках', () => {
       const res = await build.setBuildFinish('buildId');
       expect(res).to.deep.equal(200);
     })
-  })
+  });
+
   describe('Метод setBuildCancel', () => {
     const build = new Build();
 
@@ -208,5 +213,6 @@ describe('Работа с БД: Информация о сборках', () => {
       const res = await build.setBuildCancel('buildId');
       expect(res).to.deep.equal(200);
     })
-  })
+  });
+
 });

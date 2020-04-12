@@ -18,6 +18,9 @@ exports.Builder = class {
     this.setStatus = QuAPI.setStatus;
     this.deleteFromQueue = QuAPI.deleteFromQueue;
     this.getQueue = QuAPI.getQueue;
+    this.setBuildStart = build.setBuildStart;
+    this.setBuildFinish = build.setBuildFinish;
+    this.setTimeout = global.setTimeout;
   }
 
   clearNodeModules = async (data) => {
@@ -62,14 +65,14 @@ exports.Builder = class {
     try {
       this.setStatus(buildId, 'inProgress');
       const dateTime = new Date().toISOString();
-      await build.setBuildStart({ buildId, dateTime });
+      await this.setBuildStart({ buildId, dateTime });
       const buildLogObject = await this.startBuild(settings);
       this.deleteFromQueue(buildId);
       const success = !(buildLogObject instanceof Error);
       const buildLog = buildLogObject.stderr + buildLogObject.stdout;
       const duration = Date.now() - new Date(dateTime);
       const buildEnd = { buildId, duration, success, buildLog };
-      await build.setBuildFinish(buildEnd);
+      await this.setBuildFinish(buildEnd);
     } catch (error) {
       throw error;
     }
@@ -86,8 +89,8 @@ exports.Builder = class {
   };
 
   checkQueueAndRun = async () => {
-    const queue = await this.getQueue();
     try {
+      const queue = await this.getQueue();
       for (let current of queue) {
         current = JSON.parse(current);
         await this.runBuildFromQueue(current);
@@ -96,7 +99,7 @@ exports.Builder = class {
       console.log('checkQueueAndRun: ERROR', error.response.status, error.config.url);
     } finally {
       console.log('restart queue');
-      setTimeout(this.checkQueueAndRun, 10000);
+      this.setTimeout(this.checkQueueAndRun, 10000);
     }
   };
 }
