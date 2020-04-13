@@ -91,6 +91,7 @@ const Details = (props) => {
           text='Rebuild'
           isDisabled={ loading }
           onClick={reBuild}
+          id='rebuild'
         />
         <Button
           className='Icon Icon_gear Header-Button'
@@ -98,6 +99,7 @@ const Details = (props) => {
           text='Settings'
           isDisabled={props.isDisabled}
           onClick={clickHandler}
+          id='settings_header'
         />
       </Header>
       <Content
