@@ -124,6 +124,7 @@ const History = (props) => {
               classes={moreButtonClasses}
               text='Show more'
               isDisabled={ loading }
+              id='show_more'
             />
           </TicketList>
         )}
