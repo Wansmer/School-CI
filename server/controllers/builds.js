@@ -40,7 +40,7 @@ exports.BuildController = class  {
       data = JSON.stringify(data);
       res.send(data);
     } catch (error) {
-      res.send(error);
+      res.send('');
     }
   }
 

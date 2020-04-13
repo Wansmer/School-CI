@@ -4,9 +4,14 @@ module.exports = {
   browsers: {
     chrome: {
       desiredCapabilities: {
-        browserName: 'chrome' // this browser should be installed on your OS
-      }
-      // pageLoadTimeout: 1000000
+        browserName: 'chrome', // this browser should be installed on your OS
+        chromeOptions: {
+          args: [
+            '--headless'
+          ]
+        }
+      },
+      retry: 3
     }
   },
   plugins: {
