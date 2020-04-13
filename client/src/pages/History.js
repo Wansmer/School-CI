@@ -105,12 +105,14 @@ const History = (props) => {
           text='Run build'
           onClick={toggleModalShow}
           isDisabled={ loading }
+          id='run_build'
         />
         <Button
           className='Icon Icon_gear Header-Button'
           classes={settingsButtonClasses}
           text='Settings'
           onClick={clickHandler}
+          id='settings_header'
         />
       </Header>
       <Content className='Page-Content'

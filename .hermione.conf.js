@@ -6,7 +6,7 @@ module.exports = {
       desiredCapabilities: {
         browserName: 'chrome' // this browser should be installed on your OS
       },
-      pageLoadTimeout: 10000
+      pageLoadTimeout: 1000000
     }
   },
   plugins: {
