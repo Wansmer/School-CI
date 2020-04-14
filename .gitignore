@@ -8,3 +8,5 @@
 /tests/hermione/hermione-html-report/
 /images/
 .DS_Store
+/buildServer/server-conf.json
+/buildServer/node_modules/

@@ -5,7 +5,7 @@ import { getHumanDate, getHumanDuration } from '../../utils';
 
 const Ticket = (props) => {
   return (
-    <div className={'Ticket Ticket_status_' + props.value.status + ' ' + props.className} onClick={props.goToDetails} id={props.id} >
+    <div className={'Ticket Ticket_status_' + props.value.status} onClick={props.goToDetails} id={props.id} >
       <div className="Ticket-Info">
         <div className="Ticket-Summary">
           <span className="Ticket-Number">{'#' + props.value.buildNumber}</span>

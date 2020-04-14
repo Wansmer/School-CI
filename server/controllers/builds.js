@@ -58,12 +58,12 @@ exports.BuildController = class  {
     const commitHash = req.params.commitHash;
     try {
       const settings = await this.getConf();
-      console.log('commitInfo START');
+      //console.log('commitInfo START');
       const commitInfo = await this.getCommitInfo(commitHash, settings);
-      console.log('commitInfo DONE');
+      //console.log('commitInfo DONE');
       const buildInfo = await this.setBuildRequest(commitInfo);
-      console.log('buildInfo DONE');
-      this.QuAPI.addToQueue(commitInfo.commitHash, buildInfo, settings);
+      //console.log('buildInfo DONE');
+      //this.QuAPI.addToQueue(commitInfo.commitHash, buildInfo, settings);
       buildInfo.code = 200;
       res.send(buildInfo);
     } catch (error) {
