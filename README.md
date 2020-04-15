@@ -13,7 +13,7 @@
 1. Перейти в поддиректорию `./server`;
 2. Создать файл `.env` в корне поддиректории;
 3. Добавить в файл следующий текст:
-```json
+```txt
 SECRET_KEY = 'Bearer YOUR_SECRET_KEY'
 NODE_TLS_REJECT_UNAUTHORIZED = '0'
 ```

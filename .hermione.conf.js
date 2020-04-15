@@ -5,11 +5,11 @@ module.exports = {
     chrome: {
       desiredCapabilities: {
         browserName: 'chrome', // this browser should be installed on your OS
-        chromeOptions: {
-          args: [
-            '--headless'
-          ]
-        }
+        //chromeOptions: {
+        //  args: [
+        //    '--headless'
+        //  ]
+        //}
       },
       retry: 3
     }

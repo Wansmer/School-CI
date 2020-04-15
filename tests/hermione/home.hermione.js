@@ -71,4 +71,4 @@ describe('Страница /settings', function () {
       });
   });
 
-})
+});

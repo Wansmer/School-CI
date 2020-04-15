@@ -131,7 +131,7 @@ const Form = (props) => {
         <h2 className="Form-Title">Settings</h2>
         <p className="Form-Text">Configure repository connection and&#160;synchronization settings.</p>
       </div>
-      <FormField className="Form-Field">
+      <FormField className="Form-Field" id="github_repo">
         <InputGroup
           classes={ inputReqClasses }
           id="repoName"
@@ -143,6 +143,7 @@ const Form = (props) => {
           pattern="^[\w-]+\/[\w-]+$"
           required
           onClearInput={ clearInput }
+          autofocus={true}
         />
       </FormField>
       <FormField className="Form-Field">
@@ -192,12 +193,14 @@ const Form = (props) => {
           classes={saveButtonClasses}
           text='Save'
           isDisabled={state.isDisabled}
+          id='settings_submit'
         />
         <Button
           classes={settingsButtonClasses}
           text='Cancel'
           isDisabled={state.isDisabled}
           onClick={goToHome}
+          id='cancel'
         />
       </div>
       <div className="Form-Field">

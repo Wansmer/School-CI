@@ -2,10 +2,11 @@ const assert = require('assert');
 const {expect} = require('chai');
 
 describe('Страница /build/:buildId', function () {
-
   const idExample = 'f40fa4ea-9007-4b5a-9a0b-c7c10ffad34a';
+  const settings = '123123123';
 
   it('Отображается правильный title', function () {
+    console.log('ВЫВОД ПРОПСОВ', this.props);
     return this.browser
       .url(`/build/${idExample}`)
       .pause(3000)
