@@ -26,7 +26,7 @@ const processResult = async ({ result, id }) => {
     console.log(agents.getFreeAgents());
     return { status: 200 };
   } catch (error) {
-    console.log('Error from setBuildFinish', error);
+    console.log('Error from setBuildFinish');
     return error;
   }
 }
@@ -56,7 +56,7 @@ const sendToBuilding = async () => {
 
       await api.setBuildStart(data);
     } catch (e) {
-      console.log('Error from setBuildStart', e);
+      console.log('Error from setBuildStart');
     }
   }
 }
@@ -69,12 +69,11 @@ const checkQueue = () => {
 }
 
 const notifyAgent = async (req, res) => {
-  console.log('controllers is work');
   try {
     agents.add(req.body);
     res.sendStatus(200);
   } catch (error) {
-    console.log('Error', error);
+    console.log('Error from notifyAgent');
     res.send(error);
   }
 }

@@ -8,7 +8,12 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json({extended: false});
 const app = express();
+const { Builder } = require('./Builder');
+const { GitHelper } = require('./GitHelper');
 const { makeUrl, getDurationFrom } = require('./utils');
+
+const builder = new Builder();
+const gitHelper = new GitHelper('http://github.com/');
 
 const PORT = config.port;
 const SERVER_PORT = config.serverPort;
@@ -45,16 +50,10 @@ function delay() {
 }
 
 const startBuilding = async (build) => {
-  console.log(build.id);
-  await delay();
-  const result = {
-    buildId: build.id,
-    duration: getDurationFrom(build.dateTime),
-    success: true,
-    buildLog: "string"
-  };
-  const res = await sendResult({ result, id });
-  console.log(res.data);
+  console.log(build);
+  await gitHelper.cloneRepo(build);
+  const result = await builder.building(build);
+  await sendResult({ result, id });
 }
 
 launchNotification();

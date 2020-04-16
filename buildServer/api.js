@@ -59,7 +59,6 @@ exports.API = class {
       const response = await this.axios.post(BASE_URL + 'build/start', data, { headers });
       return response.status;
     } catch (error) {
-      console.log('Ошибка действительно здесь');
       throw error;
     }
   };
