@@ -14,8 +14,8 @@ exports.Agent = class {
      this.axios = axiosAgent;
   }
 
-  setIsFree (status) {
-    this.isFree = status;
+  changeIsFree () {
+    this.isFree = !this.isFree;
   }
 
   getUrl = () => {

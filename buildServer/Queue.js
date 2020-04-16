@@ -19,8 +19,10 @@ exports.Queue = class {
       // TODO: прописать рекурсию, если полученная очередь больше 35 шт.
       const builds = await api.getBuildList();
       this.add(builds.filter(item => item.status === 'Waiting').reverse());
+      return true;
     } catch (error) {
-      console.error('API fall');
+      console.error('API fail', error.message);
+      return false;
     }
   }
 

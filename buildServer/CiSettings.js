@@ -16,9 +16,10 @@ class CiSettings {
       this.mainBranch = mainBranch;
       this.buildCommand = buildCommand;
       this.period = period;
+      return true;
     } catch (error) {
       console.log('Ошибка получения настроек', error.code);
-      await this.update();
+      return false;
     }
   }
 
