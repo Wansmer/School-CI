@@ -21,7 +21,7 @@ exports.Queue = class {
       this.add(builds.filter(item => item.status === 'Waiting').reverse());
       return true;
     } catch (error) {
-      console.error('API fail', error.message);
+      console.error('API fail: ', error.message);
       return false;
     }
   }

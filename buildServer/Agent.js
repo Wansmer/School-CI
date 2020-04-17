@@ -11,11 +11,13 @@ exports.Agent = class {
      this.host = props.host;
      this.port = props.port;
      this.isFree = props.isFree || true;
+     this.currentBuild = '';
      this.axios = axiosAgent;
   }
 
-  changeIsFree () {
+  changeIsFree (id = '') {
     this.isFree = !this.isFree;
+    this.currentBuild = id;
   }
 
   getUrl = () => {
@@ -30,4 +32,5 @@ exports.Agent = class {
       return error;
     }
   }
+
 }

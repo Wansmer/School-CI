@@ -10,6 +10,15 @@ class Agents {
     this.agents.push(new Agent(agent));
   }
 
+  delete = ({ host, port }) => {
+    const deleted = this.agents.findIndex(item => item.port === port && item.host === host);
+    this.agents.splice(deleted, 1);
+  }
+
+  getAllAgents = () => {
+    return this.agents;
+  }
+
   getFreeAgents = () => {
     return this.agents.filter(item => item.isFree);
   }
@@ -20,12 +29,15 @@ class Agents {
 
   changeFreeStatus = (id) => {
     try {
-      this.agents.find(item => item.getUrl() === makeUrl(id)).agent.changeIsFree();
+      this.agents.find(item => item.getUrl() === makeUrl(id)).changeIsFree();
     } catch (error) {
       this.add(id);
     }
   }
 
+  getBusyAgentByBuildId = (id) => {
+    return this.agents.find(item => item.currentBuild === id);
+  }
 }
 
 module.exports = { Agents };

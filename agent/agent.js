@@ -10,7 +10,7 @@ const jsonParser = bodyParser.json({extended: false});
 const app = express();
 const { Builder } = require('./Builder');
 const { GitHelper } = require('./GitHelper');
-const { makeUrl, getDurationFrom } = require('./utils');
+const { makeUrl } = require('./utils');
 
 const builder = new Builder();
 const gitHelper = new GitHelper('http://github.com/');

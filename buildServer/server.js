@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
 
-const { checkQueue, updateQueue, preparation } = require('./controllers');
+const { checkQueue, updateQueue, preparation, checkFreezingProcesses } = require('./controllers');
 
 const PORT = require('./server-conf.json').port;
 
@@ -21,5 +21,8 @@ updateQueue();
 
 // Проверка очереди
 checkQueue();
+
+// проверка доступности агентов
+checkFreezingProcesses();
 
 app.listen(PORT);

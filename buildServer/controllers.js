@@ -10,15 +10,16 @@ const api = new API();
 const { Queue } = require('./Queue');
 const queue = new Queue();
 
+const { isPingSuccess } = require('./utils');
+
 const preparation = async () => {
   let result = false;
   while (!result) {
     result = await settings.update();
   }
-}
+};
 
 const processResult = async ({ result, id }) => {
-  console.log('start build result', result);
   try {
     agents.changeFreeStatus(id);
 
@@ -28,18 +29,16 @@ const processResult = async ({ result, id }) => {
 
     return { status: 200 };
   } catch (error) {
-    console.log('Error from setBuildFinish');
     return error;
   }
-}
+};
 
 const updateQueue = async () => {
   setTimeout(updateQueue, 5000);
   if (!queue.size()) {
     await queue.update();
   }
-  console.log(queue.getData());
-}
+};
 
 const sendToBuilding = async () => {
 
@@ -51,9 +50,15 @@ const sendToBuilding = async () => {
       const { repoName, buildCommand } = settings.getSettings();
       const dateTime = new Date().toISOString();
 
-      agent.changeIsFree();
+      agent.changeIsFree(id);
 
-      await agent.sendBuild({ id, repoName, commitHash, buildCommand, dateTime });
+      await agent.sendBuild({
+        id,
+        repoName,
+        commitHash,
+        buildCommand,
+        dateTime
+      });
 
       queue.setStatus(id, 'inProgress');
 
@@ -61,31 +66,48 @@ const sendToBuilding = async () => {
 
       await api.setBuildStart(data);
     } catch (e) {
-      console.log('Error from setBuildStart');
+      console.error(error);
     }
   }
-}
+};
 
 const checkQueue = () => {
   if (queue.size()) {
     sendToBuilding();
   }
   setTimeout(checkQueue, 1000);
-}
+};
+
+const checkFreezingProcesses = async () => {
+  for (const agent of agents.getAllAgents()) {
+    const isPing = await isPingSuccess({ host: agent.host, port: agent.port });
+    if (!isPing) {
+      if (!agent.isFree) queue.setStatus(agent.currentBuild, 'Waiting');
+      agents.delete({ host: agent.host, port: agent.port });
+    }
+  }
+  setTimeout(checkFreezingProcesses, 10000);
+};
 
 const notifyAgent = async (req, res) => {
   try {
     agents.add(req.body);
     res.sendStatus(200);
   } catch (error) {
-    console.log('Error from notifyAgent');
     res.send(error);
   }
-}
+};
 
 const notifyBuildResult = (req, res) => {
   res.sendStatus(200);
   processResult(req.body);
 };
 
-module.exports = { notifyAgent, notifyBuildResult, checkQueue, updateQueue, preparation };
+module.exports = {
+  notifyAgent,
+  notifyBuildResult,
+  checkQueue,
+  updateQueue,
+  preparation,
+  checkFreezingProcesses
+};
