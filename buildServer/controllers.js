@@ -66,7 +66,7 @@ const sendToBuilding = async () => {
 
       await api.setBuildStart(data);
     } catch (e) {
-      console.error(error);
+      console.error(error.message);
     }
   }
 };
