@@ -1,7 +1,7 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const { Conf } = require('../../../../server/api/conf/conf');
-const { BASE_URL } = require('../../../../server/constants');
+const { Conf } = require('../../../../serverFront/api/conf/conf');
+const { BASE_URL } = require('../../../../serverFront/constants');
 
 describe('Работа с БД: Модуль настроек', () => {
 

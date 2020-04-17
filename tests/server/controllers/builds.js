@@ -1,6 +1,6 @@
 const {describe, it} = require('mocha');
 const { expect } = require('chai');
-const { BuildController } = require('../../../server/controllers/builds');
+const { BuildController } = require('../../../serverFront/controllers/builds');
 
 const buildController = new BuildController();
 

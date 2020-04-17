@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "cd server && npm run listen",
+    "server": "cd serverFront && npm run listen",
     "web": "cd client && npm run start",
     "start": "concurrently \"npm run server\" \"npm run web\"",
-    "postinstall": "cd client && npm i && cd .. && cd server && npm i",
+    "postinstall": "cd client && npm i && cd .. && cd serverFront && npm i",
     "test": "mocha ./tests/index.js",
     "hermione": "./node_modules/.bin/hermione tests/hermione/index.hermione.js"
   },

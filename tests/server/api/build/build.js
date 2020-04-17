@@ -1,7 +1,7 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const {Build} = require('../../../../server/api/build/build');
-const {BASE_URL} = require('../../../../server/constants');
+const {Build} = require('../../../../serverFront/api/build/build');
+const {BASE_URL} = require('../../../../serverFront/constants');
 
 
 describe('Работа с БД: Информация о сборках', () => {

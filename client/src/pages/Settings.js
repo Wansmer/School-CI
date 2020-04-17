@@ -34,7 +34,7 @@ const Settings = (props) => {
 };
 
 Settings.defaultProps = {
-  title: 'School CI server'
+  title: 'School CI serverFront'
 };
 
 export default Settings;

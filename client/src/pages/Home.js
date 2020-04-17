@@ -68,5 +68,5 @@ export const Home = (props) => {
 };
 
 Home.defaultProps = {
-  title: 'School CI server'
+  title: 'School CI serverFront'
 };

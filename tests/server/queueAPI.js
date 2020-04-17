@@ -1,9 +1,9 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const fs = require('fs');
-const {queueAPI} = require('../../server/queueAPI');
+const {queueAPI} = require('../../serverFront/queueAPI');
 
-const fileName = './tests/server/storage/storage.txt';
+const fileName = './tests/serverFront/storage/storage.txt';
 const api = new queueAPI(fileName);
 
 const isValidJSON = (string) => {

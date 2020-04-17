@@ -1,7 +1,7 @@
 const {describe, it} = require('mocha');
 const { expect } = require('chai');
 
-const { Builder } = require('../../../server/app/Builder');
+const { Builder } = require('../../../serverFront/app/Builder');
 
 describe('Модуль Builder', () => {
 

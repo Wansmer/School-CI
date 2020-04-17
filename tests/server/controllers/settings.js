@@ -1,6 +1,6 @@
 const {describe, it} = require('mocha');
 const { expect } = require('chai');
-const { ConfController } = require('../../../server/controllers/settings');
+const { ConfController } = require('../../../serverFront/controllers/settings');
 
 const settingsController = new ConfController();
 

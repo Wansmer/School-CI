@@ -1,23 +1,28 @@
-const path = require('path');
 const express = require('express');
+const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
-const app = express();
-require('dotenv').config();
-const { Builder } = require('./app/Builder');
-const builder = new Builder();
+
+const { checkQueue, updateQueue, preparation, checkFreezingProcesses } = require('./controllers');
+
+const PORT = require('./server-conf.json').port;
 
 app.use(cors());
 app.use(morgan('dev'));
 
-const routerConf = require('./routes/settings');
-const routerBuild = require('./routes/builds');
+const router = require('./routing');
+app.use('/', router);
 
-app.use('/api/settings', routerConf);
-app.use('/api/builds', routerBuild);
+// Подготовка: цикл запроса настроек CI с сервера.
+preparation();
 
-builder.checkQueueAndRun();
+// Обновление очереди
+updateQueue();
 
-app.listen(3001);
+// Проверка очереди
+checkQueue();
 
-module.exports = app;
+// проверка доступности агентов
+checkFreezingProcesses();
+
+app.listen(PORT);

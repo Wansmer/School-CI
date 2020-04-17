@@ -1,7 +1,7 @@
 const {describe, it} = require('mocha');
 const { expect } = require('chai');
 
-const { GitHelper } = require('../../../server/app/GitHelper');
+const { GitHelper } = require('../../../serverFront/app/GitHelper');
 const GIT_PATH = 'https://github.com/'
 
 describe('Модуль GitHelper', () => {
