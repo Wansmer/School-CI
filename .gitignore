@@ -10,3 +10,5 @@
 .DS_Store
 /buildServer/server-conf.json
 /buildServer/node_modules/
+/agent/node_modules/
+/agent/clone/

@@ -13,17 +13,19 @@ const queue = new Queue();
 const preparation = async () => {
   let result = false;
   while (!result) {
-    result  = await settings.update();
+    result = await settings.update();
   }
 }
 
 const processResult = async ({ result, id }) => {
-  console.log('start build result', result, id);
+  console.log('start build result', result);
   try {
     agents.changeFreeStatus(id);
-    console.log(result);
+
     await api.setBuildFinish(result);
-    console.log(agents.getFreeAgents());
+
+    queue.delete(result.buildId);
+
     return { status: 200 };
   } catch (error) {
     console.log('Error from setBuildFinish');
@@ -31,9 +33,12 @@ const processResult = async ({ result, id }) => {
   }
 }
 
-const updateQueue = () => {
-  queue.update();
-  setTimeout(updateQueue, 10000);
+const updateQueue = async () => {
+  setTimeout(updateQueue, 5000);
+  if (!queue.size()) {
+    await queue.update();
+  }
+  console.log(queue.getData());
 }
 
 const sendToBuilding = async () => {
@@ -79,7 +84,6 @@ const notifyAgent = async (req, res) => {
 }
 
 const notifyBuildResult = (req, res) => {
-  console.log(req.body.id);
   res.sendStatus(200);
   processResult(req.body);
 };

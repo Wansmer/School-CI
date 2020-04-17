@@ -17,7 +17,7 @@ exports.Queue = class {
   update = async () => {
     try {
       // TODO: прописать рекурсию, если полученная очередь больше 35 шт.
-      const builds = await api.getBuildList();
+      const builds = await api.getBuildList(0, 35);
       this.add(builds.filter(item => item.status === 'Waiting').reverse());
       return true;
     } catch (error) {

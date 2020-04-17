@@ -19,9 +19,11 @@ class Agents {
   }
 
   changeFreeStatus = (id) => {
-   const agent = this.agents.find(item => item.getUrl() === makeUrl(id));
-   agent.changeIsFree();
-   console.log(agent);
+    try {
+      this.agents.find(item => item.getUrl() === makeUrl(id)).agent.changeIsFree();
+    } catch (error) {
+      this.add(id);
+    }
   }
 
 }

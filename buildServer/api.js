@@ -44,31 +44,46 @@ exports.API = class {
   };
 
 
-  getBuildDetails = async (buildId) => {
+  getBuildDetails = async (buildId, counter = 0) => {
     const params = { buildId };
     try {
       const response = await this.axios.get(BASE_URL + 'build/details', { headers, params });
       return response.data.data;
     } catch (error) {
-      throw error;
+      if(counter < 3) {
+        console.log(`Ошибка getBuildDetails # ${counter}`);
+        this.setBuildStart(data, ++counter);
+      } else {
+        throw error;
+      }
     }
   };
 
-  setBuildStart = async (data) => {
+  setBuildStart = async (data, counter = 0) => {
     try {
       const response = await this.axios.post(BASE_URL + 'build/start', data, { headers });
       return response.status;
     } catch (error) {
-      throw error;
+      if(counter < 3) {
+        console.log(`Ошибка setBuildStart # ${counter}`);
+        this.setBuildStart(data, ++counter);
+      } else {
+        throw error;
+      }
     }
   };
 
-  setBuildFinish = async (data) => {
+  setBuildFinish = async (data, counter = 0) => {
     try {
       const response = await this.axios.post(BASE_URL + 'build/finish', data, { headers });
       return response.status;
     } catch (error) {
-      throw error;
+      if(counter < 3) {
+        console.log(`Ошибка setBuildFinish # ${counter}`);
+        this.setBuildStart(data, ++counter);
+      } else {
+        throw error;
+      }
     }
   };
 

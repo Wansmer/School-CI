@@ -39,30 +39,33 @@ const launchNotification = async () => {
 
 const sendResult = async ({ result, id }) => {
   try {
-    return await axios.post(`${ url }/notify-build-result`, { result, id });
+    await axios.post(`${ url }/notify-build-result`, { result, id });
   } catch (error) {
-    console.log(error);
+    setTimeout(() => {sendResult({ result, id })}, 10000);
+    console.log(error.message);
   }
 }
 
-function delay() {
-  return new Promise(resolve => setTimeout(resolve, 3000));
-}
-
 const startBuilding = async (build) => {
-  console.log(build);
-  await gitHelper.cloneRepo(build);
-  const result = await builder.building(build);
-  await sendResult({ result, id });
+  console.log(build.id);
+  try {
+    const git =  gitHelper.cloneRepo(build);
+    await git;
+    const building = builder.building(build);
+    const result = await building;
+    const clear =  builder.clearDirectory();
+    await clear;
+    await sendResult({ result, id });
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 launchNotification();
 
 app.post('/build', jsonParser, (req, res) => {
-  console.log(req.body);
   startBuilding(req.body.build);
   res.sendStatus(200);
 });
-
 
 app.listen(PORT);

@@ -13,19 +13,10 @@ exports.Builder = class {
     this.setTimeout = global.setTimeout;
   }
 
-  clearNodeModules = async (data) => {
-    const settings = { cwd: `./clone/${data.repoName}` };
+  clearDirectory = async () => {
+    const settings = { cwd: `./` };
     try {
-      await this.exec('rm -Rf node_modules', settings);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  clearDirectory = async (data) => {
-    const settings = { cwd: `./clone/${data.repoName}` };
-    try {
-      await this.exec('rm -Rf node_modules', settings);
+      await this.exec('rm -Rf clone');
     } catch (error) {
       throw error;
     }
@@ -57,17 +48,19 @@ exports.Builder = class {
     console.log('start building func');
     try {
       // переход к коммиту
-      await this.goToCommit({ commitHash, repoName });
+      const commit =  this.goToCommit({ commitHash, repoName });
+      await commit;
       // установка пакетов
-      await this.installPackage({ repoName });
+      const installPackage = this.installPackage({ repoName });
+      await installPackage;
       // сборка
       const buildLogObject = await this.startBuild({ repoName, buildCommand });
-
+      console.log('End of build');
       const success = !(buildLogObject instanceof Error);
       const buildLog = buildLogObject.stderr + buildLogObject.stdout;
       const duration = getDurationFrom(dateTime);
       const buildEnd = { buildId: id, duration, success, buildLog };
-
+      console.log('End of clear directory');
       return buildEnd;
     } catch (error) {
       throw error;

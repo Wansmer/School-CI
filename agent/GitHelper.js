@@ -41,7 +41,9 @@ exports.GitHelper = class {
     const settings = { cwd: `./clone/${ repoName }` };
     try {
       await this.exec(`git checkout ${ commitHash } .`, settings);
+      return true;
     } catch (error) {
+      console.log(error.message);
       throw error;
     }
   };
