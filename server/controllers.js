@@ -41,7 +41,6 @@ const updateQueue = async () => {
 };
 
 const sendToBuilding = async () => {
-
   const freeAgent = agents.getFreeAgents();
 
   for (const agent of freeAgent) {
