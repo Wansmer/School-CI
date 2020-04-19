@@ -1,3 +1,5 @@
+const { QUEUE_UPDATE_TIMEOUT, CHECK_FREEZING_TIMEOUT } = require('./constants');
+
 const { CiSettings } = require('./CiSettings');
 const settings = new CiSettings();
 
@@ -34,7 +36,7 @@ const processResult = async ({ result, id }) => {
 };
 
 const updateQueue = async () => {
-  setTimeout(updateQueue, 5000);
+  setTimeout(updateQueue, QUEUE_UPDATE_TIMEOUT);
   if (!queue.size()) {
     await queue.update();
   }
@@ -74,7 +76,7 @@ const checkQueue = () => {
   if (queue.size()) {
     sendToBuilding();
   }
-  setTimeout(checkQueue, 1000);
+  setTimeout(checkQueue, QUEUE_UPDATE_TIMEOUT);
 };
 
 const checkFreezingProcesses = async () => {
@@ -85,7 +87,7 @@ const checkFreezingProcesses = async () => {
       agents.delete({ host: agent.host, port: agent.port });
     }
   }
-  setTimeout(checkFreezingProcesses, 10000);
+  setTimeout(checkFreezingProcesses, CHECK_FREEZING_TIMEOUT);
 };
 
 const notifyAgent = async (req, res) => {

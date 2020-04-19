@@ -1,9 +1,10 @@
 const axios = require('axios');
 const https = require('https');
 
-const config = require('./server-conf.json');
-const BASE_URL = config.apiBaseUrl;
-const API_TOKEN = `Bearer ${ config.apiToken }`;
+//const config = require('./server-conf.json');
+const { BASE_URL, API_TOKEN } = require('./constants');
+//const BASE_URL = config.apiBaseUrl;
+//const API_TOKEN = `Bearer ${ config.apiToken }`;
 
 const axiosWorker = axios.create({
   httpsAgent: new https.Agent({

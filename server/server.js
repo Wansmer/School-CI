@@ -5,7 +5,7 @@ const morgan = require('morgan');
 
 const { checkQueue, updateQueue, preparation, checkFreezingProcesses } = require('./controllers');
 
-const PORT = require('./server-conf.json').port;
+const { PORT } = require('./constants');
 
 app.use(cors());
 app.use(morgan('dev'));

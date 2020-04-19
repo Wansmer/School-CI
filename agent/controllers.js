@@ -2,7 +2,7 @@ const axios = require('axios');
 const { makeUrl } = require('./utils');
 const { Builder } = require('./Builder');
 const { GitHelper } = require('./GitHelper');
-const { GIT_PATH, PORT, HOST, SERVER_PORT, SERVER_HOST } = require('./constants');
+const { GIT_PATH, PORT, HOST, SERVER_PORT, SERVER_HOST, RESEND_TO_SERVER } = require('./constants');
 
 const builder = new Builder();
 const gitHelper = new GitHelper(GIT_PATH);
@@ -13,13 +13,12 @@ const id = {
   port: PORT
 };
 
-
 const launchNotification = async () => {
   try {
     await axios.post(`${ url }/notify-agent`, id, { 'Content-Type': 'application/json' });
   } catch (error) {
     console.log('Error of connect. Retry...');
-    setTimeout(launchNotification, 10000);
+    setTimeout(launchNotification, RESEND_TO_SERVER);
   }
 }
 
@@ -27,7 +26,7 @@ const sendResult = async ({ result, id }) => {
   try {
     await axios.post(`${ url }/notify-build-result`, { result, id });
   } catch (error) {
-    setTimeout(() => {sendResult({ result, id })}, 10000);
+    setTimeout(() => {sendResult({ result, id })}, RESEND_TO_SERVER);
     console.log(error.message);
   }
 }
