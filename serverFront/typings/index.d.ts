@@ -5,3 +5,8 @@ declare interface Config {
   mainBranch:	string;
   period:	number;
 }
+
+declare interface RequestHeaders {
+  accept: string,
+  Authorization: unknown
+}
