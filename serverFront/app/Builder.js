@@ -12,6 +12,7 @@ const { GitHelper } = require('../app/GitHelper');
 const gitHelper = new GitHelper(GIT_PATH);
 
 exports.Builder = class {
+// export default class Builder {
   constructor () {
     this.exec = exec;
     this.goToCommit = gitHelper.goToCommit;

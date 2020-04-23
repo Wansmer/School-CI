@@ -1,17 +1,18 @@
-const path = require('path');
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
-const app = express();
+import path from 'path';
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
 require('dotenv').config();
+
+const app = express();
 const { Builder } = require('./app/Builder');
 const builder = new Builder();
 
 app.use(cors());
 app.use(morgan('dev'));
 
-const routerConf = require('./routes/settings');
-const routerBuild = require('./routes/builds');
+import routerConf from './routes/settings';
+import routerBuild from './routes/builds';
 
 app.use('/api/settings', routerConf);
 app.use('/api/builds', routerBuild);

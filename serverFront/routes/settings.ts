@@ -12,4 +12,4 @@ router.post('/', jsonParser, confController.setSettings);
 
 router.delete('/', confController.deleteSettings);
 
-module.exports = router;
+export default router;

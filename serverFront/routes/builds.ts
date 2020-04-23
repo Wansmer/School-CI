@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json({extended: false});
+import bodyParser from 'body-parser';
+const jsonParser = bodyParser.json();
 
 const { BuildController } = require('../controllers/builds');
 const buildController = new BuildController();
@@ -14,4 +14,4 @@ router.get('/:buildId', buildController.fetchBuildDetails);
 
 router.post('/:commitHash', jsonParser, buildController.sendBuildRequest);
 
-module.exports = router;
+export default router;
