@@ -1,7 +1,7 @@
-const { Build } = require('../api/build/build');
-const { Conf } = require('../api/conf/conf');
-const { GIT_PATH } = require('../constants');
-const { GitHelper } = require('../app/GitHelper');
+import { Build } from '../api/build/build';
+import { Conf } from '../api/conf/conf';
+import { GIT_PATH } from '../constants';
+import { GitHelper } from '../app/GitHelper';
 
 const gitHelper = new GitHelper(GIT_PATH);
 
@@ -9,7 +9,14 @@ const build = new Build();
 const conf = new Conf();
 
 
-exports.BuildController = class  {
+export class BuildController {
+
+    getBuildList: Function;
+    getBuildLog: Function;
+    getBuildDetails: Function;
+    setBuildRequest: Function;
+    getConf: Function;
+    getCommitInfo: Function;
 
   constructor () {
     this.getBuildList = build.getBuildList;
@@ -20,16 +27,16 @@ exports.BuildController = class  {
     this.getCommitInfo = gitHelper.getCommitInfo;
   }
 
-  fetchBuildsList = async (req, res) => {
+  fetchBuildsList = async (req: any, res: any): Promise<void> => {
     try {
-      const response = await this.getBuildList();
+      const response: BuildModel[] = await this.getBuildList();
       res.send(response);
     } catch (error) {
       res.send([]);
     }
   }
 
-  fetchBuildLog = async (req, res) => {
+  fetchBuildLog = async (req: any, res: any): Promise<void> => {
     const buildId = req.params.buildId;
     try {
       const response = await this.getBuildLog(buildId);
@@ -41,22 +48,22 @@ exports.BuildController = class  {
     }
   }
 
-  fetchBuildDetails = async (req, res) => {
+  fetchBuildDetails = async (req: any, res: any): Promise<void> => {
     const buildId = req.params.buildId;
     try {
-      const response = await this.getBuildDetails(buildId);
+      const response: BuildModel = await this.getBuildDetails(buildId);
       res.send(response);
     } catch (error) {
       res.send(error);
     }
   }
 
-  sendBuildRequest = async (req, res) => {
+  sendBuildRequest = async (req: any, res: any): Promise<void> => {
     const commitHash = req.params.commitHash;
     try {
-      const settings = await this.getConf();
-      const commitInfo = await this.getCommitInfo(commitHash, settings);
-      const buildInfo = await this.setBuildRequest(commitInfo);
+      const settings: ConfigurationModel = await this.getConf();
+      const commitInfo: CommitInfo = await this.getCommitInfo(commitHash, settings);
+      const buildInfo: BuildInfo = await this.setBuildRequest(commitInfo);
       buildInfo.code = 200;
       res.send(buildInfo);
     } catch (error) {

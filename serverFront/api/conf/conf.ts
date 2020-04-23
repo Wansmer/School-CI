@@ -9,19 +9,19 @@ export class Conf {
     this.axios = axios;
   }
 
-  public getConf = async (): Promise<Config> => {
+  public getConf = async (): Promise<ConfigurationModel> => {
     try {
-      const response = await this.axios.get(BASE_URL + 'conf', { headers });
+      const response: AxiosResponse = await this.axios.get(BASE_URL + 'conf', { headers });
       return response.data.data;
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  public setConf = async (data: Config): Promise<number> => {
+  public setConf = async (data: ConfigurationModel): Promise<number> => {
     try {
       data.period = +data.period;
-      const response = await this.axios.post(BASE_URL + 'conf', data, { headers });
+      const response: AxiosResponse = await this.axios.post(BASE_URL + 'conf', data, { headers });
       return response.status;
     } catch (error) {
       throw new Error(error);
@@ -30,7 +30,7 @@ export class Conf {
 
   public deleteConf = async (): Promise<number> => {
     try {
-      const response = await this.axios.delete(BASE_URL + 'conf', { headers });
+      const response: AxiosResponse = await this.axios.delete(BASE_URL + 'conf', { headers });
       return response.status;
     } catch (error) {
       throw new Error(error);

@@ -15,4 +15,6 @@ import routerBuild from './routes/builds';
 app.use('/api/settings', routerConf);
 app.use('/api/builds', routerBuild);
 
+app.get('/', (req, res) => {});
+
 app.listen(3001);

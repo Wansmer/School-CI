@@ -11,7 +11,7 @@ export class GitHelper {
     this.exec = exec;
   }
 
-  public cloneRepo = async (data: Config): Promise<CodeSuccess> => {
+  public cloneRepo = async (data: ConfigurationModel): Promise<CodeSuccess> => {
     try {
       await this.exec(`git clone ${this.gitPath}${data.repoName} clone/${data.repoName}`);
       return { code: 200 };
@@ -20,7 +20,7 @@ export class GitHelper {
     }
   };
 
-  public pullRepo = async (data: Config): Promise<CodeSuccess> => {
+  public pullRepo = async (data: ConfigurationModel): Promise<CodeSuccess> => {
     const settings = { cwd: `./clone/${data.repoName}` };
     try {
       await this.exec(`git checkout ${data.mainBranch} && git pull`, settings);
@@ -30,7 +30,7 @@ export class GitHelper {
     }
   };
 
-  public getCommitInfo = async (commitHash: string, data: Config): Promise<CommitInfo> => {
+  public getCommitInfo = async (commitHash: string, data: ConfigurationModel): Promise<CommitInfo> => {
     const settings = { cwd: `./clone/${data.repoName}`};
     try {
       const result = await this.exec(`git log ${commitHash} -n 1 --pretty=format:%an:::%s:::%D`, settings);

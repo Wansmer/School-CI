@@ -1,9 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json({extended: false});
+import express from 'express';
+import bodyParser from 'body-parser';
 
-const { ConfController } = require('../controllers/settings');
+const router = express.Router();
+const jsonParser = bodyParser.json();
+
+import { ConfController } from '../controllers/settings';
 const confController = new ConfController();
 
 router.get('/', confController.getSettings);
