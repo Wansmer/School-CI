@@ -9,12 +9,11 @@ const settingsAnsi = {
 
 const convert = new Convert(settingsAnsi);
 
-// export interface PreformattedProps {
-//   children: React.ReactNode;
-// }
+export interface PreformattedProps {
+  children: React.ReactNode;
+}
 
-// const Preformatted: React.FC<PreformattedProps> = ({ children }) => {
-const Preformatted = ({ children }) => {
+const Preformatted: React.FC<PreformattedProps> = ({ children }) => {
 
   const ansiLog = children ? convert.toHtml(children) : '<div>Waiting...</div>';
   const log = { __html: ansiLog };

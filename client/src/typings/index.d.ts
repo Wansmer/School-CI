@@ -3,6 +3,4 @@ declare interface Classes {
   elems?: any;
 }
 
-declare module 'ansi-to-html' {
-  Function
-};
+declare module 'ansi-to-html';

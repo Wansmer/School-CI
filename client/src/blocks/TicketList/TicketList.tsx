@@ -1,7 +1,11 @@
 import React from 'react';
 import './TicketList.scss';
 
-const TicketList = (props) => {
+export interface TicketListProps {
+  children: React.ReactNode;
+}
+
+const TicketList: React.FC<TicketListProps> = (props) => {
   return (
     <div className="TicketList">
       {props.children}
