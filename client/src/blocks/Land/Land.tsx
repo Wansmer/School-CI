@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { BaseSyntheticEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Land.scss';
 import Button from '../Button/Button';
 
-const actionButtonClasses = {
+const actionButtonClasses: Classes = {
   mods: {
     type: 'action',
     size: 'l'
   }
 };
 
-const Land = () => {
+const Land: React.FC = () => {
 
   const history = useHistory();
 
-  const clickHandler = (event) => {
+  const clickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     event.preventDefault();
     history.push('/settings');
   };

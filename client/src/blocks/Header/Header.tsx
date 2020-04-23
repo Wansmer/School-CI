@@ -1,7 +1,12 @@
 import React from 'react';
 import './Header.scss';
 
-const Header = (props) => {
+export interface HeaderProps {
+  className: string;
+  children: any;
+}
+
+const Header: React.FC<HeaderProps> = (props) => {
   return (
     <header className={'Header ' + props.className}>
       <div className="Header-Inner Container">

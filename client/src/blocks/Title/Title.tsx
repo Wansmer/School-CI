@@ -3,7 +3,14 @@ import {Link} from 'react-router-dom';
 import './Title.scss';
 import {expandClasses} from '../../utils';
 
-const Title = (props) => {
+export interface TitleProps {
+  classes: Classes;
+  className: string;
+  path?: any;
+  children: any;
+}
+
+const Title: React.FC<TitleProps> = (props) => {
   return (
     <h1 className={expandClasses(props.classes, 'Title', '', props.className)}>
       <Link to={props.path} className="Title-Link" id="title_link"  >{props.children}</Link>

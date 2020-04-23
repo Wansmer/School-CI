@@ -3,12 +3,12 @@ import './Button.scss';
 import { expandClasses } from '../../utils';
 
 export interface ButtonProps {
-  isDisabled: boolean;
+  isDisabled?: boolean;
   className: string;
   classes: object;
-  onClick(): void;
+  onClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
   text: string;
-  id: string;
+  id?: string;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {

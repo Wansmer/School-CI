@@ -1,9 +1,0 @@
-export const SERVER_URL = 'http://localhost:3001/api/';
-export const SAVE_CONFIG = 'SAVE_CONFIG';
-export const GET_CONFIG = 'GET_CONFIG';
-export const GET_TICKET_LIST = 'GET_TICKET_LIST';
-export const GET_BUILD_DETAILS = 'GET_BUILD_DETAILS';
-export const ADD_TO_QUEUE = 'ADD_TO_QUEUE';
-export const CLEAN_SAVE_CODE = 'CLEAN_SAVE_CODE';
-export const SHOW_LOADER = 'SHOW_LOADER';
-export const HIDE_LOADER = 'HIDE_LOADER';

@@ -2,7 +2,13 @@ import React from 'react';
 import './Content.scss';
 import {expandClasses} from '../../utils';
 
-const Content = (props) => {
+export interface ContentProps {
+  className?: string;
+  classes: Classes;
+  children: any;
+}
+
+const Content: React.FC<ContentProps> = (props) => {
   return (
     <section className={'Content ' + props.className}>
       <div className={'Content-Inner ' +

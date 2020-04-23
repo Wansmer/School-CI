@@ -1,7 +1,11 @@
 import React from 'react';
 import './FormField.scss';
 
-const FormField = (props) => {
+export interface FormFieldProps {
+  className: string;
+}
+
+const FormField: React.FC<FormFieldProps> = (props) => {
 
   return (
     <div className={ props.className }>
