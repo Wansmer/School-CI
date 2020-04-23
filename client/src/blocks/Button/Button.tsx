@@ -2,8 +2,17 @@ import React from 'react';
 import './Button.scss';
 import { expandClasses } from '../../utils';
 
-const Button = (props) => {
-  const { isDisabled, className, classes, onClick, text, id } = {...props};
+export interface ButtonProps {
+  isDisabled: boolean;
+  className: string;
+  classes: object;
+  onClick(): void;
+  text: string;
+  id: string;
+}
+
+const Button: React.FC<ButtonProps> = (props) => {
+  const { isDisabled, className, classes, onClick, text, id } = { ...props };
   return (
     <button
       onClick={onClick}
