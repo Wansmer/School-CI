@@ -1,13 +1,17 @@
-const util = require('util');
+import util from 'util';
 const exec = util.promisify(require('child_process').exec);
 
-exports.GitHelper = class {
-  constructor (gitPath) {
+export class GitHelper {
+
+  private gitPath: string;
+  private exec: any;
+
+  constructor (gitPath: string) {
     this.gitPath = gitPath;
     this.exec = exec;
   }
 
-  cloneRepo = async (data) => {
+  public cloneRepo = async (data: Config): Promise<CodeSuccess> => {
     try {
       await this.exec(`git clone ${this.gitPath}${data.repoName} clone/${data.repoName}`);
       return { code: 200 };
@@ -16,17 +20,17 @@ exports.GitHelper = class {
     }
   };
 
-  pullRepo = async (data) => {
+  public pullRepo = async (data: Config): Promise<CodeSuccess> => {
     const settings = { cwd: `./clone/${data.repoName}` };
     try {
-      await this.exec(`git checkout ${data.branchName} && git pull`, settings);
+      await this.exec(`git checkout ${data.mainBranch} && git pull`, settings);
       return { code: 200 };
     } catch (error) {
       return error;
     }
   };
 
-  getCommitInfo = async (commitHash, data) => {
+  public getCommitInfo = async (commitHash: string, data: Config): Promise<CommitInfo> => {
     const settings = { cwd: `./clone/${data.repoName}`};
     try {
       const result = await this.exec(`git log ${commitHash} -n 1 --pretty=format:%an:::%s:::%D`, settings);
@@ -38,20 +42,10 @@ exports.GitHelper = class {
     }
   };
 
-  getBranchName = (data) => {
+  private getBranchName = (data: string): string => {
     const arrBranch = data.split(', ');
     const last = arrBranch.length - 1;
     const branch = arrBranch[last].replace('origin/', '') || 'master';
     return branch === 'HEAD' ? 'master' : branch.trim();
   };
-
-  goToCommit = async (commitHash, data) => {
-    const settings = { cwd: `./clone/${data.repoName}` };
-    try {
-      await this.exec(`git checkout ${commitHash} .`, settings);
-    } catch (error) {
-      throw error;
-    }
-  };
-
 }

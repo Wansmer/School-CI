@@ -1,4 +1,3 @@
-const { queueAPI } = require('../queueAPI');
 const { Build } = require('../api/build/build');
 const { Conf } = require('../api/conf/conf');
 const { GIT_PATH } = require('../constants');
@@ -9,7 +8,6 @@ const gitHelper = new GitHelper(GIT_PATH);
 const build = new Build();
 const conf = new Conf();
 
-const QuAPI = new queueAPI('./storage/queue.txt');
 
 exports.BuildController = class  {
 
@@ -20,7 +18,6 @@ exports.BuildController = class  {
     this.setBuildRequest = build.setBuildRequest;
     this.getConf = conf.getConf;
     this.getCommitInfo = gitHelper.getCommitInfo;
-    this.QuAPI = QuAPI;
   }
 
   fetchBuildsList = async (req, res) => {
@@ -58,12 +55,8 @@ exports.BuildController = class  {
     const commitHash = req.params.commitHash;
     try {
       const settings = await this.getConf();
-      //console.log('commitInfo START');
       const commitInfo = await this.getCommitInfo(commitHash, settings);
-      //console.log('commitInfo DONE');
       const buildInfo = await this.setBuildRequest(commitInfo);
-      //console.log('buildInfo DONE');
-      //this.QuAPI.addToQueue(commitInfo.commitHash, buildInfo, settings);
       buildInfo.code = 200;
       res.send(buildInfo);
     } catch (error) {
