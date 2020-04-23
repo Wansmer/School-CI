@@ -29,7 +29,7 @@ export class ConfController {
   }
 
   public setSettings = async (req: any, res: any): Promise<void> => {
-    const data = req.body;
+    const data: ConfigurationModel = req.body;
     try {
       await this.setConf(data);
       const result: CodeSuccess = await this.cloneRepo(data);

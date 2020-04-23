@@ -9,7 +9,7 @@ export class Build {
     this.axios = axios;
   }
 
-  getBuildList = async (offset: number = 0, limit: number = 25): Promise<BuildModel> => {
+  public getBuildList = async (offset: number = 0, limit: number = 25): Promise<BuildModel> => {
     const params = {
       offset,
       limit
@@ -22,7 +22,7 @@ export class Build {
     }
   };
 
-  setBuildRequest = async (data: BuildInfo): Promise<BuildModel> => {
+  public setBuildRequest = async (data: BuildInfo): Promise<BuildModel> => {
     try {
       const response: AxiosResponse = await this.axios.post(BASE_URL + 'build/request', data, { headers });
       return response.data.data;
@@ -31,7 +31,7 @@ export class Build {
     }
   };
 
-  getBuildLog = async (buildId: string): Promise<AxiosResponse> => {
+  public getBuildLog = async (buildId: string): Promise<AxiosResponse> => {
     const params = { buildId };
     try {
       const response: AxiosResponse = await this.axios.get(BASE_URL + 'build/log', { headers, params });
@@ -41,7 +41,7 @@ export class Build {
     }
   };
 
-  getBuildDetails = async (buildId: string): Promise<BuildModel> => {
+  public getBuildDetails = async (buildId: string): Promise<BuildModel> => {
     const params = { buildId };
     try {
       const response: AxiosResponse = await this.axios.get(BASE_URL + 'build/details', { headers, params });
@@ -51,7 +51,7 @@ export class Build {
     }
   };
 
-  setBuildStart = async (data: StartBuildInput): Promise<number> => {
+  public setBuildStart = async (data: StartBuildInput): Promise<number> => {
     try {
       const response: AxiosResponse = await this.axios.post(BASE_URL + 'build/start', data, { headers });
       return response.status;
@@ -60,7 +60,7 @@ export class Build {
     }
   };
 
-  setBuildFinish = async (data: FinishBuildInput): Promise<number> => {
+  public setBuildFinish = async (data: FinishBuildInput): Promise<number> => {
     try {
       const response: AxiosResponse = await this.axios.post(BASE_URL + 'build/finish', data, { headers });
       return response.status;
@@ -69,7 +69,7 @@ export class Build {
     }
   };
 
-  setBuildCancel = async (data: CancelBuildInput): Promise<number>  => {
+  public setBuildCancel = async (data: CancelBuildInput): Promise<number>  => {
     try {
       const response: AxiosResponse = await this.axios.post(BASE_URL + 'build/cancel', data, { headers });
       return response.status;

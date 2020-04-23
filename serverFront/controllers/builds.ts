@@ -27,7 +27,7 @@ export class BuildController {
     this.getCommitInfo = gitHelper.getCommitInfo;
   }
 
-  fetchBuildsList = async (req: any, res: any): Promise<void> => {
+  public fetchBuildsList = async (req: any, res: any): Promise<void> => {
     try {
       const response: BuildModel[] = await this.getBuildList();
       res.send(response);
@@ -36,7 +36,7 @@ export class BuildController {
     }
   }
 
-  fetchBuildLog = async (req: any, res: any): Promise<void> => {
+  public fetchBuildLog = async (req: any, res: any): Promise<void> => {
     const buildId = req.params.buildId;
     try {
       const response = await this.getBuildLog(buildId);
@@ -48,7 +48,7 @@ export class BuildController {
     }
   }
 
-  fetchBuildDetails = async (req: any, res: any): Promise<void> => {
+  public fetchBuildDetails = async (req: any, res: any): Promise<void> => {
     const buildId = req.params.buildId;
     try {
       const response: BuildModel = await this.getBuildDetails(buildId);
@@ -58,7 +58,7 @@ export class BuildController {
     }
   }
 
-  sendBuildRequest = async (req: any, res: any): Promise<void> => {
+  public sendBuildRequest = async (req: any, res: any): Promise<void> => {
     const commitHash = req.params.commitHash;
     try {
       const settings: ConfigurationModel = await this.getConf();

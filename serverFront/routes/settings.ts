@@ -7,10 +7,10 @@ const jsonParser = bodyParser.json();
 import { ConfController } from '../controllers/settings';
 const confController = new ConfController();
 
-router.get('/', confController.getSettings);
+router.get<{}, ConfigurationModel>('/', confController.getSettings);
 
-router.post('/', jsonParser, confController.setSettings);
+router.post<{}, CodeSuccess, ConfigurationModel>('/', jsonParser, confController.setSettings);
 
-router.delete('/', confController.deleteSettings);
+router.delete<{}, CodeSuccess, ConfigurationModel>('/', confController.deleteSettings);
 
 export default router;

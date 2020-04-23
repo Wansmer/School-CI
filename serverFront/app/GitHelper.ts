@@ -4,7 +4,7 @@ const exec = util.promisify(require('child_process').exec);
 export class GitHelper {
 
   private gitPath: string;
-  private exec: any;
+  private exec: Function;
 
   constructor (gitPath: string) {
     this.gitPath = gitPath;
@@ -43,9 +43,9 @@ export class GitHelper {
   };
 
   private getBranchName = (data: string): string => {
-    const arrBranch = data.split(', ');
-    const last = arrBranch.length - 1;
-    const branch = arrBranch[last].replace('origin/', '') || 'master';
+    const arrBranch: string[] = data.split(', ');
+    const last: number = arrBranch.length - 1;
+    const branch: string = arrBranch[last].replace('origin/', '') || 'master';
     return branch === 'HEAD' ? 'master' : branch.trim();
   };
 }
