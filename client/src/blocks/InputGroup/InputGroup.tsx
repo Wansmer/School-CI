@@ -6,19 +6,20 @@ import Input from '../Input/Input';
 
 export interface InputGroupProps {
   classes: Classes;
-  className: string;
-  label: string;
-  describe: string;
-  id: string;
-  name: string;
-  placeholder: string;
-  onChange(): void;
-  value: string;
-  isIcon: boolean;
-  onClearInput(): void;
-  required: boolean;
-  pattern: string;
-  type: string;
+  className?: string;
+  label?: string;
+  describe?: string;
+  id?: string;
+  name?: string;
+  placeholder?: string;
+  onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
+  value?: string;
+  isIcon?: boolean;
+  onClearInput?(event: React.MouseEvent<HTMLSpanElement, MouseEvent>): void;
+  required?: boolean;
+  pattern?: string;
+  type?: string;
+  minlength?: string;
 }
 
 const InputGroup: React.FC<InputGroupProps> = (props) => {

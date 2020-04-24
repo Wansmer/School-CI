@@ -3,7 +3,13 @@ import './Ticket.scss';
 import { Link } from 'react-router-dom';
 import { getHumanDate, getHumanDuration } from '../../utils';
 
-const Ticket = (props) => {
+export interface TicketProps {
+  goToDetails(): void;
+  id: string;
+  value: any;
+}
+
+const Ticket: React.FC<TicketProps> = (props) => {
   return (
     <div className={'Ticket Ticket_status_' + props.value.status} onClick={props.goToDetails} id={props.id} >
       <div className="Ticket-Info">
@@ -21,7 +27,7 @@ const Ticket = (props) => {
       </div>
       <div className="Ticket-Meta Ticket-Meta_position_right">
         <Link to={'/'} className={'Link Icon_date Link_icon_left Link_color_dark Ticket-Date'} >
-          <time dateTime={Date(props.value.start)}>
+          <time dateTime={props.value.start}>
             {getHumanDate(props.value.start)}
           </time>
         </Link>

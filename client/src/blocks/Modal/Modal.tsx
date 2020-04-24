@@ -34,14 +34,25 @@ const settingsButtonClasses = {
   }
 };
 
-const Modal = (props) => {
+export interface ModalProps {
+  buildRequestRes: any;
+  loading: boolean;
+  commitHash: string;
+  isDisabled: boolean;
+  isShowError: boolean;
+  onClearInput(): void;
+  onClose(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
+  isErrorModal?: boolean;
+  addToQueue(data: string): void;
+}
+
+const Modal: React.FC<ModalProps> = (props) => {
 
   const [ data, setData ] = useState(props);
   const history = useHistory();
 
   useEffect(() => {
     setData((prevState) => ({ ...prevState, ...{ buildRequestRes: props.buildRequestRes } }));
-    console.log('buildRequestRes: ', props.buildRequestRes);
     if (props.buildRequestRes && props.buildRequestRes.code !== 200) {
       setData((prevState) => ({...prevState, ...{ isDisabled: false, isShowError: true }}));
     } else if (props.buildRequestRes && props.buildRequestRes.code === 200) {
@@ -49,24 +60,24 @@ const Modal = (props) => {
     }
   }, [props.buildRequestRes]);
 
-  const toggleErrorShow = (event) => {
+  const toggleErrorShow = (event: any) => {
     console.log('Toggle error show...');
     event.persist();
     setData((prevState) => ({...prevState, ...{ isErrorModal: !data.isErrorModal }}));
   };
 
-  const onChangeHandler = (event) => {
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
     setData((prevState) => ({...prevState, ...{ [event.target.name]: event.target.value }}));
   };
 
-  const onClose = (event) => {
+  const onClose = (event: any) => {
     if (event.target === event.currentTarget) {
       props.onClose(event);
     }
   };
 
-  const onSubminHandler = (event) => {
+  const onSubminHandler = (event: any) => {
     event.preventDefault();
     if (data.commitHash.trim()) {
       setData((prevState) => ({...prevState, ...{ isDisabled: !data.isDisabled }}));
@@ -74,7 +85,7 @@ const Modal = (props) => {
     }
   };
 
-  const clearInput = (event) => {
+  const clearInput = (event: any) => {
     event.persist();
     const target = event.target.offsetParent.getElementsByTagName('input')[0].name;
     setData((prevState) => ({...prevState, ...{ [target]: '' }}));
@@ -131,12 +142,12 @@ Modal.defaultProps = {
   isShowError: false
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   buildRequestRes: state.ticket.buildRequestRes
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  addToQueue: (commitHash) => dispatch(addToQueue(commitHash)),
+const mapDispatchToProps = (dispatch: any) => ({
+  addToQueue: (commitHash: string) => dispatch(addToQueue(commitHash)),
   cleanSaveCode: () => dispatch(cleanSaveCode())
 });
 

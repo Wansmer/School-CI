@@ -4,11 +4,12 @@ import { expandClasses } from '../../utils';
 
 export interface ButtonProps {
   isDisabled?: boolean;
-  className: string;
+  className?: string;
   classes: object;
-  onClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
+  onClick?(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
   text: string;
   id?: string;
+  type?: string;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
@@ -16,7 +17,7 @@ const Button: React.FC<ButtonProps> = (props) => {
   return (
     <button
       onClick={onClick}
-      className={expandClasses(classes, 'Button', '', className)}
+      className={expandClasses(classes, 'Button', '', className || '')}
       disabled={isDisabled}
       id={id}
     >
