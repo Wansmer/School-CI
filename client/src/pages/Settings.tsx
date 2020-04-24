@@ -10,7 +10,11 @@ const TitleClasses = {
   }
 };
 
-const Settings = (props) => {
+export interface SettingsProps {
+  title: string;
+}
+
+const Settings: React.FC<SettingsProps> = (props) => {
 
   return (
     <Fragment>

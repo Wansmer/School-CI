@@ -2,7 +2,8 @@ import React from 'react';
 import './FormField.scss';
 
 export interface FormFieldProps {
-  className: string;
+  className?: string;
+  children?: React.ReactNode;
 }
 
 const FormField: React.FC<FormFieldProps> = (props) => {

@@ -32,10 +32,14 @@ const contentClasses = {
   }
 };
 
-export const Home = (props) => {
+export interface HomeProps {
+  title: string;
+}
+
+export const Home: React.FC<HomeProps> = (props) => {
   const history = useHistory();
 
-  const clickHandler = (event) => {
+  const clickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     history.push('/settings');
   };

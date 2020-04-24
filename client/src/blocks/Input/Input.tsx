@@ -8,7 +8,7 @@ export interface InputProps {
   onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
   classes: Classes;
   className?: string;
-  value?: string;
+  value?: string | number;
   isIcon?: boolean;
   onClearInput?(event: React.MouseEvent<HTMLSpanElement, MouseEvent>): void;
   required?: boolean;

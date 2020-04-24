@@ -13,7 +13,7 @@ export interface InputGroupProps {
   name?: string;
   placeholder?: string;
   onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
-  value?: string;
+  value?: string | number;
   isIcon?: boolean;
   onClearInput?(event: React.MouseEvent<HTMLSpanElement, MouseEvent>): void;
   required?: boolean;

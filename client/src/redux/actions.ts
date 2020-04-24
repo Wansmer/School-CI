@@ -1,7 +1,7 @@
 import { SAVE_CONFIG, GET_CONFIG, SERVER_URL, GET_TICKET_LIST, GET_BUILD_DETAILS, CLEAN_SAVE_CODE, ADD_TO_QUEUE, SHOW_LOADER, HIDE_LOADER } from '../constants';
 
-export const saveConfig = (data) => {
-  return async (dispatch) => {
+export const saveConfig = (data: ConfigurationModel): Function => {
+  return async (dispatch: Function) => {
     try {
       const response = await fetch(`${SERVER_URL}settings`, {
         method: 'POST',
@@ -22,16 +22,16 @@ export const saveConfig = (data) => {
   };
 };
 
-export const showLoader = () => ({
+export const showLoader = (): Dispatch => ({
   type: SHOW_LOADER
 });
 
-export const hideLoader = () => ({
+export const hideLoader = (): Dispatch => ({
   type: HIDE_LOADER
 });
 
-export const getConfig = () => {
-  return async (dispatch) => {
+export const getConfig = (): Function  => {
+  return async (dispatch: Function) => {
     try {
       dispatch(showLoader());
       const response = await fetch(`${SERVER_URL}settings`);
@@ -48,8 +48,8 @@ export const getConfig = () => {
   };
 };
 
-export const getTicketList = () => {
-  return async (dispatch) => {
+export const getTicketList = (): Function => {
+  return async (dispatch: Function) => {
     try {
       const response = await fetch(`${SERVER_URL}builds`);
       const ticketList = await response.json();
@@ -66,8 +66,8 @@ export const getTicketList = () => {
   };
 };
 
-export const getBuildDetails = (id) => {
-  return async (dispatch) => {
+export const getBuildDetails = (id: string): Function => {
+  return async (dispatch: Function) => {
     try {
       dispatch({
         type: CLEAN_SAVE_CODE
@@ -90,8 +90,8 @@ export const getBuildDetails = (id) => {
   };
 };
 
-export const addToQueue = (commitHash) => {
-  return async (dispatch) => {
+export const addToQueue = (commitHash: string): Function => {
+  return async (dispatch: Function) => {
     try {
       dispatch({
         type: CLEAN_SAVE_CODE
@@ -113,8 +113,8 @@ export const addToQueue = (commitHash) => {
   };
 };
 
-export const cleanSaveCode = () => {
-  return (dispatch) => {
+export const cleanSaveCode = (): Function => {
+  return (dispatch: Function) => {
     dispatch({
       type: CLEAN_SAVE_CODE
     });

@@ -8,6 +8,7 @@ export interface TitleProps {
   className: string;
   path?: any;
   children: any;
+  text: string;
 }
 
 const Title: React.FC<TitleProps> = (props) => {

@@ -71,7 +71,17 @@ const defaultConfig = {
   period: 10
 };
 
-const Form = (props) => {
+export interface FormProps {
+  isDisabled: boolean;
+  isShowError: boolean;
+  config: any;
+  configSaveRes: any;
+  saveConfig(config: ConfigurationModel): void;
+  cleanSaveCode(): void;
+  isErrorModal: boolean;
+}
+
+const Form: React.FC<FormProps> = (props) => {
   const [config, setConfig] = useState(defaultConfig);
   const [state, setState] = useState(props);
   const history = useHistory();
@@ -92,7 +102,7 @@ const Form = (props) => {
     }
   }, [props.configSaveRes]);
 
-  const onChangeHandler = (event) => {
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
     console.dir('name', event);
     console.dir('value', event.target.value);
@@ -100,7 +110,7 @@ const Form = (props) => {
     setConfig((prevState) => ({...prevState, ...{ [event.target.name]: event.target.value }}));
   };
 
-  const onSubminHandler = (event) => {
+  const onSubminHandler = (event: any) => {
     event.preventDefault();
     if (config.repoName.trim() && config.buildCommand.trim()) {
       props.saveConfig(config);
@@ -108,18 +118,18 @@ const Form = (props) => {
     }
   };
 
-  const goToHome = (event) => {
+  const goToHome = (event: any) => {
     event.preventDefault();
     history.push('/');
   };
 
-  const toggleErrorShow = (event) => {
+  const toggleErrorShow = (event: any) => {
     console.log('Toggle error show...');
     event.persist();
     setState((prevState) => ({...prevState, ...{ isErrorModal: !state.isErrorModal }}));
   };
 
-  const clearInput = (event) => {
+  const clearInput = (event: any) => {
     event.persist();
     const target = event.target.offsetParent.getElementsByTagName('input')[0].name;
     setConfig((prevState) => ({...prevState, ...{ [target]: '' }}));
@@ -212,13 +222,13 @@ Form.defaultProps = {
   isShowError: false
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: State) => ({
   config: state.settings.config,
   configSaveRes: state.settings.configSaveRes
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  saveConfig: (data) => dispatch(saveConfig(data)),
+const mapDispatchToProps = (dispatch: Function) => ({
+  saveConfig: (data: ConfigurationModel) => dispatch(saveConfig(data)),
   cleanSaveCode: () => dispatch(cleanSaveCode())
 });
 

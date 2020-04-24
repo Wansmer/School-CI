@@ -1,11 +1,11 @@
 import { GET_TICKET_LIST, CLEAN_SAVE_CODE } from '../../constants';
 
-const defaultState = {
+const defaultState: State = {
   ticketList: [],
   loading: true
 };
 
-export const buildsReducer = (state = defaultState, action) => {
+export const buildsReducer = (state: State = defaultState, action: Dispatch): State => {
   console.log(action.payload);
   switch (action.type) {
   case GET_TICKET_LIST:
