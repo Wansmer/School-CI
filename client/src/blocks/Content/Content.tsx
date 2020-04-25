@@ -5,7 +5,7 @@ import {expandClasses} from '../../utils';
 export interface ContentProps {
   className?: string;
   classes: Classes;
-  children: any;
+  children?: any;
 }
 
 const Content: React.FC<ContentProps> = (props) => {

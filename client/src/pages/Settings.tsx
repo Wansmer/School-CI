@@ -10,6 +10,17 @@ const TitleClasses = {
   }
 };
 
+const contentClasses = {
+  elems: {
+    Inner: {
+      mods: {
+        alignVertical: 'top',
+        alignHorizon: 'left'
+      }
+    }
+  }
+}
+
 export interface SettingsProps {
   title: string;
 }
@@ -29,6 +40,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
         </Title>
       </Header>
       <Content
+        classes={ contentClasses }
         className="Page-Content"
       >
         <Form />

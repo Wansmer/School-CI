@@ -72,13 +72,13 @@ const defaultConfig = {
 };
 
 export interface FormProps {
-  isDisabled: boolean;
-  isShowError: boolean;
-  config: any;
-  configSaveRes: any;
+  isDisabled?: boolean;
+  isShowError?: boolean;
+  config?: any;
+  configSaveRes?: any;
   saveConfig(config: ConfigurationModel): void;
   cleanSaveCode(): void;
-  isErrorModal: boolean;
+  isErrorModal?: boolean;
 }
 
 const Form: React.FC<FormProps> = (props) => {
