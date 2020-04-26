@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { connect, useSelector } from 'react-redux';
+import { connect, useSelector, DefaultRootState } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TicketList from '../blocks/TicketList/TicketList';
 import Ticket from '../blocks/Ticket/Ticket';
@@ -55,10 +55,18 @@ const settingsButtonClasses = {
   }
 };
 
-const History = (props) => {
+export interface HistoryProps {
+  ticketList: BuildModel[];
+  isShowModal: boolean;
+  getTicketList(): void;
+}
+
+const History: React.FC<HistoryProps> = (props) => {
 
   const [state, setState] = useState(props);
+  // @ts-ignore
   const repoName = useSelector((state) => state.settings.config.repoName);
+  // @ts-ignore
   const loading = useSelector((state) => state.builds.loading);
   const history = useHistory();
 
@@ -66,17 +74,17 @@ const History = (props) => {
     props.getTicketList();
   }, []);
 
-  const toggleModalShow = (event) => {
+  const toggleModalShow = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.persist();
     setState((prevState) => ({...prevState, ...{ isShowModal: !(state.isShowModal) }}));
   };
 
-  const goToDetails = (event) => {
+  const goToDetails = (event: any) => {
     event.persist();
     history.push(`/build/${event.currentTarget.id}`);
   };
 
-  const clickHandler = (event) => {
+  const clickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     history.push('/settings');
   };
@@ -132,7 +140,7 @@ const History = (props) => {
       <div>
         {state.isShowModal && ReactDOM.createPortal(
           <Modal onClose={toggleModalShow} />,
-          document.getElementById('portal')
+          document.getElementById('portal') as Element
         )}
       </div>
     </Fragment>
@@ -144,11 +152,11 @@ History.defaultProps = {
   isShowModal: false
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   ticketList: state.builds.ticketList
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: any) => ({
   getTicketList: () => dispatch(getTicketList()),
   cleanSaveCode: () => dispatch(cleanSaveCode())
 });

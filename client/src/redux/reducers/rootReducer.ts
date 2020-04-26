@@ -8,3 +8,5 @@ export const rootReducer = combineReducers({
   builds: buildsReducer,
   ticket: ticketReducer
 });
+
+export type rootReducer = ReturnType<typeof rootReducer>;

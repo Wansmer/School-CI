@@ -2,7 +2,7 @@ import React from 'react';
 import './Header.scss';
 
 export interface HeaderProps {
-  className: string;
+  className?: string;
   children: any;
 }
 

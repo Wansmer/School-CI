@@ -47,9 +47,15 @@ const settingsButtonClasses = {
   }
 };
 
-const Details = (props) => {
+export interface DetailsProps {
+  [key: string]: any;
+}
 
+const Details: React.FC<DetailsProps> = (props) => {
+
+  // @ts-ignore
   const repoName = useSelector((state) => state.settings.config.repoName);
+  // @ts-ignore
   const loading = useSelector((state) => state.ticket.loading);
   const [data, setData] = useState(props);
   const history = useHistory();
@@ -64,13 +70,13 @@ const Details = (props) => {
     }
   }, [props.buildRequestRes]);
 
-  const reBuild = (event) => {
+  const reBuild = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     setData((prevState) => ({...prevState, ...{ isDisabled: !data.isDisabled }}));
     props.addToQueue(props.ticket.commitHash);
   };
 
-  const clickHandler = (event) => {
+  const clickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     history.push('/settings');
   };
@@ -127,15 +133,15 @@ Details.defaultProps = {
   isShowError: false
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: State) => ({
   ticket: state.ticket.currentTicket.details,
   ticketLog: state.ticket.currentTicket.log,
   buildRequestRes: state.ticket.buildRequestRes
 });
 
-const mapDistpatchToProps = (dispatch) => ({
-  getBuildDetails: (id) => dispatch(getBuildDetails(id)),
-  addToQueue: (commitHash) => dispatch(addToQueue(commitHash)),
+const mapDistpatchToProps = (dispatch: Function) => ({
+  getBuildDetails: (id: string) => dispatch(getBuildDetails(id)),
+  addToQueue: (commitHash: string) => dispatch(addToQueue(commitHash)),
   cleanSaveCode: () => dispatch(cleanSaveCode())
 });
 

@@ -35,15 +35,16 @@ const settingsButtonClasses = {
 };
 
 export interface ModalProps {
-  buildRequestRes: any;
-  loading: boolean;
+  buildRequestRes?: any;
+  loading?: boolean;
   commitHash: string;
-  isDisabled: boolean;
-  isShowError: boolean;
+  isDisabled?: boolean;
+  isShowError?: boolean;
   onClearInput(): void;
-  onClose(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
+  onClose(event: any): void;
   isErrorModal?: boolean;
   addToQueue(data: string): void;
+  [key: string]: any;
 }
 
 const Modal: React.FC<ModalProps> = (props) => {

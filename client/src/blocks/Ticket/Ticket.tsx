@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { getHumanDate, getHumanDuration } from '../../utils';
 
 export interface TicketProps {
-  goToDetails(): void;
-  id: string;
-  value: any;
+  goToDetails?(event: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
+  id?: string;
+  value?: any;
+  className?: string;
 }
 
 const Ticket: React.FC<TicketProps> = (props) => {
