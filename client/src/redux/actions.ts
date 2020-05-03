@@ -77,7 +77,6 @@ export const getBuildDetails = (id: string): Function => {
       let log = ''
       if (details.status === 'Success' || details.status === 'Fail') {
         const answer = await fetch(`${SERVER_URL}builds/${id}/logs`);
-        console.log(answer);
         log = await answer.json();
       }
       dispatch({

@@ -6,7 +6,6 @@ const defaultState: State = {
 };
 
 export const buildsReducer = (state: State = defaultState, action: Dispatch): State => {
-  console.log(action.payload);
   switch (action.type) {
   case GET_TICKET_LIST:
     return { ...state, ticketList: action.payload, loading: false };
