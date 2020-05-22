@@ -4,7 +4,8 @@ const cacheData = [
   '/static/css',
   '/static/media',
   '/favicon.ico',
-  '/index.html'
+  '/index.html',
+  // '/static/js'
 ]
 
 self.addEventListener('install', (event) => {
