@@ -1,0 +1,15 @@
+{
+  "home": {
+    "describe": "d"
+  },
+  "settings": {
+    "formName": "Settings",
+    "formDescribe": "Configure repository connection and synchronization settings.",
+    "repoInputName": "GitHub repository",
+    "repoInputPlaceholder": "user-name/repo-name",
+    "cmdInputName": "Build command",
+    "cmdInputPlaceholder": "my command for build",
+    "branchInputName": "Main branch",
+    "branchInputPlaceholder": "name of branch"
+  }
+}
