@@ -10,8 +10,14 @@ import Footer from '../Footer/Footer';
 import { getConfig } from '../../redux/actions';
 import Loader from '../Loader/Loader';
 
-const App = (props) => {
+export interface AppProps {
+  config: any;
+  getConfig(): void;
+}
 
+const App: React.FC<AppProps> = (props) => {
+
+  // @ts-ignore
   const loading = useSelector((state) => state.settings.loading);
 
   useEffect(() => {
@@ -43,11 +49,11 @@ const App = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   config: state.settings.config
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: any) => ({
   getConfig: () => dispatch(getConfig())
 });
 

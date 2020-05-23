@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './Land.scss';
 import Button from '../Button/Button';

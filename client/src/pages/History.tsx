@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { connect, useSelector, DefaultRootState } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TicketList from '../blocks/TicketList/TicketList';
 import Ticket from '../blocks/Ticket/Ticket';

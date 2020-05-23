@@ -34,8 +34,8 @@ export const getHumanDate = (date: string, locale: string = "ru") => {
 };
 
 export const getHumanDuration = (duration: number, locale: string = "ru") => {
-  const hourWrapper = locale == "ru" ? "ч" : "h";
-  const minutesWrapper = locale == "ru" ? "м" : "m";
+  const hourWrapper = locale === "ru" ? "ч" : "h";
+  const minutesWrapper = locale === "ru" ? "м" : "m";
 
   if (!duration) return `0 ${hourWrapper} 0 ${minutesWrapper}`;
 

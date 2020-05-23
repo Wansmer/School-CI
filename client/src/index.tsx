@@ -5,20 +5,9 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { rootReducer } from './redux/reducers/rootReducer';
 import App from './blocks/App/App';
-// import * as serviceWorker from './serviceWorker';
 
 import './index.scss';
 import './i18n';
-
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', () => {
-//     navigator.serviceWorker.register('/schoolSw.js')
-//     .then(() => navigator.serviceWorker.ready.then((worker) => {
-//       worker.sync.register('syncdata');
-//     }))
-//     .catch((err) => console.log(err));
-//   });
-// }
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -30,5 +19,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// serviceWorker.unregister();
