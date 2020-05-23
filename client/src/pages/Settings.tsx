@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+
 import Header from '../blocks/Header/Header';
 import Content from '../blocks/Content/Content';
 import Form from '../blocks/Form/Form';

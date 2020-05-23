@@ -1,16 +1,26 @@
 import React from 'react';
 import './Nav.scss';
 
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
+
 export interface NavProps {
   className: string;
 }
 
 const Nav: React.FC<NavProps> = (props) => {
+
+  const { t } = useTranslation();
+
+  function handleClick(lang: string) {
+    i18next.changeLanguage(lang)
+  }
+
   return (
     <nav className={ props.className + ' Nav' }>
-      <a href='https://yandex.ru/support/' className="Link Link_color_secondary">Support</a>
-      <a href='https://account.shri.yandex' className="Link Link_color_secondary">Learning</a>
-      <a href='#' className="Link Link_color_secondary">Русская версия</a>
+      <a href='https://yandex.ru/support/' className="Link Link_color_secondary">{ t('footer.nav.support') }</a>
+      <a href='https://account.shri.yandex' className="Link Link_color_secondary">{ t('footer.nav.learning') }</a>
+      <p className="Link Link_color_secondary">{ t('footer.nav.lang') }</p>
     </nav>
   )
 };

@@ -8,6 +8,7 @@ import App from './blocks/App/App';
 // import * as serviceWorker from './serviceWorker';
 
 import './index.scss';
+import './i18n';
 
 // if ('serviceWorker' in navigator) {
 //   window.addEventListener('load', () => {

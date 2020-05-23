@@ -1,6 +1,6 @@
 {
   "home": {
-    "describe": "d"
+    "describe": "describe"
   },
   "settings": {
     "formName": "Settings",
@@ -11,5 +11,12 @@
     "cmdInputPlaceholder": "my command for build",
     "branchInputName": "Main branch",
     "branchInputPlaceholder": "name of branch"
+  },
+  "footer": {
+    "nav": {
+      "support": "Support",
+      "learning": "Learning",
+      "lang": "Русская версия"
+    }
   }
 }
