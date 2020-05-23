@@ -1,0 +1,48 @@
+.Header{
+  width: 100%;
+  &-Inner{
+    display: flex;
+    align-items: flex-start;
+    // padding: var(--gap-m) 0;
+    padding-top: var(--gap-m);
+    padding-bottom: var(--gap-m);
+    @media screen and (max-width: 414px){
+      padding-top: var(--gap-l);
+      padding-bottom: var(--gap-l);
+      align-items: flex-start;
+    }
+  }
+
+  &-Button{
+    @media screen and (max-width: 856px){
+      padding-right: 3px !important;
+      &:before{
+        margin-right: 2px !important;
+      }
+      .Button-Text{
+        max-width: 0;
+        max-height: 0;
+        overflow: hidden;
+      }
+    }
+    margin-left: var(--gap-s);
+  }
+
+  &-Title{
+    font-size: var(--font-size-xl);
+    line-height: var(--font-lh-xl);
+    letter-spacing: 0.25px;
+    font-weight: 500;
+    flex-grow: 1;
+    overflow-wrap: break-word;
+
+    &_color_faded{
+      color: var(--text-secondary-color);
+    }
+
+    @media screen and (max-width: 414px){
+      font-size: var(--font-size-l);
+      line-height: var(--font-lh-l);
+    }
+  }
+}

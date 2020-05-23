@@ -1,0 +1,13 @@
+.Title{
+  font-size: var(--font-size-xl);
+  line-height: var(--font-lh-xl);
+  letter-spacing: 0.25px;
+  font-weight: 500;
+  overflow-wrap: break-word;
+  &_color_main{
+    color: var(--text-main-color);
+  }
+  &_color_faded{
+    color: var(--text-secondary-color);
+  }
+}

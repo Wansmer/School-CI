@@ -1,0 +1,21 @@
+.Preformatted{
+  font-family: Hack, Curier, monospace;
+  font-size: var(--font-size-xxs);
+  line-height: var(--font-lh-m);
+  width: 100%;
+  max-width: 824px;
+  padding: var(--gap-s) var(--gap-l);
+  overflow: auto;
+  background: var(--color-bg-pre);
+  border-radius: var(--ticket-radius);
+  white-space: pre;
+  @media screen and (max-width: 856px) {
+    padding: 4px 13px;
+    width: calc(100% + var(--gap-xxxxl));
+    overflow-x: scroll;
+    position: relative;
+    left: -16px;
+    border-radius: 0;
+    max-width: none;
+  }
+}
