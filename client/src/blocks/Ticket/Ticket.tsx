@@ -2,6 +2,7 @@ import React from 'react';
 import './Ticket.scss';
 import { Link } from 'react-router-dom';
 import { getHumanDate, getHumanDuration } from '../../utils';
+import i18next from 'i18next';
 
 export interface TicketProps {
   goToDetails?(event: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
@@ -12,7 +13,7 @@ export interface TicketProps {
 
 const Ticket: React.FC<TicketProps> = (props) => {
   return (
-    <div className={'Ticket Ticket_status_' + props.value.status} onClick={props.goToDetails} id={props.id} >
+    <div className={'Ticket Ticket_status_' + props.value.status + ' ' + props.className} onClick={props.goToDetails} id={props.id} >
       <div className="Ticket-Info">
         <div className="Ticket-Summary">
           <span className="Ticket-Number">{'#' + props.value.buildNumber}</span>
@@ -29,12 +30,12 @@ const Ticket: React.FC<TicketProps> = (props) => {
       <div className="Ticket-Meta Ticket-Meta_position_right">
         <Link to={'/'} className={'Link Icon_date Link_icon_left Link_color_dark Ticket-Date'} >
           <time dateTime={props.value.start}>
-            {getHumanDate(props.value.start)}
+            {getHumanDate(props.value.start, i18next.language)}
           </time>
         </Link>
         <Link to={'/'} className={'Link Icon_duration Link_icon_left Link_color_dark Ticket-Duration'}>
           <time dateTime={props.value.duration}>
-            {getHumanDuration(props.value.duration)}
+            {getHumanDuration(props.value.duration, i18next.language)}
           </time>
         </Link>
       </div>
