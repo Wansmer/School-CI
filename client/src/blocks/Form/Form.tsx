@@ -155,7 +155,6 @@ const Form: React.FC<FormProps> = (props) => {
   };
 
   const toggleErrorShow = (event: any) => {
-    console.log('Toggle error show...');
     event.persist();
     setState((prevState) => ({...prevState, ...{ isErrorModal: !state.isErrorModal }}));
   };
