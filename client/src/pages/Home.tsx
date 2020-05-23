@@ -5,6 +5,7 @@ import Content from '../blocks/Content/Content';
 import Button from '../blocks/Button/Button';
 import Title from '../blocks/Title/Title';
 import Land from '../blocks/Land/Land';
+import { useTranslation } from 'react-i18next';
 
 const TitleClasses = {
   mods: {
@@ -38,6 +39,7 @@ export interface HomeProps {
 
 export const Home: React.FC<HomeProps> = (props) => {
   const history = useHistory();
+  const { t } = useTranslation();
 
   const clickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
@@ -57,7 +59,7 @@ export const Home: React.FC<HomeProps> = (props) => {
         </Title>
         <Button
           className="Header-Button Icon Icon_gear"
-          text="Settings"
+          text={ t('buttons.settings') }
           classes={ settingsButtonClasses }
           onClick={clickHandler}
         />

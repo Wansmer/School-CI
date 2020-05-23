@@ -10,7 +10,9 @@
     "cmdInputName": "Build command",
     "cmdInputPlaceholder": "my command for build",
     "branchInputName": "Main branch",
-    "branchInputPlaceholder": "name of branch"
+    "branchInputPlaceholder": "name of branch",
+    "sync": "minute",
+    "sync_plural": "minutes"
   },
   "history": {
     "noBuilds": "No builds here yet. Push a button \"Run build\" for adding new build..."

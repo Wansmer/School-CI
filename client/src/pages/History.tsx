@@ -112,7 +112,7 @@ const History: React.FC<HistoryProps> = (props) => {
         <Button
           className='Icon Icon_build Header-Button'
           classes={buildButtonClasses}
-          text='Run build'
+          text={ t('buttons.runBuild') }
           onClick={toggleModalShow}
           isDisabled={ loading }
           id='run_build'
@@ -120,7 +120,7 @@ const History: React.FC<HistoryProps> = (props) => {
         <Button
           className='Icon Icon_gear Header-Button'
           classes={settingsButtonClasses}
-          text='Settings'
+          text={ t('buttons.settings') }
           onClick={clickHandler}
           id='settings_header'
         />
@@ -132,7 +132,7 @@ const History: React.FC<HistoryProps> = (props) => {
             { listTickets.length ? listTickets : t('history.noBuilds') }
             <Button 
               classes={moreButtonClasses}
-              text='Show more'
+              text={ t('buttons.more') }
               isDisabled={ loading }
               id='show_more'
             />

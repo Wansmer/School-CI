@@ -10,6 +10,7 @@ import Content from '../blocks/Content/Content';
 import Preformatted from '../blocks/Preformatted/Preformatted';
 import { useHistory } from 'react-router-dom';
 import Loader from '../blocks/Loader/Loader';
+import { useTranslation } from 'react-i18next';
 
 const TitleClasses = {
   mods: {
@@ -52,6 +53,7 @@ export interface DetailsProps {
 }
 
 const Details: React.FC<DetailsProps> = (props) => {
+  const { t } = useTranslation();
 
   // @ts-ignore
   const repoName = useSelector((state) => state.settings.config.repoName);
@@ -94,7 +96,7 @@ const Details: React.FC<DetailsProps> = (props) => {
         <Button
           className='Icon Icon_rebuild Header-Button'
           classes={buildButtonClasses}
-          text='Rebuild'
+          text={ t('buttons.rebuild') }
           isDisabled={ loading }
           onClick={reBuild}
           id='rebuild'
@@ -102,7 +104,7 @@ const Details: React.FC<DetailsProps> = (props) => {
         <Button
           className='Icon Icon_gear Header-Button'
           classes={settingsButtonClasses}
-          text='Settings'
+          text={ t('buttons.settings') }
           isDisabled={props.isDisabled}
           onClick={clickHandler}
           id='settings_header'

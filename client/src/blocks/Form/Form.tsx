@@ -138,6 +138,8 @@ const Form: React.FC<FormProps> = (props) => {
     setConfig((prevState) => ({...prevState, ...{ [target]: '' }}));
   };
 
+  console.log(t('settings.minutes', { count: config.period }));
+
   return (
     <form className="Form Content-Form" onSubmit={onSubminHandler}>
       <div className="Form-Info">
@@ -198,7 +200,7 @@ const Form: React.FC<FormProps> = (props) => {
           onClearInput={ clearInput }
           pattern="^[0-9]+$"
           isIcon={ false }
-          describe="minutes"
+          describe={ t('settings.sync', { count: Number(config.period) }) }
         />
       </FormField>
       <div className="Form-Field Content-Form-Field">
