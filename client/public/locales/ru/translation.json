@@ -1,0 +1,22 @@
+{
+  "footer": {
+    "nav": {
+      "learning": "Обучение",
+      "support": "Поддержка",
+      "lang": "English versions"
+    }
+  },
+  "settings": {
+    "branchInputName": "Главная ветка",
+    "branchInputPlaceholder": "имя ветки",
+    "cmdInputName": "Команда сборки",
+    "cmdInputPlaceholder": "моя команда для сборки",
+    "formDescribe": "Настройте соединение с репозиторием и настройки синхронизации.",
+    "formName": "Настройки",
+    "repoInputName": "Репозиторий GitHub",
+    "repoInputPlaceholder": "имя-пользователя/название-репозитория"
+  },
+  "home": {
+    "describe": "описание "
+  }
+}
