@@ -1,11 +1,11 @@
 {
   "footer": {
+    "copyright": "© 2020 Вансмер (специально для ШРИ)",
     "nav": {
       "lang": "English versions",
       "learning": "Обучение",
       "support": "Поддержка"
-    },
-    "copyright": "© 2020 Вансмер (специально для ШРИ)"
+    }
   },
   "home": {
     "describe": "описание "
@@ -19,5 +19,22 @@
     "formName": "Настройки",
     "repoInputName": "Репозиторий GitHub",
     "repoInputPlaceholder": "имя-пользователя/название-репозитория"
+  },
+  "history": {
+    "noBuilds": "Пока-что сборок нет. Нажмите \"Новая сборка\" для добавления сборки."
+  },
+  "buttons": {
+    "settings": "Настройки",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "openSettings": "Настройки",
+    "runBuild": "Новая сборка",
+    "rebuild": "Пересобрать",
+    "more": "Больше"
+  },
+  "modal": {
+    "title": "Новая сборка",
+    "describe": "Введите хэш коммита, который вы хотите собрать.",
+    "modalInputPlaceholder": "Хэш коммита"
   }
 }
