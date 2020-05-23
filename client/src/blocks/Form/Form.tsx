@@ -8,6 +8,7 @@ import FormField from '../FormField/FormField';
 import Button from '../Button/Button';
 import ErrorSettings from '../ErrorSettings/ErrorSettings';
 import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 
 const inputReqClasses = {
   mods: {
@@ -77,6 +78,8 @@ export interface FormProps {
   isShowError?: boolean;
   config?: any;
   configSaveRes?: any;
+  periodLabel?: string;
+  periodDescribe?: string;
   saveConfig(config: ConfigurationModel): void;
   cleanSaveCode(): void;
   isErrorModal?: boolean;
@@ -88,12 +91,28 @@ const Form: React.FC<FormProps> = (props) => {
   const history = useHistory();
 
   useEffect(() => {
+    const wrapper = config.period;
+    const { periodLabel, periodDescribe } = getCurrentPeriodLang(wrapper);
+    setState((prevState) => ({...prevState, ...{ periodLabel: periodLabel, periodDescribe: periodDescribe }}));
+  }, [i18next.language]);
+
+  useEffect(() => {
     if (Object.keys(props.config).length) {
       setConfig(props.config);
     }
   }, [props.config]);
 
   const { t } = useTranslation();
+
+  const getCurrentPeriodLang = (period: any) => {
+    const wrapper = period ? period : '0';
+    const tmp = t('settings.sync', { count: Number(wrapper) }).split(wrapper);
+  
+    const periodLabel = tmp[0].trim();
+    const periodDescribe = tmp[1].trim();
+
+    return { periodLabel, periodDescribe };
+  }
 
   useEffect(() => {
     setState((prevState) => ({ ...prevState, ...{ configSaveRes: props.configSaveRes } }));
@@ -107,11 +126,20 @@ const Form: React.FC<FormProps> = (props) => {
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
-    console.dir('name', event);
-    console.dir('value', event.target.value);
-    console.log(config.repoName);
     setConfig((prevState) => ({...prevState, ...{ [event.target.name]: event.target.value }}));
   };
+
+  const changePeriodHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.persist();
+    if (isNaN(Number(event.target.value))) return;
+
+    const wrapper = event.target.value ? event.target.value : '0';
+
+    const { periodLabel, periodDescribe } = getCurrentPeriodLang(wrapper);
+
+    setState((prevState) => ({...prevState, ...{ periodLabel: periodLabel, periodDescribe: periodDescribe }}));
+    setConfig((prevState) => ({...prevState, ...{ [event.target.name]: event.target.value }}));
+  }
 
   const onSubminHandler = (event: any) => {
     event.preventDefault();
@@ -137,8 +165,6 @@ const Form: React.FC<FormProps> = (props) => {
     const target = event.target.offsetParent.getElementsByTagName('input')[0].name;
     setConfig((prevState) => ({...prevState, ...{ [target]: '' }}));
   };
-
-  console.log(t('settings.minutes', { count: config.period }));
 
   return (
     <form className="Form Content-Form" onSubmit={onSubminHandler}>
@@ -192,15 +218,15 @@ const Form: React.FC<FormProps> = (props) => {
           className="Content-Form-Input"
           classes={ inputGorClasses }
           id="period"
-          label="Synchronize every"
+          label={ state.periodLabel }
           name="period"
           placeholder="10"
           value={ config.period }
-          onChange={ onChangeHandler }
+          onChange={ changePeriodHandler }
           onClearInput={ clearInput }
           pattern="^[0-9]+$"
           isIcon={ false }
-          describe={ t('settings.sync', { count: Number(config.period) }) }
+          describe={ state.periodDescribe }
         />
       </FormField>
       <div className="Form-Field Content-Form-Field">
@@ -226,7 +252,9 @@ const Form: React.FC<FormProps> = (props) => {
 
 Form.defaultProps = {
   isDisabled: false,
-  isShowError: false
+  isShowError: false,
+  periodLabel: 'Syncronize every',
+  periodDescribe: 'minutes'
 };
 
 const mapStateToProps = (state: State) => ({

@@ -11,8 +11,12 @@
     "cmdInputPlaceholder": "my command for build",
     "branchInputName": "Main branch",
     "branchInputPlaceholder": "name of branch",
-    "sync": "minute",
-    "sync_plural": "minutes"
+    "sync_0": "Synchronize every {{count}} minute",
+    "sync_1": "Synchronize every {{count}} minutes",
+    "sync_2": "Synchronize every {{count}} minutes",
+    "sync_3": "Synchronize every {{count}} minutes",
+    "sync_4": "Synchronize every {{count}} minutes",
+    "sync_5": "Synchronize every {{count}} minutes"
   },
   "history": {
     "noBuilds": "No builds here yet. Push a button \"Run build\" for adding new build..."
