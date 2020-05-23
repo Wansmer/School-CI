@@ -1,10 +1,14 @@
 {
   "footer": {
     "nav": {
+      "lang": "English versions",
       "learning": "Обучение",
-      "support": "Поддержка",
-      "lang": "English versions"
-    }
+      "support": "Поддержка"
+    },
+    "copyright": "© 2020 Вансмер (специально для ШРИ)"
+  },
+  "home": {
+    "describe": "описание "
   },
   "settings": {
     "branchInputName": "Главная ветка",
@@ -15,8 +19,5 @@
     "formName": "Настройки",
     "repoInputName": "Репозиторий GitHub",
     "repoInputPlaceholder": "имя-пользователя/название-репозитория"
-  },
-  "home": {
-    "describe": "описание "
   }
 }
