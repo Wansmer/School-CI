@@ -12,7 +12,8 @@ const Nav: React.FC<NavProps> = (props) => {
 
   const { t } = useTranslation();
 
-  function handleClick(lang: string) {
+  const changeLang = () => {
+    const lang = (i18next.language === 'en') ? 'ru' : 'en';
     i18next.changeLanguage(lang)
   }
 
@@ -20,7 +21,7 @@ const Nav: React.FC<NavProps> = (props) => {
     <nav className={ props.className + ' Nav' }>
       <a href='https://yandex.ru/support/' className="Link Link_color_secondary">{ t('footer.nav.support') }</a>
       <a href='https://account.shri.yandex' className="Link Link_color_secondary">{ t('footer.nav.learning') }</a>
-      <p className="Link Link_color_secondary">{ t('footer.nav.lang') }</p>
+      <p className="Link Link_color_secondary" onClick={ changeLang }>{ t('footer.nav.lang') }</p>
     </nav>
   )
 };
