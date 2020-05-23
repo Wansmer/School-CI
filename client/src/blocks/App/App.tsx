@@ -21,7 +21,8 @@ const App: React.FC<AppProps> = (props) => {
   const loading = useSelector((state) => state.settings.loading);
 
   useEffect(() => {
-    const currentLanguage = localStorage.getItem('preferLang') || 'en';
+    const currentLanguage = localStorage.getItem('preferLang') || i18next.language;
+    console.log(i18next);
     i18next.changeLanguage(currentLanguage);
   }, [i18next.language]);
 
