@@ -11,6 +11,7 @@ import Button from '../blocks/Button/Button';
 import Modal from '../blocks/Modal/Modal';
 import Loader from '../blocks/Loader/Loader';
 import { getTicketList, cleanSaveCode } from '../redux/actions';
+import { useTranslation } from 'react-i18next';
 
 const TitleClasses = {
   mods: {
@@ -64,6 +65,7 @@ export interface HistoryProps {
 const History: React.FC<HistoryProps> = (props) => {
 
   const [state, setState] = useState(props);
+  const { t } = useTranslation();
   // @ts-ignore
   const repoName = useSelector((state) => state.settings.config.repoName);
   // @ts-ignore
@@ -127,7 +129,7 @@ const History: React.FC<HistoryProps> = (props) => {
         classes={contentClasses} >
         { loading ? <Loader /> : (
           <TicketList >
-            { listTickets.length ? listTickets : 'No builds here yet. Push a button "Run build" for adding new build...' }
+            { listTickets.length ? listTickets : t('history.noBuilds') }
             <Button 
               classes={moreButtonClasses}
               text='Show more'

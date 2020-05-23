@@ -6,6 +6,7 @@ import { addToQueue, cleanSaveCode } from '../../redux/actions';
 import InputGroup from '../InputGroup/InputGroup';
 import Button from '../Button/Button';
 import ErrorSettings from '../ErrorSettings/ErrorSettings';
+import { useTranslation } from 'react-i18next';
 
 const inputClasses = {
   mods: {
@@ -51,6 +52,7 @@ const Modal: React.FC<ModalProps> = (props) => {
 
   const [ data, setData ] = useState(props);
   const history = useHistory();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setData((prevState) => ({ ...prevState, ...{ buildRequestRes: props.buildRequestRes } }));
@@ -98,14 +100,18 @@ const Modal: React.FC<ModalProps> = (props) => {
         <div className='Modal-Body'>
           <form onSubmit={onSubminHandler}>
             <div className="Modal-Info">
-              <h2 className="Modal-Title">New build</h2>
-              <p className="Modal-Text">Enter the commit hash which you want to build.</p>
+              <h2 className="Modal-Title">
+                { t('modal.title') }
+              </h2>
+              <p className="Modal-Text">
+                { t('modal.describe') }
+              </p>
             </div>
             <InputGroup
               classes={ inputClasses }
               id='commitHash'
               name='commitHash'
-              placeholder='Commit hash'
+              placeholder={ t('modal.modalInputPlaceholder') }
               onChange={ onChangeHandler }
               onClearInput={ clearInput }
               value={ data.commitHash }
@@ -116,13 +122,13 @@ const Modal: React.FC<ModalProps> = (props) => {
               <Button
                 type='submit'
                 classes={saveButtonClasses}
-                text='Run build'
+                text={ t('buttons.runBuild') }
                 isDisabled={data.isDisabled}
               />
               <Button
                 classes={settingsButtonClasses}
                 className='Modal-Button Modal-Button_type_control'
-                text='Cancel'
+                text={ t('buttons.cancel') }
                 isDisabled={data.isDisabled}
                 onClick={props.onClose}
               />

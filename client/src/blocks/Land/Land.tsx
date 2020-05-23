@@ -2,6 +2,7 @@ import React, { BaseSyntheticEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Land.scss';
 import Button from '../Button/Button';
+import { useTranslation } from 'react-i18next';
 
 const actionButtonClasses: Classes = {
   mods: {
@@ -13,6 +14,7 @@ const actionButtonClasses: Classes = {
 const Land: React.FC = () => {
 
   const history = useHistory();
+  const { t } = useTranslation();
 
   const clickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     event.preventDefault();
@@ -27,7 +29,7 @@ const Land: React.FC = () => {
       </p>
       <Button
         className="Land-Button"
-        text="Open settings"
+        text={ t('buttons.openSettings') }
         classes={actionButtonClasses}
         onClick={clickHandler}
       />

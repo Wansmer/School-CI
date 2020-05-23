@@ -1,6 +1,6 @@
 {
   "home": {
-    "describe": "describe"
+    "describe": "Configure repository connection and synchronization settings"
   },
   "settings": {
     "formName": "Settings",
@@ -12,6 +12,9 @@
     "branchInputName": "Main branch",
     "branchInputPlaceholder": "name of branch"
   },
+  "history": {
+    "noBuilds": "No builds here yet. Push a button \"Run build\" for adding new build..."
+  },
   "footer": {
     "nav": {
       "support": "Support",
@@ -19,5 +22,19 @@
       "lang": "Русская версия"
     },
     "copyright": "© 2020 Wansmer (special for SHRI)"
+  },
+  "buttons": {
+    "settings": "Settings",
+    "save": "Save",
+    "cancel": "Cancel",
+    "openSettings": "Open settings",
+    "runBuild": "Run build",
+    "rebuild": "Rebuild",
+    "more": "Show more"
+  },
+  "modal": {
+    "title": "New build",
+    "describe": "Enter the commit hash which you want to build.",
+    "modalInputPlaceholder": "Commit hash"
   }
 }

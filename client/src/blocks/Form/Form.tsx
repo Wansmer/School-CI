@@ -7,6 +7,7 @@ import InputGroup from '../InputGroup/InputGroup';
 import FormField from '../FormField/FormField';
 import Button from '../Button/Button';
 import ErrorSettings from '../ErrorSettings/ErrorSettings';
+import { useTranslation } from 'react-i18next';
 
 const inputReqClasses = {
   mods: {
@@ -92,6 +93,8 @@ const Form: React.FC<FormProps> = (props) => {
     }
   }, [props.config]);
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     setState((prevState) => ({ ...prevState, ...{ configSaveRes: props.configSaveRes } }));
     if (props.configSaveRes && props.configSaveRes.code !== 200) {
@@ -138,16 +141,18 @@ const Form: React.FC<FormProps> = (props) => {
   return (
     <form className="Form Content-Form" onSubmit={onSubminHandler}>
       <div className="Form-Info">
-        <h2 className="Form-Title">Settings</h2>
-        <p className="Form-Text">Configure repository connection and&#160;synchronization settings.</p>
+        <h2 className="Form-Title">{ t('settings.formName') }</h2>
+        <p className="Form-Text">
+          { t('settings.formDescribe') }
+        </p>
       </div>
       <FormField className="Form-Field">
         <InputGroup
           classes={ inputReqClasses }
           id="repoName"
-          label="GitHub repository"
+          label={ t('settings.repoInputName') }
           name="repoName"
-          placeholder="user-name/repo-name"
+          placeholder={ t('settings.repoInputPlaceholder') }
           value={config.repoName}
           onChange={onChangeHandler}
           pattern="^[\w-]+\/[\w-]+$"
@@ -159,9 +164,9 @@ const Form: React.FC<FormProps> = (props) => {
         <InputGroup
           classes={ inputReqClasses }
           id="buildCommand"
-          label="Build command"
+          label={ t('settings.cmdInputName') }
           name="buildCommand"
-          placeholder="my command for build"
+          placeholder={ t('settings.cmdInputPlaceholder') }
           value={config.buildCommand}
           onChange={onChangeHandler}
           required
@@ -172,9 +177,9 @@ const Form: React.FC<FormProps> = (props) => {
         <InputGroup
           classes={ inputClasses }
           id="mainBranch"
-          label="Main branch"
+          label={ t('settings.branchInputName') }
           name="mainBranch"
-          placeholder="name of branch"
+          placeholder={ t('settings.branchInputPlaceholder') }
           value={config.mainBranch}
           onChange={onChangeHandler}
           onClearInput={ clearInput }
@@ -188,8 +193,8 @@ const Form: React.FC<FormProps> = (props) => {
           label="Synchronize every"
           name="period"
           placeholder="10"
-          value={config.period}
-          onChange={onChangeHandler}
+          value={ config.period }
+          onChange={ onChangeHandler }
           onClearInput={ clearInput }
           pattern="^[0-9]+$"
           isIcon={ false }
@@ -200,12 +205,12 @@ const Form: React.FC<FormProps> = (props) => {
         <Button
           type='submit'
           classes={saveButtonClasses}
-          text='Save'
+          text={ t('buttons.save') }
           isDisabled={state.isDisabled}
         />
         <Button
           classes={settingsButtonClasses}
-          text='Cancel'
+          text={ t('buttons.cancel') }
           isDisabled={state.isDisabled}
           onClick={goToHome}
         />
