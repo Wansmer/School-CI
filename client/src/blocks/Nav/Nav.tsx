@@ -14,6 +14,7 @@ const Nav: React.FC<NavProps> = (props) => {
 
   const changeLang = () => {
     const lang = (i18next.language === 'en') ? 'ru' : 'en';
+    localStorage.setItem('preferLang', lang);
     i18next.changeLanguage(lang)
   }
 

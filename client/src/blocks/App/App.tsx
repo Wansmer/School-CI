@@ -9,6 +9,7 @@ import Details from '../../pages/Details';
 import Footer from '../Footer/Footer';
 import { getConfig } from '../../redux/actions';
 import Loader from '../Loader/Loader';
+import i18next from 'i18next';
 
 export interface AppProps {
   config: any;
@@ -16,9 +17,13 @@ export interface AppProps {
 }
 
 const App: React.FC<AppProps> = (props) => {
-
   // @ts-ignore
   const loading = useSelector((state) => state.settings.loading);
+
+  useEffect(() => {
+    const currentLanguage = localStorage.getItem('preferLang') || 'en';
+    i18next.changeLanguage(currentLanguage);
+  }, [i18next.language]);
 
   useEffect(() => {
     props.getConfig();
