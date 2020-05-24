@@ -54,6 +54,7 @@ NODE_TLS_REJECT_UNAUTHORIZED = '0'
   - Предварительная установка пакетов:
 ```bash
 % npm i
+```
   - Установка пакетов в поддиректориях `./client` и `./serverFront`:
 ```bash
 % npm run postinstall
