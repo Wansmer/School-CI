@@ -9,7 +9,6 @@ import App from './blocks/App/App';
 import './index.scss';
 import './i18n';
 
-
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(

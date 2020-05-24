@@ -11,6 +11,7 @@
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
     "ansi-to-html": "^0.6.14",
+    "i18next-fetch-backend": "^3.0.0",
     "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -19,7 +20,10 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "i18next": "^19.4.4",
+    "i18next-browser-languagedetector": "^4.2.0",
+    "react-i18next": "^11.5.0"
   },
   "scripts": {
     "start": "react-scripts start",

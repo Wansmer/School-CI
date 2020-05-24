@@ -22,7 +22,6 @@ const App: React.FC<AppProps> = (props) => {
 
   useEffect(() => {
     const currentLanguage = localStorage.getItem('preferLang') || i18next.language;
-    console.log(i18next);
     i18next.changeLanguage(currentLanguage);
   }, [i18next.language]);
 
